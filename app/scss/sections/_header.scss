@@ -8,6 +8,7 @@
   justify-content: space-between;
   padding-top: rem(40);
   padding-bottom: rem(16);
+  padding-inline: 4vw;
   transition: all 300ms ease-in-out;
   &.active {
     padding-top: rem(16);
