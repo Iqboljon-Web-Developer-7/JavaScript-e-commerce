@@ -742,6 +742,7 @@ scroll- .carousel.active {
   justify-content: space-between;
   margin-top: 6.25rem;
   text-align: center;
+  padding-bottom: 3.75rem;
 }
 .advantages img {
   max-width: 2.25rem;
