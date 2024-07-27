@@ -1,0 +1,80 @@
+@use "sass:color";
+@use "../util" as *;
+@use "../global/colors" as *;
+
+.categories {
+  margin-top: rem(94);
+  border-bottom: 0.1rem solid $secondary;
+  padding-bottom: rem(70);
+  &__info {
+    &--name {
+      justify-content: start;
+      gap: rem(10);
+      span {
+        display: inline-block;
+        width: rem(20);
+        height: rem(40);
+        border-radius: rem(2);
+        background-color: $orange;
+      }
+      p {
+        color: $orange;
+        font-weight: 600;
+      }
+    }
+    h2 {
+      font-size: rem(36);
+      font-weight: 400;
+      margin-top: rem(20);
+    }
+  }
+  .categories__container {
+    justify-content: space-between;
+    gap: rem(30);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    img {
+      max-width: rem(56);
+    }
+    .category {
+      scroll-snap-align: center;
+      text-align: center;
+      padding: rem(24) rem(42);
+      border: 0.1rem solid $secondary;
+      transition: all 200ms ease;
+      cursor: pointer;
+      &:hover {
+        background-color: $orange;
+        color: $text-white;
+        img {
+          filter: invert(100%);
+        }
+      }
+    }
+    @media (max-width: rem(760)) {
+      display: grid;
+      grid-template-columns: repeat(3, 3fr);
+    }
+    @media (max-width: rem(620)) {
+      grid-template-columns: repeat(2, 2fr);
+    }
+    @media (max-width: rem(420)) {
+      display: flex;
+    }
+  }
+  @media (max-width: rem(600)) {
+    &__info {
+      span {
+        width: rem(12);
+        height: rem(24);
+      }
+      p {
+        font-size: rem(14);
+      }
+    }
+    h2 {
+      margin: 0 0 2rem 0;
+      font-size: rem(26);
+    }
+  }
+}

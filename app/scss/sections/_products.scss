@@ -1,0 +1,116 @@
+@use "sass:color";
+@use "../util" as *;
+@use "../global/colors" as *;
+
+.products {
+  margin-top: rem(63);
+  &__info {
+    &--name {
+      justify-content: start;
+      gap: rem(10);
+      span {
+        display: inline-block;
+        width: rem(20);
+        height: rem(40);
+        border-radius: rem(2);
+        background-color: $orange;
+      }
+      p {
+        color: $orange;
+        font-weight: 600;
+      }
+    }
+  }
+  &__controls {
+    justify-content: end;
+    gap: rem(8);
+    button {
+      width: rem(44);
+      height: rem(46);
+      font-size: 1rem;
+      border-radius: 50%;
+      border: none;
+      outline: none;
+      transition: all 100ms linear;
+      line-height: 0;
+      box-shadow: rgba(100, 100, 111, 0.1) 0px 7px 29px 0px;
+      cursor: pointer;
+      &:hover {
+        box-shadow: rgba(100, 100, 111, 0) 0px 7px 29px 0px;
+        font-size: 1.1rem;
+        transform: scale(1);
+      }
+    }
+  }
+  &__container {
+    margin-top: rem(60);
+    display: grid;
+    grid-template-columns: repeat(4, 4fr);
+    gap: rem(30);
+    img {
+      max-width: rem(190);
+      max-height: rem(180);
+      width: fit-content;
+    }
+    .product {
+      border-radius: rem(5);
+      overflow: hidden;
+      &__main {
+        padding: rem(20) rem(12);
+        background-color: $secondary;
+        position: relative;
+        overflow: hidden;
+        border-radius: inherit;
+        .controls {
+          position: absolute;
+          inset: 5% 5% auto auto;
+          gap: rem(8);
+          svg {
+            padding: 0.4rem;
+            background-color: $white;
+            border-radius: 50%;
+            overflow: visible;
+            transition: all 200ms ease-in-out;
+            cursor: pointer;
+            &:hover {
+              background-color: color.adjust($orange, $alpha: -0.9);
+              filter: drop-shadow(0 0 0.4rem white);
+              color: yellow;
+            }
+          }
+        }
+        &:hover button {
+          bottom: 0%;
+        }
+        button {
+          position: absolute;
+          inset: auto 0 -100% 0;
+          padding: rem(12) 0;
+          background-color: $primary;
+          color: $text-white;
+          transition: all 340ms linear;
+          border: none;
+          cursor: pointer;
+          font-size: rem(16);
+        }
+      }
+      &__info {
+        &--name {
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 1;
+          overflow: hidden;
+          font-weight: 500;
+          font-size: rem(16);
+        }
+        &--end {
+          justify-content: start;
+          gap: rem(8);
+          .rating {
+            color: color.adjust($secondary, $contrast: 1.1);
+          }
+        }
+      }
+    }
+  }
+}

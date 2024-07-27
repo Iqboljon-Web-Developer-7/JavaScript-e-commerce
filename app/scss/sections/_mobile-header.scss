@@ -1,0 +1,48 @@
+@use "sass:color";
+@use "../util" as *;
+@use "../global/colors" as *;
+.mobile-header {
+  padding: rem(40);
+  position: fixed;
+  inset: -100% -100% auto auto;
+  color: $text-white;
+  background-color: $primary;
+  flex-direction: column;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  transition: all 260ms ease-in-out;
+  z-index: 2;
+  &.active {
+    inset: 0 0 auto auto;
+  }
+  i {
+    position: absolute;
+    inset: rem(26) rem(26) auto auto;
+  }
+  &__nav {
+    width: 100%;
+    gap: 0.5rem;
+    margin-top: rem(40);
+    flex-direction: column;
+    align-items: start;
+  }
+  form {
+    margin-top: rem(40);
+    background-color: $secondary;
+    border-radius: 0.2rem;
+    input {
+      padding: rem(8) rem(10);
+      background-color: transparent;
+      border: none;
+      outline: none;
+    }
+    img {
+      transition: all ease 200ms;
+      cursor: pointer;
+      &:hover {
+        filter: drop-shadow(0 0 0.3rem color.adjust($primary, $alpha: -0.4));
+      }
+    }
+  }
+}

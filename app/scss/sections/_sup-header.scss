@@ -1,0 +1,50 @@
+@use "../global/colors" as *;
+@use "../util" as *;
+
+.sup-header-wrapper {
+  background-color: $primary;
+  transition: all 200ms;
+  &.active {
+    animation: fade-out 1s ease-in-out 0.2s 1 forwards;
+  }
+  .sup-header {
+    padding: rem(4) rem(10);
+    color: $text-white;
+    font-size: rem(14);
+    position: relative;
+    gap: rem(4);
+    text-align: center;
+    a {
+      margin-left: 0.4rem;
+      border-bottom: rem(0.1) solid $text-white;
+      font-weight: bold;
+    }
+    #language-switcher {
+      color: inherit;
+      position: absolute;
+      inset: auto rem(20) auto auto;
+      background-color: transparent;
+      border: none;
+      outline: none;
+    }
+    @media (max-width: rem(800)) {
+      justify-content: space-between;
+      flex-wrap: wrap;
+      #language-switcher {
+        margin: 0 auto;
+        position: static;
+      }
+    }
+    @media (max-width: rem(500)) {
+      p {
+        font-size: rem(12);
+      }
+    }
+  }
+}
+@keyframes fade-out {
+  to {
+    height: rem(0);
+    opacity: 0;
+  }
+}

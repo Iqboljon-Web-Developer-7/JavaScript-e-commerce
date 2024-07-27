@@ -1,0 +1,107 @@
+@use "sass:color";
+@use "../util" as *;
+@use "../global/colors" as *;
+
+.carousel {
+  padding: 0;
+  margin-top: rem(40);
+  color: $text-white;
+  overflow: scroll;
+  justify-content: start;
+  position: relative;
+  transition: all 200ms ease-in-out;
+  scroll-snap-type: x mandatory;
+  scroll- &.active {
+    justify-content: end;
+  }
+  .logo {
+    max-width: rem(40);
+  }
+  &__item {
+    scroll-snap-align: center;
+    padding: rem(58) rem(64);
+    background-color: $primary;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    .bg-img {
+      position: absolute;
+      inset: 0;
+      transform: translateX(rem(100)) translateY(rem(-80)) scale(1.4);
+      &.img-1 {
+        inset: auto;
+        transform: translate(0) scaleX(0.45);
+        @media (max-width: rem(800)) {
+          width: rem(840);
+        }
+        @media (max-width: rem(480)) {
+          width: rem(540);
+        }
+      }
+    }
+    @media (max-width: rem(700)) {
+      .bg-img {
+        inset: auto;
+        transform: translateX(rem(100)) translateY(rem(-70)) scale(1.4);
+      }
+    }
+    & > *:not(.bg-img) {
+      position: relative;
+      z-index: 1;
+    }
+    &--name {
+      justify-content: start;
+      gap: 1.2rem;
+    }
+    h2 {
+      max-width: rem(294);
+      font-size: rem(48);
+      line-height: 1.3;
+      font-weight: normal;
+    }
+    a {
+      width: fit-content;
+      justify-content: start;
+      span {
+        border-bottom: 0.1rem solid transparent;
+        transition: all 200ms ease;
+      }
+      &:hover {
+        span {
+          border-bottom-color: $text-white;
+        }
+      }
+    }
+    @media (max-width: rem(580)) {
+      padding: rem(30) rem(44);
+      .logo {
+        max-width: rem(30);
+      }
+      p {
+        font-size: rem(14);
+      }
+      h2 {
+        font-size: rem(30);
+        margin-block: rem(10);
+      }
+      a {
+        font-size: rem(14);
+      }
+    }
+    @media (max-width: rem(340)) {
+      p {
+        font-size: rem(13);
+      }
+      h2 {
+        font-size: rem(24);
+        margin-block: rem(10);
+      }
+      a {
+        font-size: rem(13);
+      }
+      .bg-img {
+        transform: translateX(rem(100)) translateY(rem(-50)) scale(1.4);
+      }
+    }
+  }
+}

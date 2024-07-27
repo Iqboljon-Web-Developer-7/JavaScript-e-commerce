@@ -1,0 +1,8 @@
+@use "sass:math";
+@function rem($pixel) {
+  @if math.is-unitless($pixel) {
+    @return math.div($pixel, 16) + rem;
+  } @else {
+    @error "Numbers with unit names are not allowed; only numbers should be given!";
+  }
+}
