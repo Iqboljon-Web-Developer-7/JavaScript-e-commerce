@@ -647,4 +647,93 @@ scroll- .carousel.active {
 .ad img {
   max-width: 35.5rem;
   height: 100%;
+  filter: drop-shadow(0 0 1.2rem rgba(255, 255, 255, 0.3));
+}
+.ad .name {
+  color: #00ff66;
+}
+.ad h3 {
+  font-size: 3rem;
+  margin: 0;
+  font-weight: 500;
+  line-height: 1.2;
+}
+.ad__info {
+  padding-block: 4.25rem;
+}
+.ad .time {
+  justify-content: start;
+  gap: 1.5rem;
+  margin-top: 1.875rem;
+}
+.ad .time .item {
+  padding: 0.4rem;
+  width: 3.875rem;
+  height: 3.875rem;
+  text-align: center;
+  color: #000000;
+  background-color: #fafafa;
+  border-radius: 50%;
+}
+.ad .time .item h4,
+.ad .time .item p {
+  margin: 0;
+  font-size: 0.6875rem;
+}
+.ad .time .item h4 {
+  font-size: 1rem;
+}
+.ad button {
+  margin-top: 2.5rem;
+  padding: 1rem 3rem;
+  font-size: 1rem;
+  color: #fafafa;
+  background-color: #00ff66;
+  border: none;
+}
+@media (max-width: 53.75rem) {
+  .ad {
+    overflow: hidden;
+  }
+  .ad .ad__img {
+    flex-shrink: 0;
+  }
+}
+@media (max-width: 45rem) {
+  .ad .name {
+    font-size: 0.9375rem;
+  }
+  .ad h3 {
+    font-size: 1.625rem;
+  }
+  .ad .time {
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+  .ad .time .item {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+  .ad .time .item h4 {
+    font-size: 0.875rem;
+    line-height: 1;
+  }
+  .ad .time .item p {
+    font-size: 0.625rem;
+  }
+  .ad button {
+    padding: 0.75rem 2.125rem;
+    font-size: 0.875rem;
+  }
+}
+@media (max-width: 37.5rem) {
+  .ad {
+    text-align: center;
+    flex-direction: column;
+    padding-left: 0;
+    padding-bottom: 1.25rem;
+  }
+  .ad .time {
+    justify-content: center;
+  }
 }/*# sourceMappingURL=styles.css.map */
