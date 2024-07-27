@@ -130,6 +130,15 @@
         }
       }
     }
+    @media (max-width: rem(1010)) {
+      grid-template-columns: repeat(3, 3fr);
+    }
+    @media (max-width: rem(760)) {
+      grid-template-columns: repeat(2, 2fr);
+    }
+    @media (max-width: rem(500)) {
+      grid-template-columns: 1fr;
+    }
   }
   > button {
     margin: 1rem auto;

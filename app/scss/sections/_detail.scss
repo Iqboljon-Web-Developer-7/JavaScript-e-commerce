@@ -1,0 +1,62 @@
+@use "sass:color";
+@use "../util" as *;
+@use "../global/colors" as *;
+
+.item-path {
+  margin-top: rem(80);
+  color: rgb(152, 152, 152);
+  font-size: rem(14);
+  span {
+    color: $primary;
+  }
+}
+.detail {
+  justify-content: space-between;
+  img {
+    max-width: rem(480);
+  }
+  &__info {
+    h3 {
+      font-size: rem(24);
+      font-weight: 500;
+      margin: 0;
+    }
+
+    .detail-info--rating {
+      justify-content: space-between;
+      i.active {
+        color: gold;
+      }
+      p {
+        color: rgb(0, 0, 0, 0.5);
+      }
+      .detail-info--rating-end {
+        gap: 1rem;
+        p.stock {
+          color: #00ff66;
+        }
+      }
+    }
+    .price {
+      font-weight: 400;
+      font-size: rem(24);
+      margin: 0;
+    }
+    .description {
+      max-width: rem(370);
+      font-size: rem(14);
+      line-height: rem(21);
+    }
+  }
+  @media (max-width: rem(730)) {
+    flex-direction: column;
+    text-align: center;
+    .detail-info--rating {
+      flex-wrap: wrap;
+      margin-block: 1.2rem;
+      justify-content: center;
+      align-items: center;
+      gap: 0.2rem;
+    }
+  }
+}

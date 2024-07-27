@@ -1,0 +1,16 @@
+@use "sass:color";
+@use "../util" as *;
+@use "../global/colors" as *;
+
+.ad {
+  justify-content: space-between;
+  background-color: $primary;
+  color: $text-white;
+  padding-left: rem(56);
+  img {
+    max-width: rem(568);
+    height: 100%;
+  }
+  .name {
+  }
+}

@@ -2,7 +2,7 @@
 @use "../util" as *;
 @use "../global/colors" as *;
 .mobile-header {
-  padding: rem(40);
+  padding: rem(40) rem(30);
   position: fixed;
   inset: -100% -100% auto auto;
   color: $text-white;

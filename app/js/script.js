@@ -99,7 +99,7 @@ function loadContents(data) {
           </div>
 
           <div class="product__info">
-            <h4 class="product__info--name">Breed Dry Dog Food</h4>
+            <h4 class="product__info--name">${item.title}</h4>
             <div class="product__info--end flex-center">
               <div class="price">$${item.price}</div>
               <div class="rating">

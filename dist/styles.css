@@ -191,7 +191,7 @@ ol {
 }
 
 .mobile-header {
-  padding: 2.5rem;
+  padding: 2.5rem 1.875rem;
   position: fixed;
   inset: -100% -100% auto auto;
   color: #fafafa;
@@ -549,6 +549,21 @@ scroll- .carousel.active {
   margin: 0;
   opacity: 0.7;
 }
+@media (max-width: 63.125rem) {
+  .products__container {
+    grid-template-columns: repeat(3, 3fr);
+  }
+}
+@media (max-width: 47.5rem) {
+  .products__container {
+    grid-template-columns: repeat(2, 2fr);
+  }
+}
+@media (max-width: 31.25rem) {
+  .products__container {
+    grid-template-columns: 1fr;
+  }
+}
 .products > button {
   margin: 1rem auto;
   padding: 1rem 3rem;
@@ -562,4 +577,74 @@ scroll- .carousel.active {
 }
 .products > button:hover {
   filter: brightness(110%);
+}
+
+.item-path {
+  margin-top: 5rem;
+  color: rgb(152, 152, 152);
+  font-size: 0.875rem;
+}
+.item-path span {
+  color: #000000;
+}
+
+.detail {
+  justify-content: space-between;
+}
+.detail img {
+  max-width: 30rem;
+}
+.detail__info h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0;
+}
+.detail__info .detail-info--rating {
+  justify-content: space-between;
+}
+.detail__info .detail-info--rating i.active {
+  color: gold;
+}
+.detail__info .detail-info--rating p {
+  color: rgba(0, 0, 0, 0.5);
+}
+.detail__info .detail-info--rating .detail-info--rating-end {
+  gap: 1rem;
+}
+.detail__info .detail-info--rating .detail-info--rating-end p.stock {
+  color: #00ff66;
+}
+.detail__info .price {
+  font-weight: 400;
+  font-size: 1.5rem;
+  margin: 0;
+}
+.detail__info .description {
+  max-width: 23.125rem;
+  font-size: 0.875rem;
+  line-height: 1.3125rem;
+}
+@media (max-width: 45.625rem) {
+  .detail {
+    flex-direction: column;
+    text-align: center;
+  }
+  .detail .detail-info--rating {
+    flex-wrap: wrap;
+    margin-block: 1.2rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2rem;
+  }
+}
+
+.ad {
+  justify-content: space-between;
+  background-color: #000000;
+  color: #fafafa;
+  padding-left: 3.5rem;
+}
+.ad img {
+  max-width: 35.5rem;
+  height: 100%;
 }/*# sourceMappingURL=styles.css.map */
