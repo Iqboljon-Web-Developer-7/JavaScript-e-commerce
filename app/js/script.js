@@ -57,23 +57,28 @@ carouselItems.forEach(
 
 const API_URL = "https://dummyjson.com";
 const productsContainer = document.querySelector(".products__container"),
-  loadMoreBtn = document.querySelector(".load-all");
+  loadMoreBtn = document.querySelector(".load-all"),
+  productsLoaders = document.querySelector(".products-loaders");
 
-async function fetchApi(url, path, start, limit) {
-  let result = await fetch(`${url}/${path}?skip=${start}&limit=${limit}`);
-  result.json().then((res) => loadContents(res, 0, 8));
+async function fetchApi(url, path, start, limit, param = "", destination) {
+  let result = await fetch(
+    `${url}/${path}?skip=${start}&limit=${limit}${param}`
+  );
+  result.json().then((res) => loadContents(res, destination));
 }
-fetchApi(API_URL, "products", 0, 8);
+fetchApi(API_URL, "products", 0, 8, "", ".products__container");
 
 function rating(num, randomData) {
   let sNum = randomData.rating;
   return num < sNum ? "fa-solid fa-star active" : "fa-solid fa-star";
 }
 loadMoreBtn.addEventListener("click", () => {
-  fetchApi(API_URL, "products", 0, 30);
+  fetchApi(API_URL, "products", 0, 30, "", ".products__container");
 });
-function loadContents(data) {
-  productsContainer.innerHTML = "";
+function loadContents(data, destination) {
+  let container = document.querySelector(destination);
+  container.innerHTML = "";
+  productsLoaders.style.display = "none";
 
   data = data.products;
   data.forEach((item) => {
@@ -114,10 +119,67 @@ function loadContents(data) {
             </div>
           </div>
     `;
-    productsContainer.append(product);
+    container.append(product);
     product.addEventListener("click", (e) => {
       location.replace(`details/details.html?id=${item.id}`);
     });
   });
 }
 // Products END - - - |
+
+// Categories
+const categories = document.querySelectorAll(".category");
+categories.forEach((item) => {
+  item.addEventListener("click", () => {
+    fetchApi(
+      API_URL,
+      `products/category/${item.getAttribute("data-category")}`,
+      0,
+      8,
+      "",
+      ".products__container"
+    );
+  });
+});
+// Categories - - - |
+
+// Search Products
+const searchWrapper = document.querySelector(".search-wrapper"),
+  desktopInput = document.querySelector("#search-desktop"),
+  searchLoaders = document.querySelector(".search-loaders");
+
+desktopInput.addEventListener("focus", () => {
+  searchWrapper.classList.add("active");
+});
+desktopInput.addEventListener("input", (e) => {
+  let val = e.target.value;
+  searchLoaders.classList.add("active");
+  setTimeout(() => {
+    if (val) {
+      fetchApi(API_URL, "products/search", 0, 30, `&q=${val}`, ".search");
+    }
+    searchLoaders.classList.remove("active");
+  }, 800);
+});
+searchWrapper.addEventListener("click", (e) => {
+  if (e.target.classList.contains("search-wrapper")) {
+    searchWrapper.classList.remove("active");
+    desktopInput.value = "";
+  }
+});
+
+// Footer
+const footerItems = document.querySelectorAll(".footer__item"),
+  downIcons = document.querySelectorAll(".down-icon");
+downIcons.forEach((item, idx) => {
+  item.addEventListener("click", (e) => {
+    if (downIcons[idx].classList.contains("active")) {
+      footerItems[idx].style.height = 2.25 + "rem";
+    } else {
+      footerItems[idx].style.height = footerItems[idx].scrollHeight + "px";
+    }
+    downIcons[idx].classList.toggle("active");
+    footerItems[idx].classList.toggle("active");
+  });
+});
+// Footer END - - - |

@@ -1,0 +1,27 @@
+@use "sass:color";
+@use "../util" as *;
+@use "../global/colors" as *;
+
+.loaders {
+  width: 100%;
+  padding: rem(40) rem(10);
+  display: grid;
+  grid-template-columns: repeat(4, 4fr);
+  gap: 1.8rem;
+  &__loader {
+    height: rem(260);
+    .top {
+      height: 64%;
+      border-radius: rem(10);
+    }
+    .bottom {
+      .first,
+      .last {
+        border-radius: rem(10);
+        margin-top: 1rem;
+        width: 100%;
+        height: rem(14);
+      }
+    }
+  }
+}

@@ -2,65 +2,49 @@
 @use "../util" as *;
 @use "../global/colors" as *;
 
-.products {
-  margin-top: rem(63);
-  &__info {
-    &--name {
-      justify-content: start;
-      gap: rem(10);
-      span {
-        display: inline-block;
-        width: rem(20);
-        height: rem(40);
-        border-radius: rem(2);
-        background-color: $orange;
-      }
-      p {
-        color: $orange;
-        font-weight: 600;
-      }
-    }
-  }
-  &__controls {
-    justify-content: end;
-    gap: rem(8);
-    button {
-      width: rem(44);
-      height: rem(46);
-      font-size: 1rem;
-      border-radius: 50%;
-      border: none;
-      outline: none;
-      transition: all 100ms linear;
-      line-height: 0;
-      box-shadow: rgba(100, 100, 111, 0.1) 0px 7px 29px 0px;
-      cursor: pointer;
-      &:hover {
-        box-shadow: rgba(100, 100, 111, 0) 0px 7px 29px 0px;
-        font-size: 1.1rem;
-        transform: scale(1);
-      }
-    }
-  }
-  &__header {
-    width: 100%;
-    justify-content: space-between;
-  }
+.search-wrapper {
+  height: 100vh;
+  position: fixed;
+  inset: -110% 0 auto 0;
+  background-color: rgba(0, 0, 0, 0.72);
+  z-index: 2;
+  transition: all 0.4s ease-in-out;
+  padding-top: rem(20);
 
-  &__container {
-    width: 100%;
-    margin-top: rem(60);
+  &.active {
+    top: rem(70);
+  }
+  img {
+    max-width: rem(190);
+    max-height: rem(180);
+    width: fit-content;
+  }
+  .search-loaders {
+    display: none;
+    &.active {
+      display: grid;
+    }
+  }
+  .search {
+    padding: rem(26);
+    border-radius: rem(4);
+    max-height: rem(600);
     display: grid;
     grid-template-columns: repeat(4, 4fr);
     gap: rem(30);
-    img {
-      max-width: rem(190);
-      max-height: rem(180);
-      width: fit-content;
-    }
+    overflow: scroll;
+    background-color: $text-white;
+    box-shadow: #94d2bd 0px 48px 100px 0px;
     .product {
       border-radius: rem(5);
       overflow: hidden;
+      border: 0.1rem solid #00000000;
+      transition: all 0.2s linear;
+      cursor: pointer;
+      padding: 0.1rem;
+      &:hover {
+        border-color: rgba(0, 0, 0, 0.22);
+      }
       &__main {
         padding: rem(20) rem(12);
         background-color: $secondary;
@@ -114,7 +98,7 @@
           justify-content: start;
           gap: rem(8);
           margin: rem(10) 0 0 0;
-          padding-bottom: rem(32);
+          padding-bottom: 0.4rem;
           .price {
             color: $red;
           }
@@ -130,29 +114,6 @@
           }
         }
       }
-    }
-    @media (max-width: rem(1010)) {
-      grid-template-columns: repeat(3, 3fr);
-    }
-    @media (max-width: rem(760)) {
-      grid-template-columns: repeat(2, 2fr);
-    }
-    @media (max-width: rem(500)) {
-      grid-template-columns: 1fr;
-    }
-  }
-  > button {
-    margin: 1rem auto;
-    padding: rem(16) rem(48);
-    font-size: 1rem;
-    color: $text-white;
-    border: none;
-    background-color: $red;
-    border-radius: 0.2rem;
-    transition: all 200ms ease;
-    cursor: pointer;
-    &:hover {
-      filter: brightness(110%);
     }
   }
 }

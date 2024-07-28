@@ -1,0 +1,132 @@
+@use "sass:color";
+@use "../util" as *;
+@use "../global/colors" as *;
+
+.footer-wrapper {
+  background-color: $primary;
+  .footer {
+    padding: rem(80);
+    justify-content: space-between;
+    align-items: start;
+    color: $text-white;
+    gap: rem(20);
+    img {
+      max-width: rem(100);
+      cursor: pointer;
+    }
+    &__item {
+      h3,
+      h4 {
+        font-size: rem(20);
+        font-weight: 500;
+        margin: 0;
+        margin-bottom: rem(20);
+        justify-content: space-between;
+        i {
+          display: none;
+        }
+      }
+      #website-name {
+        font-size: rem(24);
+      }
+      a {
+        font-size: rem(16);
+      }
+      &--form {
+        img {
+          max-width: rem(20);
+        }
+        label {
+          text-wrap: nowrap;
+          font-size: rem(16);
+        }
+        .form__container {
+          margin-top: 1rem;
+          justify-content: start;
+          border: 0.1rem solid $secondary;
+          padding: rem(12);
+          input {
+            color: $secondary;
+            width: -webkit-fill-available;
+            background-color: transparent;
+            border: none;
+            outline: none;
+          }
+        }
+      }
+      &--links {
+        align-items: start;
+        text-wrap: nowrap;
+        gap: rem(16);
+        p {
+          font-size: rem(16);
+        }
+      }
+      &--download {
+        p {
+          font-size: rem(12);
+          opacity: 0.7;
+        }
+        .download__links {
+          gap: rem(8);
+          > img {
+            max-width: rem(76);
+          }
+          &--imgs {
+            gap: rem(8);
+          }
+        }
+      }
+      &--links {
+        margin-top: rem(24);
+        font-size: rem(18);
+        justify-content: start;
+        gap: 1.3em;
+        i {
+          transition: all 200ms linear;
+          cursor: pointer;
+          &:hover {
+            scale: 1.1;
+            filter: drop-shadow(0 0 0.3rem #bde0fe);
+          }
+        }
+      }
+    }
+    @media (max-width: rem(1020)) {
+      display: grid;
+      grid-template-columns: repeat(3, 3fr);
+      column-gap: rem(40);
+      row-gap: 4rem;
+      .download__links {
+        justify-content: start;
+      }
+    }
+    @media (max-width: rem(720)) {
+      grid-template-columns: 2fr 2fr;
+    }
+    @media (max-width: rem(540)) {
+      padding: rem(40);
+      row-gap: rem(1);
+      grid-template-columns: 1fr;
+      .down-icon {
+        display: block;
+        font-size: rem(20);
+        transition: all 200ms linear;
+        &.active {
+          transform: rotate(180deg);
+        }
+      }
+      &__item {
+        height: rem(36);
+        overflow: hidden;
+        transition: all 200ms linear;
+        &.active {
+          padding-bottom: 2rem;
+        }
+        &--links {
+          gap: 0.6rem;
+        }
+      }
+    }
+  }
+}

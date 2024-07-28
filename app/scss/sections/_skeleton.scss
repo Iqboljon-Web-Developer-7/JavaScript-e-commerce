@@ -1,0 +1,19 @@
+.skeleton {
+  background-color: rgb(230, 230, 230);
+  background-image: linear-gradient(
+    to right,
+    rgb(230, 230, 230),
+    rgb(190, 190, 190),
+    rgb(230, 230, 230)
+  );
+  background-size: 200%;
+  animation: skeletonAnime 1s linear infinite forwards;
+}
+@keyframes skeletonAnime {
+  from {
+    background-position-x: 0%;
+  }
+  to {
+    background-position-x: 200%;
+  }
+}
