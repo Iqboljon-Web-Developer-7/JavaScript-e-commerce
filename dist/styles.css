@@ -692,6 +692,11 @@ scroll- .carousel.active {
   color: #fafafa;
   background-color: #00ff66;
   border: none;
+  transition: all 200ms linear;
+  cursor: pointer;
+}
+.ad button:hover {
+  background-color: #00d354;
 }
 @media (max-width: 53.75rem) {
   .ad {
@@ -1114,4 +1119,22 @@ scroll- .carousel.active {
   margin-top: 1rem;
   width: 100%;
   height: 0.875rem;
+}
+
+#timer {
+  font-family: Arial, sans-serif;
+  font-size: 2em;
+  text-align: center;
+  margin-top: 20%;
+}
+
+.time-unit {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.label {
+  display: block;
+  font-size: 0.5em;
+  color: gray;
 }/*# sourceMappingURL=styles.css.map */

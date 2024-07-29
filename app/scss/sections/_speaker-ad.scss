@@ -54,6 +54,11 @@
     color: $text-white;
     background-color: #00ff66;
     border: none;
+    transition: all 200ms linear;
+    cursor: pointer;
+    &:hover {
+      background-color: #00d354;
+    }
   }
   @media (max-width: rem(860)) {
     overflow: hidden;
