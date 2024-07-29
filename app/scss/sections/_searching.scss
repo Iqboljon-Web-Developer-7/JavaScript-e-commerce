@@ -5,14 +5,14 @@
 .search-wrapper {
   height: 100vh;
   position: fixed;
-  inset: -110% 0 auto 0;
+  inset: -140% 0 auto 0;
   background-color: rgba(0, 0, 0, 0.72);
   z-index: 2;
   transition: all 0.4s ease-in-out;
   padding-top: rem(20);
 
   &.active {
-    top: rem(70);
+    top: rem(76);
   }
   img {
     max-width: rem(190);
@@ -25,16 +25,45 @@
       display: grid;
     }
   }
+  .search__close {
+    padding: 0.4rem 0.5rem;
+    position: absolute;
+    inset: 5% 2% auto auto;
+    font-size: rem(22);
+    text-shadow: 0 0 0.4rem rgb(168, 245, 12);
+    cursor: pointer;
+    z-index: 1;
+    background-color: color.adjust($text-white, $alpha: -0.8);
+    border-radius: 50%;
+    color: #fed9b7;
+    transition: all 200ms linear;
+    &:hover {
+      background-color: color.adjust($text-white, $alpha: -0.9);
+    }
+  }
   .search {
     padding: rem(26);
     border-radius: rem(4);
     max-height: rem(600);
     display: grid;
     grid-template-columns: repeat(4, 4fr);
-    gap: rem(30);
+    gap: 1vw;
     overflow: scroll;
     background-color: $text-white;
-    box-shadow: #94d2bd 0px 48px 100px 0px;
+    box-shadow: #939393 0px 24px 100px 0px;
+    @media (max-width: rem(1120)) {
+      grid-template-columns: repeat(3, 3fr);
+    }
+    @media (max-width: rem(840)) {
+      grid-template-columns: repeat(2, 2fr);
+    }
+    @media (max-width: rem(540)) {
+      grid-template-columns: 1fr;
+    }
+    h1 {
+      color: #f77f00;
+      text-shadow: 0 0.1rem 0.1rem rgb(172, 172, 172);
+    }
     .product {
       border-radius: rem(5);
       overflow: hidden;

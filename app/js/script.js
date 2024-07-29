@@ -146,27 +146,36 @@ categories.forEach((item) => {
 // Search Products
 const searchWrapper = document.querySelector(".search-wrapper"),
   desktopInput = document.querySelector("#search-desktop"),
-  searchLoaders = document.querySelector(".search-loaders");
-
+  searchLoaders = document.querySelector(".search-loaders"),
+  search = document.querySelector(".search");
 desktopInput.addEventListener("focus", () => {
   searchWrapper.classList.add("active");
+  header.classList.add("top");
 });
 desktopInput.addEventListener("input", (e) => {
   let val = e.target.value;
   searchLoaders.classList.add("active");
+  search.innerHTML = "";
   setTimeout(() => {
     if (val) {
       fetchApi(API_URL, "products/search", 0, 30, `&q=${val}`, ".search");
+    } else {
+      search.innerHTML = "<h1>What do you want ?</h1>";
     }
     searchLoaders.classList.remove("active");
   }, 800);
 });
-searchWrapper.addEventListener("click", (e) => {
-  if (e.target.classList.contains("search-wrapper")) {
+searchWrapper.addEventListener("click", (e) => closeSearching(e));
+function closeSearching(e) {
+  if (
+    e.target.classList.contains("search-wrapper") ||
+    e.target.classList.contains("search__close")
+  ) {
     searchWrapper.classList.remove("active");
     desktopInput.value = "";
+    search.innerHTML = "<h1>What do you want ?</h1>";
   }
-});
+}
 
 // Footer
 const footerItems = document.querySelectorAll(".footer__item"),

@@ -8,6 +8,15 @@
   display: grid;
   grid-template-columns: repeat(4, 4fr);
   gap: 1.8rem;
+  @media (max-width: rem(1120)) {
+    grid-template-columns: repeat(3, 3fr);
+  }
+  @media (max-width: rem(840)) {
+    grid-template-columns: repeat(2, 2fr);
+  }
+  @media (max-width: rem(540)) {
+    grid-template-columns: 1fr;
+  }
   &__loader {
     height: rem(260);
     .top {
