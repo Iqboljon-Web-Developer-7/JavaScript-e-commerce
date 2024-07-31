@@ -151,6 +151,13 @@
     border-radius: 0.2rem;
     transition: all 200ms ease;
     cursor: pointer;
+    &.hidden {
+      display: none;
+    }
+    &.load-less {
+      background-color: #2a9d8f;
+      // color:;
+    }
     &:hover {
       filter: brightness(110%);
     }

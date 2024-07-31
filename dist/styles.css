@@ -44,6 +44,10 @@ ol {
   list-style: none;
 }
 
+.hidden {
+  display: none;
+}
+
 .sup-header-wrapper {
   background-color: #000000;
   transition: all 200ms;
@@ -576,6 +580,12 @@ scroll- .carousel.active {
   transition: all 200ms ease;
   cursor: pointer;
 }
+.products > button.hidden {
+  display: none;
+}
+.products > button.load-less {
+  background-color: #2a9d8f;
+}
 .products > button:hover {
   filter: brightness(110%);
 }
@@ -876,7 +886,7 @@ scroll- .carousel.active {
   scale: 1.1;
   filter: drop-shadow(0 0 0.3rem #bde0fe);
 }
-@media (max-width: 63.75rem) {
+@media (max-width: 67.5rem) {
   .footer-wrapper .footer {
     display: grid;
     grid-template-columns: repeat(3, 3fr);

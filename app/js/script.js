@@ -1,3 +1,14 @@
+const details = document.querySelector(".details");
+const home = document.querySelector(".home");
+
+const headerNav = document.querySelector(".header__nav");
+headerNav.addEventListener("click", (e) => {
+  if (e.target.textContent == "Home") {
+    details.classList.add("hidden");
+    home.classList.remove("hidden");
+  }
+});
+
 // Sup Header - Header
 const supHeader = document.querySelector(".sup-header-wrapper");
 setTimeout(() => {
@@ -58,6 +69,7 @@ carouselItems.forEach(
 const API_URL = "https://dummyjson.com";
 const productsContainer = document.querySelector(".products__container"),
   loadMoreBtn = document.querySelector(".load-all"),
+  loadLessBtn = document.querySelector(".load-less"),
   productsLoaders = document.querySelector(".products-loaders"),
   leftBtn = document.querySelector(".products__controls--left"),
   rightBtn = document.querySelector(".products__controls--right");
@@ -82,7 +94,7 @@ function changeProducts(direction) {
     limit = 0;
     leftBtn.disabled = true;
   } else {
-    fetchApi(API_URL, "products", limit, 8, "", ".products__container");
+    fetchApi(API_URL, path, limit, 8, "", ".products__container");
   }
 }
 async function fetchApi(url, path, start, limit, param = "", destination) {
@@ -97,8 +109,11 @@ function rating(num, randomData) {
   let sNum = randomData.rating;
   return num < sNum ? "fa-solid fa-star active" : "fa-solid fa-star";
 }
+
+let allContent = false;
 loadMoreBtn.addEventListener("click", () => {
-  fetchApi(API_URL, "products", 0, 30, "", ".products__container");
+  allContent = true;
+  fetchApi(API_URL, path, 0, 30, "", ".products__container");
 });
 
 function loadContents(data, destination) {
@@ -106,12 +121,21 @@ function loadContents(data, destination) {
   container.innerHTML = "";
   productsLoaders.style.display = "none";
   data = data.products;
-  if (data.length < 8) {
+  if (data.length == 0) {
     rightBtn.disabled = true;
     container.innerHTML = "Nothig found :(";
   } else {
-    data.forEach((item) => {
+    if (data.length < 8) {
+      rightBtn.disabled = true;
+    } else {
       rightBtn.disabled = false;
+    }
+    if (allContent) {
+      rightBtn.disabled = true;
+      loadMoreBtn.classList.add("hidden");
+      allContent = false;
+    }
+    data.forEach((item) => {
       const product = document.createElement("div");
       product.className = "product";
       product.innerHTML = `
@@ -151,7 +175,49 @@ function loadContents(data, destination) {
       `;
       container.append(product);
       product.addEventListener("click", (e) => {
-        location.replace(`details/details.html?id=${item.id}`);
+        home.classList.add("hidden");
+        details.classList.remove("hidden");
+        const detail = document.querySelector(".detail");
+        let itemPath = document.querySelector(".product-name");
+
+        let id = item.id;
+        async function fetchApiDetails(url, path, id) {
+          let res = await fetch(`${url}/${path}/${id}`);
+          res.json().then((data) => loadContentsDetail(data));
+        }
+
+        fetchApiDetails(API_URL, "products", id);
+        function loadContentsDetail(data) {
+          itemPath.textContent = data.title;
+          detail.innerHTML = `
+             <div class="detail__img">
+                  <div class="detail__imgs--container">
+                  </div>
+                  <img src=${data.images[0]} alt="">
+              </div>
+              <div class="detail__info">
+                  <h3 class="detail-info--name">${data.title}</h3>
+                  <div class="detail-info--rating flex-center">
+                    <div class="stars">
+                       <i class="${rating(1, data)}"></i>
+                        <i class="${rating(2, data)}"></i>
+                        <i class="${rating(3, data)}"></i>
+                        <i class="${rating(4, data)}"></i>
+                        <i class="${rating(5, data)}"></i>
+                    </div>
+                    <div class="detail-info--rating-end flex-center">
+                      <p class="reviews">(${Math.round(
+                        Math.random() * 1000
+                      )}) reviews</p>
+                      | <p class="stock">In Stock</p>
+                    </div>
+                  </div>
+                  <h4 class="price">$${data.price}</h4>
+                  <p class="description">${data.description}</p>
+                  <hr/>
+              </div>
+          `;
+        }
       });
     });
   }
@@ -159,9 +225,11 @@ function loadContents(data, destination) {
 // Products END - - - |
 
 // Categories
+var path = "products";
 const categories = document.querySelectorAll(".category");
 categories.forEach((item) => {
   item.addEventListener("click", () => {
+    path = `products/category/${item.getAttribute("data-category")}`;
     fetchApi(
       API_URL,
       `products/category/${item.getAttribute("data-category")}`,
