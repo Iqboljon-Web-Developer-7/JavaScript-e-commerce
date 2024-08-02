@@ -1,5 +1,26 @@
-const details = document.querySelector(".details");
-const home = document.querySelector(".home");
+// API Fetcher Function
+const API_URL = "https://dummyjson.com";
+
+// API_PATH
+var path = "products";
+
+async function fetchApi(url, path, start, limit, param = "", destination) {
+  productsLoaders.style.display = "grid";
+  let result = await fetch(
+    `${url}/${path}?skip=${start}&limit=${limit}${param}`
+  );
+  result.json().then((res) => loadProducts(res, destination));
+}
+
+// How many stars does the product has ?
+function rating(num, randomData) {
+  let sNum = randomData.rating;
+  return num < sNum ? "fa-solid fa-star active" : "fa-solid fa-star";
+}
+
+// Home and Product changing
+const details = document.querySelector(".details"),
+  home = document.querySelector(".home");
 
 const headerNav = document.querySelector(".header__nav");
 headerNav.addEventListener("click", (e) => {
@@ -8,6 +29,7 @@ headerNav.addEventListener("click", (e) => {
     home.classList.remove("hidden");
   }
 });
+// Home and Product changing - - - |
 
 // Sup Header - Header
 const supHeader = document.querySelector(".sup-header-wrapper");
@@ -66,7 +88,6 @@ carouselItems.forEach(
 
 // Products
 
-const API_URL = "https://dummyjson.com";
 const productsContainer = document.querySelector(".products__container"),
   loadMoreBtn = document.querySelector(".load-all"),
   loadLessBtn = document.querySelector(".load-less"),
@@ -74,19 +95,21 @@ const productsContainer = document.querySelector(".products__container"),
   leftBtn = document.querySelector(".products__controls--left"),
   rightBtn = document.querySelector(".products__controls--right");
 
+// how many products should be displayed
 let limit = 0;
+
 leftBtn.disabled = true;
 
 rightBtn.addEventListener("click", () => changeProducts("right"));
 leftBtn.addEventListener("click", () => changeProducts("left"));
 
 function changeProducts(direction) {
-  if (direction == "right") {
+  if (direction === "right") {
     limit += 8;
     leftBtn.disabled = false;
   } else if ((direction = "left")) {
     limit -= 8;
-    if (limit == 0) {
+    if (limit === 0) {
       leftBtn.disabled = true;
     }
   }
@@ -97,44 +120,63 @@ function changeProducts(direction) {
     fetchApi(API_URL, path, limit, 8, "", ".products__container");
   }
 }
-async function fetchApi(url, path, start, limit, param = "", destination) {
-  let result = await fetch(
-    `${url}/${path}?skip=${start}&limit=${limit}${param}`
-  );
-  result.json().then((res) => loadContents(res, destination));
-}
+
+// First load of products
 fetchApi(API_URL, "products", 0, 8, "", ".products__container");
 
-function rating(num, randomData) {
-  let sNum = randomData.rating;
-  return num < sNum ? "fa-solid fa-star active" : "fa-solid fa-star";
-}
-
+// Load more or less
 let allContent = false;
 loadMoreBtn.addEventListener("click", () => {
   allContent = true;
   fetchApi(API_URL, path, 0, 30, "", ".products__container");
+  setTimeout(() => {
+    loadLessBtn.classList.remove("hidden");
+  }, 500);
 });
+loadLessBtn.addEventListener("click", () => {
+  allContent = false;
+  fetchApi(API_URL, path, 0, 8, "", ".products__container");
+  setTimeout(() => {
+    loadLessBtn.classList.add("hidden");
+  }, 500);
+});
+// Load more or less - - - |
 
-function loadContents(data, destination) {
+// Load products
+function loadProducts(data, destination, content) {
+  // where products should be loaded ?
   let container = document.querySelector(destination);
+
+  // clear container
   container.innerHTML = "";
+
+  // remove loaders
   productsLoaders.style.display = "none";
+
+  // get only products array
   data = data.products;
+
+  // data is empty or end of data(products)
   if (data.length == 0) {
     rightBtn.disabled = true;
-    container.innerHTML = "Nothig found :(";
+    container.textContent = "Nothig found :(";
   } else {
+    // data has less than 8 products so
     if (data.length < 8) {
       rightBtn.disabled = true;
+      loadMoreBtn.classList.add("hidden");
     } else {
+      loadMoreBtn.classList.remove("hidden");
       rightBtn.disabled = false;
     }
+
+    // do all content display ?
     if (allContent) {
       rightBtn.disabled = true;
       loadMoreBtn.classList.add("hidden");
       allContent = false;
     }
+
     data.forEach((item) => {
       const product = document.createElement("div");
       product.className = "product";
@@ -175,19 +217,27 @@ function loadContents(data, destination) {
       `;
       container.append(product);
       product.addEventListener("click", (e) => {
+        // hide home page contents
         home.classList.add("hidden");
+
+        // show only product main container
         details.classList.remove("hidden");
+
+        // detail container
         const detail = document.querySelector(".detail");
+
+        // detail path name
         let itemPath = document.querySelector(".product-name");
 
         let id = item.id;
+        // custom Details function
         async function fetchApiDetails(url, path, id) {
           let res = await fetch(`${url}/${path}/${id}`);
-          res.json().then((data) => loadContentsDetail(data));
+          res.json().then((data) => loadProductsDetail(data));
         }
 
         fetchApiDetails(API_URL, "products", id);
-        function loadContentsDetail(data) {
+        function loadProductsDetail(data) {
           itemPath.textContent = data.title;
           detail.innerHTML = `
              <div class="detail__img">
@@ -225,7 +275,6 @@ function loadContents(data, destination) {
 // Products END - - - |
 
 // Categories
-var path = "products";
 const categories = document.querySelectorAll(".category");
 categories.forEach((item) => {
   item.addEventListener("click", () => {
@@ -245,13 +294,20 @@ categories.forEach((item) => {
 // Search Products
 const searchWrapper = document.querySelector(".search-wrapper"),
   desktopInput = document.querySelector("#search-desktop"),
+  mobileInput = document.querySelector("#mobile-input"),
   searchLoaders = document.querySelector(".search-loaders"),
   search = document.querySelector(".search");
-desktopInput.addEventListener("focus", () => {
+
+mobileInput.addEventListener("focus", showSearching);
+desktopInput.addEventListener("focus", showSearching);
+function showSearching() {
   searchWrapper.classList.add("active");
   header.classList.add("top");
-});
-desktopInput.addEventListener("input", (e) => {
+}
+
+desktopInput.addEventListener("input", (e) => showResult(e));
+mobileInput.addEventListener("input", (e) => showResult(e));
+function showResult(e) {
   let val = e.target.value;
   searchLoaders.classList.add("active");
   search.innerHTML = "";
@@ -263,26 +319,28 @@ desktopInput.addEventListener("input", (e) => {
     }
     searchLoaders.classList.remove("active");
   }, 800);
-});
-searchWrapper.addEventListener("click", (e) => closeSearching(e));
-function closeSearching(e) {
+}
+
+searchWrapper.addEventListener("click", (e) => {
+  e = e.target;
   if (
-    e.target.classList.contains("search-wrapper") ||
-    e.target.classList.contains("search__close")
+    e.classList.contains("search-wrapper") ||
+    e.classList.contains("search__close")
   ) {
     searchWrapper.classList.remove("active");
     desktopInput.value = "";
     search.innerHTML = "<h1>What do you want ?</h1>";
   }
-}
+});
+
 // Search Products - - - |
 
 // Timer
 function startCountdown(duration) {
-  const daysElement = document.getElementById("days");
-  const hoursElement = document.getElementById("hours");
-  const minutesElement = document.getElementById("minutes");
-  const secondsElement = document.getElementById("seconds");
+  const daysElement = document.getElementById("days"),
+    hoursElement = document.getElementById("hours"),
+    minutesElement = document.getElementById("minutes"),
+    secondsElement = document.getElementById("seconds");
 
   let endTime = Date.now() + duration * 1000;
 
@@ -321,11 +379,13 @@ function startCountdown(duration) {
 
 // Start a countdown of 1 day (86400 seconds)
 startCountdown(440000);
+
 // Timer - - - |
 
 // Footer
 const footerItems = document.querySelectorAll(".footer__item"),
   downIcons = document.querySelectorAll(".down-icon");
+
 downIcons.forEach((item, idx) => {
   item.addEventListener("click", (e) => {
     if (downIcons[idx].classList.contains("active")) {
