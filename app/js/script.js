@@ -298,9 +298,13 @@ const searchWrapper = document.querySelector(".search-wrapper"),
   searchLoaders = document.querySelector(".search-loaders"),
   search = document.querySelector(".search");
 
-mobileInput.addEventListener("focus", showSearching);
+mobileInput.addEventListener("focus", (e) => showSearching(e));
 desktopInput.addEventListener("focus", showSearching);
-function showSearching() {
+function showSearching(e) {
+  if (e.target.name == "mobile-search") {
+    const mobileNav = document.querySelector(".mobile-header__nav");
+    mobileNav.style.display = "none";
+  }
   searchWrapper.classList.add("active");
   header.classList.add("top");
 }
