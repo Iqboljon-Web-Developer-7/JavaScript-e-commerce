@@ -62,12 +62,16 @@ window.addEventListener("scroll", (e) => {
 // Mobile Header
 const mobileHeader = document.querySelector(".mobile-header"),
   closeIcon = document.querySelector(".close-icon"),
-  menuIcon = document.querySelector(".menu-icon");
+  menuIcon = document.querySelector(".menu-icon"),
+  mobileNav = document.querySelector(".mobile-header__nav");
 
 menuIcon.addEventListener("click", toggleMobileHeader);
 closeIcon.addEventListener("click", toggleMobileHeader);
 function toggleMobileHeader() {
   mobileHeader.classList.toggle("active");
+  mobileHeader.classList.remove("searcher");
+  mobileNav.classList.remove("hidden");
+  mobileInput.value = "";
 }
 // Mobile Header - - - |
 
@@ -217,6 +221,12 @@ function loadProducts(data, destination, content) {
       `;
       container.append(product);
       product.addEventListener("click", (e) => {
+        // on mobile searching it removes mobile header and results
+        mobileHeader.classList.remove("searcher");
+        mobileHeader.classList.remove("active");
+        mobileNav.classList.remove("hidden");
+        searchWrapper.classList.remove("active");
+
         // hide home page contents
         home.classList.add("hidden");
 
@@ -302,8 +312,8 @@ mobileInput.addEventListener("focus", (e) => showSearching(e));
 desktopInput.addEventListener("focus", showSearching);
 function showSearching(e) {
   if (e.target.name == "mobile-search") {
-    const mobileNav = document.querySelector(".mobile-header__nav");
-    mobileNav.style.display = "none";
+    mobileNav.classList.add("hidden");
+    mobileHeader.classList.add("searcher");
   }
   searchWrapper.classList.add("active");
   header.classList.add("top");

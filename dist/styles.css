@@ -209,6 +209,10 @@ ol {
 .mobile-header.active {
   inset: 0 0 auto auto;
 }
+.mobile-header.searcher {
+  inset: 0 0 auto 0;
+  padding: 1rem;
+}
 .mobile-header i {
   position: absolute;
   inset: 1.625rem 1.625rem auto auto;

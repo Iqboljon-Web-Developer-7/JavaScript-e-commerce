@@ -16,6 +16,10 @@
   &.active {
     inset: 0 0 auto auto;
   }
+  &.searcher {
+    inset: 0 0 auto 0;
+    padding: 1rem;
+  }
   i {
     position: absolute;
     inset: rem(26) rem(26) auto auto;
