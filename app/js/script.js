@@ -2,7 +2,7 @@
 const API_URL = "https://dummyjson.com";
 
 // API_PATH
-var path = "products";
+let path = "products";
 
 async function fetchApi(url, path, start, limit, param = "", destination) {
   productsLoaders.style.display = "grid";
@@ -20,16 +20,117 @@ function rating(num, randomData) {
 
 // Home and Product changing
 const details = document.querySelector(".details"),
-  home = document.querySelector(".home");
+  home = document.querySelector(".home"),
+  register = document.querySelector(".register");
 
-const headerNav = document.querySelector(".header__nav");
-headerNav.addEventListener("click", (e) => {
-  if (e.target.textContent == "Home") {
+const headerNav = document.querySelector(".header__nav"),
+  headerLinks = document.querySelectorAll(".header__nav a"),
+  headerMobileNav = document.querySelector(".mobile-header__nav");
+
+headerLinks.forEach((link, idx) => {
+  link.addEventListener("click", () => {
+    headerLinks[idx].classList.add("active");
+    headerLinks.forEach((link2, idx2) => {
+      if (idx != idx2) {
+        headerLinks[idx2].classList.remove("active");
+      }
+    });
+  });
+});
+headerNav.addEventListener("click", (e) => changePages(e));
+headerMobileNav.addEventListener("click", (e) => changePages(e));
+function changePages(e) {
+  e = e.target;
+  if (e.textContent == "Home") {
     details.classList.add("hidden");
     home.classList.remove("hidden");
+    register.classList.add("hidden");
+  } else if (e.textContent == "Sign Up") {
+    home.classList.add("hidden");
+    details.classList.add("hidden");
+    register.classList.remove("hidden");
   }
-});
+}
+
 // Home and Product changing - - - |
+
+// Register forms
+const signUp = document.querySelector(".sign-up"),
+  signIn = document.querySelector(".sign-in"),
+  signInBtn = document.querySelector("#loginBtn"),
+  signUpBtn = document.querySelector("#signUpBtn"),
+  signUpForm = document.querySelector("#signUpForm"),
+  signInForm = document.querySelector("#signInForm"),
+  userIcon = document.querySelector(".fa-user");
+
+let isLoggedIn = false;
+let userData = JSON.parse(localStorage.getItem("userdata")) || [];
+if (userData) {
+  userIcon.classList.remove("hidden");
+}
+
+signInBtn.addEventListener("click", formHandler);
+signUpBtn.addEventListener("click", formHandler);
+function formHandler() {
+  signUp.classList.toggle("hidden");
+  signIn.classList.toggle("hidden");
+}
+
+signInForm.addEventListener("submit", formDataHandler);
+function formDataHandler(e) {
+  e.preventDefault();
+  e.srcElement.children.login.innerHTML = "";
+
+  let miniLoader = document.createElement("div");
+  miniLoader.classList.add("mini-loader");
+
+  e.srcElement.children.login.append(miniLoader);
+
+  let name = e.srcElement.children.name.value;
+  let password = e.srcElement.children.password.value;
+
+  async function fetchUser(name, password, e) {
+    let res = await fetch("https://dummyjson.com/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: name,
+        password: password,
+        expiresInMins: 30,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => validation(e, data));
+  }
+
+  fetchUser(name, password, e);
+  function validation(e, data) {
+    let input1 = e.srcElement.children.name;
+    let input2 = e.srcElement.children.password;
+    let button = e.srcElement.children.login;
+
+    if (
+      data.message == "Username and password required" ||
+      data.message == "Invalid credentials"
+    ) {
+      input1.classList.add("error");
+      input2.classList.add("error");
+    } else {
+      localStorage.setItem("userdata", JSON.stringify(data));
+      input1.classList.remove("error");
+      input2.classList.remove("error");
+    }
+
+    button.innerHTML = "Logged In :)";
+    register.classList.add("hidden");
+    home.classList.remove("hidden");
+    userIcon.classList.remove("hidden");
+    setTimeout(() => {
+      button.innerHTML = "Login";
+    }, 1000);
+  }
+}
+// Register forms end
 
 // Sup Header - Header
 const supHeader = document.querySelector(".sup-header-wrapper");
@@ -47,14 +148,17 @@ setTimeout(() => {
 // Sup Header - Header END - - - |
 
 // Header
+const headerWrapper = document.querySelector(".header-wrapper");
 const header = document.querySelector(".header");
 window.addEventListener("scroll", (e) => {
   if (window.scrollY >= 100) {
     header.classList.add("top");
+    headerWrapper.classList.add("top");
     document.body.style.marginTop = header.clientHeight + "px";
   } else {
     document.body.style.marginTop = 0;
     header.classList.remove("top");
+    headerWrapper.classList.remove("top");
   }
 });
 // Header END - - - |

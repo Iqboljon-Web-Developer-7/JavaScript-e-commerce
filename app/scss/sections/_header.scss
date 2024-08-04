@@ -3,6 +3,9 @@
 @use "../global/colors" as *;
 .header-wrapper {
   border-bottom: 0.1rem solid color.adjust($primary, $alpha: -0.9);
+  &.top {
+    background-color: $white;
+  }
 }
 .header {
   justify-content: space-between;
@@ -14,13 +17,25 @@
     padding-top: rem(16);
   }
   &.top {
+    opacity: 0;
     padding-top: rem(16);
     position: fixed;
     inset: 0 0 auto 0;
     background-color: $white;
     z-index: 2;
+    box-shadow: 0 -6rem 0 6rem white;
+    animation: headerAnime 0.2s linear 1 forwards;
   }
-  i {
+  @keyframes headerAnime {
+    to {
+      opacity: 1;
+    }
+  }
+  i.fa-user {
+    cursor: pointer;
+    font-size: rem(20);
+  }
+  i.fa-bars {
     display: none;
   }
   img {
@@ -38,7 +53,8 @@
       border-bottom: 0.1rem solid #00000000;
       transition: all 200ms;
       &:hover,
-      &:focus {
+      &:focus,
+      &.active {
         border-bottom-color: color.adjust($primary, $alpha: -0.6);
       }
     }
@@ -85,7 +101,7 @@
     &__nav {
       display: none;
     }
-    i {
+    i.fa-bars {
       display: block;
     }
   }

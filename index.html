@@ -44,10 +44,10 @@
       <header class="header container flex-center">
         <h3 class="header__logo"><a href="#">Exclusive</a></h3>
         <nav class="header__nav flex-center">
-          <a href="#">Home</a>
-          <a href="#">Contact</a>
-          <a href="#">About</a>
-          <a href="#">Sign in</a>
+          <a href="#" class="active" name="home">Home</a>
+          <a href="#" class="contact">Contact</a>
+          <a href="#" class="about">About</a>
+          <a href="#" class="signIn">Sign Up</a>
         </nav>
         <div class="header__end flex-center">
           <form class="heaer-end__form flex-center">
@@ -62,6 +62,7 @@
               <img src="./images/home/header/shopping.png" alt="img of shopping icon" />
             </a>
           </div>
+          <i class="fa-regular fa-user hidden"></i>
           <i class="fa-solid fa-bars menu-icon"></i>
         </div>
       </header>
@@ -138,7 +139,7 @@
         <a href="#">Home</a>
         <a href="#">Contact</a>
         <a href="#">About</a>
-        <a href="#">Sign in</a>
+        <a href="#">Sign Up</a>
       </nav>
       <form class="mobile-header__form flex-center">
         <form class="header-end__form flex-center">
@@ -147,6 +148,7 @@
         </form>
       </form>
     </header>
+    <!-- Details -->
     <div class="details hidden">
       <div class="item-path container">
         <p>Account / Product / <span class="product-name"></span></p>
@@ -154,6 +156,38 @@
       <section class="detail flex-center container">
       </section>
     </div>
+    <!-- Details end -->
+    <!-- SignIN -->
+    <section class="register flex-center hidden">
+      <div class="register__img">
+        <img src="./images/sign/sign.png" alt="img of register">
+      </div>
+      <div class="register__forms flex-center">
+        <div class="register sign-up">
+          <h2>Create an account</h2>
+          <p>Enter you details below</p>
+          <form class="flex-center f-column" id="signUpForm">
+            <input type="text" placeholder="Name">
+            <input type="password" placeholder="Password">
+            <button>Create Account</button>
+          </form>
+          <h4>Already have account? <a href="#" id="loginBtn">Log in</a></h4>
+        </div>
+        <div class="register sign-in hidden">
+          <h2>Log in to to exclusive</h2>
+          <p>Enter you details below</p>
+          <form class="flex-center f-column" id="signInForm">
+            <input type="text" placeholder="username" name="name" value="Alexanderj">
+            <input type="password" placeholder="Password" name="password" value="alexanderjpass">
+            <button name="login">
+              Login
+            </button>
+          </form>
+          <h4>Create an account? <a href="#" id="signUpBtn">Sign Up</a></h4>
+        </div>
+      </div>
+    </section>
+    <!-- SignIN end -->
     <div class="home">
       <section class="carousel-wrapper container">
         <div class="carousel container flex-center">
@@ -423,6 +457,7 @@
         </div>
       </div>
     </footer>
+
   </main>
   <script src="./app/js/script.js"></script>
 </body>
