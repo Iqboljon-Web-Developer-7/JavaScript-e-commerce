@@ -13,6 +13,7 @@
   padding-bottom: rem(16);
   padding-inline: 4vw;
   transition: all 300ms ease-in-out;
+  position: relative;
   &.active {
     padding-top: rem(16);
   }
@@ -29,6 +30,59 @@
   @keyframes headerAnime {
     to {
       opacity: 1;
+    }
+  }
+  .user {
+    min-width: rem(140);
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    position: absolute;
+    inset: rem(100) rem(10) auto auto;
+    padding: rem(10) rem(8);
+    background-color: #fff;
+    z-index: 2;
+    border-radius: 0.2rem;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    opacity: 0;
+    transform: translateY(rem(-10));
+    transition: all 100ms linear;
+    &.active {
+      opacity: 1;
+      transform: translateX(rem(0));
+    }
+    &__info {
+      text-align: center;
+      gap: rem(14);
+      img {
+        width: rem(50);
+        height: rem(50);
+      }
+    }
+    &__nav {
+      margin-top: 0.8rem;
+      gap: 0.2rem;
+
+      button {
+        width: 100%;
+        padding: rem(10);
+        border: none;
+        border-radius: 0.2rem;
+        cursor: pointer;
+        transition: 200ms linear;
+
+        &.leave {
+          color: #fdf0d5;
+          background-color: #e56f00;
+        }
+        &:hover {
+          filter: brightness(110%);
+        }
+        &:active {
+          filter: brightness(120%);
+        }
+      }
     }
   }
   i.fa-user {

@@ -112,6 +112,7 @@ ol {
   padding-bottom: 1rem;
   padding-inline: 4vw;
   transition: all 300ms ease-in-out;
+  position: relative;
 }
 .header.active {
   padding-top: 1rem;
@@ -130,6 +131,57 @@ ol {
   to {
     opacity: 1;
   }
+}
+.header .user {
+  min-width: 8.75rem;
+  position: absolute;
+  inset: 6.25rem 0.625rem auto auto;
+  padding: 0.625rem 0.5rem;
+  background-color: #fff;
+  z-index: 2;
+  border-radius: 0.2rem;
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+  opacity: 0;
+  transform: translateY(-0.625rem);
+  transition: all 100ms linear;
+}
+.header .user * {
+  margin: 0;
+  padding: 0;
+}
+.header .user.active {
+  opacity: 1;
+  transform: translateX(0rem);
+}
+.header .user__info {
+  text-align: center;
+  gap: 0.875rem;
+}
+.header .user__info img {
+  width: 3.125rem;
+  height: 3.125rem;
+}
+.header .user__nav {
+  margin-top: 0.8rem;
+  gap: 0.2rem;
+}
+.header .user__nav button {
+  width: 100%;
+  padding: 0.625rem;
+  border: none;
+  border-radius: 0.2rem;
+  cursor: pointer;
+  transition: 200ms linear;
+}
+.header .user__nav button.leave {
+  color: #fdf0d5;
+  background-color: #e56f00;
+}
+.header .user__nav button:hover {
+  filter: brightness(110%);
+}
+.header .user__nav button:active {
+  filter: brightness(120%);
 }
 .header i.fa-user {
   cursor: pointer;

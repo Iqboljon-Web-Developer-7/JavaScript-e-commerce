@@ -61,13 +61,42 @@ const signUp = document.querySelector(".sign-up"),
   signUpBtn = document.querySelector("#signUpBtn"),
   signUpForm = document.querySelector("#signUpForm"),
   signInForm = document.querySelector("#signInForm"),
-  userIcon = document.querySelector(".fa-user");
+  userIcon = document.querySelector(".fa-user"),
+  userInfos = document.querySelector(".user");
 
 let isLoggedIn = false;
 let userData = JSON.parse(localStorage.getItem("userdata")) || [];
-if (userData) {
+if (userData.length != 0) {
+  console.log(userData);
+
   userIcon.classList.remove("hidden");
 }
+console.log(userData);
+
+userIcon.addEventListener("click", () => {
+  let userData = JSON.parse(localStorage.getItem("userdata")) || [];
+  userInfos.innerHTML = `
+      <div class="user__info flex-center">
+        <img src=${userData.image} alt="1" width="400">
+        <div class="user__info--name">
+          <h4 class="name">${userData.firstName}</h4>
+          <p class="username">${userData.username}</p>
+        </div>
+      </div>
+      <div class="user__nav flex-center f-column">
+       
+        <button class="leave" name="logout">Log Out</button>
+      </div>
+  `;
+  userInfos.classList.toggle("active");
+});
+userInfos.addEventListener("click", (e) => {
+  if (e.target.name == "logout") {
+    localStorage.clear();
+    userInfos.classList.remove("active");
+    userIcon.classList.add("hidden");
+  }
+});
 
 signInBtn.addEventListener("click", formHandler);
 signUpBtn.addEventListener("click", formHandler);
@@ -125,6 +154,8 @@ function formDataHandler(e) {
     register.classList.add("hidden");
     home.classList.remove("hidden");
     userIcon.classList.remove("hidden");
+    headerLinks[0].classList.add("active");
+    headerLinks[3].classList.remove("active");
     setTimeout(() => {
       button.innerHTML = "Login";
     }, 1000);
