@@ -1,5 +1,19 @@
 // Load products
-function loadProducts(data, destination, content) {
+import rating from "./rating.js";
+const loadProducts = (data, destination) => {
+  let allContent = JSON.parse(localStorage.getItem("allContent"));
+  const productsContainer = document.querySelector(".products__container"),
+    loadMoreBtn = document.querySelector(".load-all"),
+    loadLessBtn = document.querySelector(".load-less"),
+    productsLoaders = document.querySelector(".products-loaders"),
+    leftBtn = document.querySelector(".products__controls--left"),
+    rightBtn = document.querySelector(".products__controls--right");
+
+  let favourites = JSON.parse(localStorage.getItem("favourites")) || [],
+    favouriteCounter = document.querySelector(".favourite-counter"),
+    favouritesIcon = document.querySelector(".heart-icon"),
+    favouritesPage = document.querySelector(".favourites"),
+    favouritesContainer = document.querySelector(".favourites__container");
   // where products should be loaded ?
   let container = document.querySelector(destination);
 
@@ -31,6 +45,7 @@ function loadProducts(data, destination, content) {
       rightBtn.disabled = true;
       loadMoreBtn.classList.add("hidden");
       allContent = false;
+      localStorage.setItem("allContent", JSON.stringify(allContent));
     }
 
     data.forEach((item) => {
@@ -147,7 +162,7 @@ function loadProducts(data, destination, content) {
       });
     });
   }
-}
+};
 // Products END - - - |
 
 export default loadProducts;
