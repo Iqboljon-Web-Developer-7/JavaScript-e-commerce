@@ -64,6 +64,9 @@ const signUp = document.querySelector(".sign-up"),
   userIcon = document.querySelector(".fa-user"),
   userInfos = document.querySelector(".user");
 
+signUp.classList.add("hidden");
+signIn.classList.remove("hidden");
+
 let isLoggedIn = false;
 let userData = JSON.parse(localStorage.getItem("userdata")) || [];
 if (userData.length != 0) {
@@ -71,7 +74,6 @@ if (userData.length != 0) {
 
   userIcon.classList.remove("hidden");
 }
-console.log(userData);
 
 userIcon.addEventListener("click", () => {
   let userData = JSON.parse(localStorage.getItem("userdata")) || [];
@@ -92,18 +94,18 @@ userIcon.addEventListener("click", () => {
 });
 userInfos.addEventListener("click", (e) => {
   if (e.target.name == "logout") {
-    localStorage.clear();
+    localStorage.removeItem("userdata");
     userInfos.classList.remove("active");
     userIcon.classList.add("hidden");
   }
 });
 
-signInBtn.addEventListener("click", formHandler);
-signUpBtn.addEventListener("click", formHandler);
-function formHandler() {
-  signUp.classList.toggle("hidden");
-  signIn.classList.toggle("hidden");
-}
+// signInBtn.addEventListener("click", formHandler);
+// signUpBtn.addEventListener("click", formHandler);
+// function formHandler() {
+//   signUp.classList.toggle("hidden");
+//   signIn.classList.toggle("hidden");
+// }
 
 signInForm.addEventListener("submit", formDataHandler);
 function formDataHandler(e) {
@@ -281,6 +283,33 @@ loadLessBtn.addEventListener("click", () => {
 });
 // Load more or less - - - |
 
+let favourites = JSON.parse(localStorage.getItem("favourites")) || [],
+  favouriteCounter = document.querySelector(".favourite-counter"),
+  favouritesIcon = document.querySelector(".heart-icon"),
+  favouritesPage = document.querySelector(".favourites"),
+  favouritesContainer = document.querySelector(".favourites__container");
+
+console.log(favourites);
+
+favouritesIcon.addEventListener("click", () => {
+  favouritesPage.classList.remove("hidden");
+  home.classList.add("hidden");
+  for (let i = 0; i < favourites.length; i++) {
+    fetchApi(
+      API_URL,
+      `products/${favourites[i]}`,
+      0,
+      4,
+      "",
+      ".favourites__container"
+    );
+  }
+});
+if (favourites.length != 0) {
+  favouriteCounter.classList.remove("invi");
+  favouriteCounter.textContent = favourites.length;
+}
+
 // Load products
 function loadProducts(data, destination, content) {
   // where products should be loaded ?
@@ -321,19 +350,12 @@ function loadProducts(data, destination, content) {
       product.className = "product";
       product.innerHTML = `
             <div class="product__main flex-center">
-              <img src=${item.images[0]} alt="img" />
+              <img src=${item.images[0]} alt="img" class="product__img"/>
               <div class="controls flex-center f-column">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
-                  viewBox="0 0 16 16">
-                  <path
-                    d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
-                </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye"
-                  viewBox="0 0 16 16">
-                  <path
-                    d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
-                  <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
-                </svg>
+                <img src="./images/home/products/heart.svg" alt="heart svg" class="heart ${
+                  favourites.includes(item.id) && "active"
+                }">
+                <img src="./images/home/products/cart.svg" alt="cart">
               </div>
               <button class="product__btn">Add To Cart</button>
             </div>
@@ -355,64 +377,79 @@ function loadProducts(data, destination, content) {
             </div>
       `;
       container.append(product);
+
       product.addEventListener("click", (e) => {
-        // on mobile searching it removes mobile header and results
-        mobileHeader.classList.remove("searcher");
-        mobileHeader.classList.remove("active");
-        mobileNav.classList.remove("hidden");
-        searchWrapper.classList.remove("active");
+        e = e.target;
+        if (e.classList.contains("product__img")) {
+          // on mobile searching it removes mobile header and results
+          mobileHeader.classList.remove("searcher");
+          mobileHeader.classList.remove("active");
+          mobileNav.classList.remove("hidden");
+          searchWrapper.classList.remove("active");
 
-        // hide home page contents
-        home.classList.add("hidden");
+          // hide home page contents
+          home.classList.add("hidden");
+          // show only product main container
+          details.classList.remove("hidden");
+          // detail container
+          const detail = document.querySelector(".detail");
 
-        // show only product main container
-        details.classList.remove("hidden");
+          // detail path name
+          let itemPath = document.querySelector(".product-name");
 
-        // detail container
-        const detail = document.querySelector(".detail");
+          let id = item.id;
+          // custom Details function
+          async function fetchApiDetails(url, path, id) {
+            let res = await fetch(`${url}/${path}/${id}`);
+            res.json().then((data) => loadProductsDetail(data));
+          }
 
-        // detail path name
-        let itemPath = document.querySelector(".product-name");
-
-        let id = item.id;
-        // custom Details function
-        async function fetchApiDetails(url, path, id) {
-          let res = await fetch(`${url}/${path}/${id}`);
-          res.json().then((data) => loadProductsDetail(data));
-        }
-
-        fetchApiDetails(API_URL, "products", id);
-        function loadProductsDetail(data) {
-          itemPath.textContent = data.title;
-          detail.innerHTML = `
-             <div class="detail__img">
-                  <div class="detail__imgs--container">
-                  </div>
-                  <img src=${data.images[0]} alt="">
-              </div>
-              <div class="detail__info">
-                  <h3 class="detail-info--name">${data.title}</h3>
-                  <div class="detail-info--rating flex-center">
-                    <div class="stars">
-                       <i class="${rating(1, data)}"></i>
-                        <i class="${rating(2, data)}"></i>
-                        <i class="${rating(3, data)}"></i>
-                        <i class="${rating(4, data)}"></i>
-                        <i class="${rating(5, data)}"></i>
+          fetchApiDetails(API_URL, "products", id);
+          function loadProductsDetail(data) {
+            itemPath.textContent = data.title;
+            detail.innerHTML = `
+               <div class="detail__img">
+                    <div class="detail__imgs--container">
                     </div>
-                    <div class="detail-info--rating-end flex-center">
-                      <p class="reviews">(${Math.round(
-                        Math.random() * 1000
-                      )}) reviews</p>
-                      | <p class="stock">In Stock</p>
+                    <img src=${data.images[0]} alt="">
+                </div>
+                <div class="detail__info">
+                    <h3 class="detail-info--name">${data.title}</h3>
+                    <div class="detail-info--rating flex-center">
+                      <div class="stars">
+                         <i class="${rating(1, data)}"></i>
+                          <i class="${rating(2, data)}"></i>
+                          <i class="${rating(3, data)}"></i>
+                          <i class="${rating(4, data)}"></i>
+                          <i class="${rating(5, data)}"></i>
+                      </div>
+                      <div class="detail-info--rating-end flex-center">
+                        <p class="reviews">(${Math.round(
+                          Math.random() * 1000
+                        )}) reviews</p>
+                        | <p class="stock">In Stock</p>
+                      </div>
                     </div>
-                  </div>
-                  <h4 class="price">$${data.price}</h4>
-                  <p class="description">${data.description}</p>
-                  <hr/>
-              </div>
-          `;
+                    <h4 class="price">$${data.price}</h4>
+                    <p class="description">${data.description}</p>
+                    <hr/>
+                </div>
+            `;
+          }
+        } else if (e.classList.contains("heart")) {
+          if (!e.classList.contains("active")) {
+            favourites.push(item.id);
+          } else {
+            let remove = favourites.splice(
+              favourites.findIndex((element) => element == item.id),
+              1
+            );
+            favourites.filter((element) => element != remove);
+          }
+          e.classList.toggle("active");
+          favouriteCounter.textContent = favourites.length;
         }
+        localStorage.setItem("favourites", JSON.stringify(favourites));
       });
     });
   }

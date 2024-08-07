@@ -55,11 +55,13 @@
             <img src="./images/home/header/search.png" alt="img of search icon" />
           </form>
           <div class="header__end--items">
-            <a href="#" class="flex-center">
+            <a href="#" class="flex-center heart-icon">
               <img src="./images/home/header/heart.png" alt="img of heart icon" />
+              <p class="favourite-counter invi">0</p>
             </a>
-            <a href="#" class="flex-center">
+            <a href="#" class="flex-center cart-icon">
               <img src="./images/home/header/shopping.png" alt="img of shopping icon" />
+              <p class="cart-counter invi">0</p>
             </a>
           </div>
           <i class="fa-regular fa-user hidden"></i>
@@ -72,7 +74,6 @@
     </section>
     <section class="search-wrapper">
       <i class="fa-solid fa-angle-up search__close"></i>
-
       <div class="loaders container search-loaders">
         <div class="loaders__loader">
           <div class="top skeleton"></div>
@@ -186,7 +187,7 @@
               Login
             </button>
           </form>
-          <h4>Create an account? <a href="#" id="signUpBtn">Sign Up</a></h4>
+          <!-- <h4>Create an account? <a href="#" id="signUpBtn">Sign Up</a></h4> -->
         </div>
       </div>
     </section>
@@ -345,7 +346,9 @@
             </div>
           </div>
         </div>
-        <div class="products__container"></div>
+        <div class="products__container">
+
+        </div>
         <button class="load-all">See All Products</button>
         <button class="load-less hidden">See Less Products</button>
       </section>
@@ -395,6 +398,12 @@
         </div>
       </section>
     </div>
+
+    <!-- Favourites -->
+    <div class="favourites container hidden">
+      <div class="favourites__container"></div>
+    </div>
+    <!--Footer -->
     <footer class="footer-wrapper">
       <div class="footer container flex-center">
 

@@ -96,6 +96,27 @@
     width: rem(24);
     height: rem(24);
   }
+  a.heart-icon,
+  a.cart-icon {
+    position: relative;
+
+    p {
+      position: absolute;
+      inset: rem(-6) rem(-5.1) auto auto;
+      width: rem(16);
+      height: rem(16);
+      margin: 0;
+      padding: 0.2rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      background-color: red;
+      line-height: 1;
+      transform: scale(0.55);
+    }
+  }
   h3 {
     margin: 0;
     font-size: rem(24);

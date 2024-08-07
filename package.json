@@ -1,8 +1,5 @@
 {
-  "devDependencies": {
-    "tailwindcss": "^3.4.7"
-  },
   "dependencies": {
-    "@glidejs/glide": "^3.6.2"
+    "axios": "^1.7.3"
   }
 }
