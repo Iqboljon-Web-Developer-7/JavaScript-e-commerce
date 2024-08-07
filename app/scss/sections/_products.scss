@@ -135,13 +135,13 @@
         }
       }
     }
-    @media (max-width: rem(1010)) {
+    @media (max-width: rem(1054)) {
       grid-template-columns: repeat(3, 3fr);
     }
-    @media (max-width: rem(760)) {
+    @media (max-width: rem(784)) {
       grid-template-columns: repeat(2, 2fr);
     }
-    @media (max-width: rem(500)) {
+    @media (max-width: rem(520)) {
       grid-template-columns: 1fr;
     }
   }

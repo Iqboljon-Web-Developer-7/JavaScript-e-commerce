@@ -2,6 +2,7 @@
 @use "../util" as *;
 @use "../global/colors" as *;
 .favourites {
+  padding-block: 2rem;
   &__header {
     justify-content: space-between;
     h4 {

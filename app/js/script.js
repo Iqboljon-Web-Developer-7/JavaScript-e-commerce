@@ -1,3 +1,11 @@
+import footer from "./footer.js";
+import timer from "./timer.js";
+import search from "./search.js";
+import categories from "./categories.js";
+import rating from "./rating.js";
+import pagesChanging from "./pagesChanging.js";
+import favouriteCounterFun from "./favouriteCounter.js";
+
 // API Fetcher Function
 const API_URL = "https://dummyjson.com";
 
@@ -12,12 +20,6 @@ async function fetchApi(url, path, start, limit, param = "", destination) {
   result.json().then((res) => loadProducts(res, destination));
 }
 
-// How many stars does the product has ?
-function rating(num, randomData) {
-  let sNum = randomData.rating;
-  return num < sNum ? "fa-solid fa-star active" : "fa-solid fa-star";
-}
-
 // Home and Product changing
 const details = document.querySelector(".details"),
   home = document.querySelector(".home"),
@@ -26,33 +28,6 @@ const details = document.querySelector(".details"),
 const headerNav = document.querySelector(".header__nav"),
   headerLinks = document.querySelectorAll(".header__nav a"),
   headerMobileNav = document.querySelector(".mobile-header__nav");
-
-headerLinks.forEach((link, idx) => {
-  link.addEventListener("click", () => {
-    headerLinks[idx].classList.add("active");
-    headerLinks.forEach((link2, idx2) => {
-      if (idx != idx2) {
-        headerLinks[idx2].classList.remove("active");
-      }
-    });
-  });
-});
-headerNav.addEventListener("click", (e) => changePages(e));
-headerMobileNav.addEventListener("click", (e) => changePages(e));
-function changePages(e) {
-  e = e.target;
-  if (e.textContent == "Home") {
-    details.classList.add("hidden");
-    home.classList.remove("hidden");
-    register.classList.add("hidden");
-  } else if (e.textContent == "Sign Up") {
-    home.classList.add("hidden");
-    details.classList.add("hidden");
-    register.classList.remove("hidden");
-  }
-}
-
-// Home and Product changing - - - |
 
 // Register forms
 const signUp = document.querySelector(".sign-up"),
@@ -69,11 +44,7 @@ signIn.classList.remove("hidden");
 
 let isLoggedIn = false;
 let userData = JSON.parse(localStorage.getItem("userdata")) || [];
-if (userData.length != 0) {
-  console.log(userData);
-
-  userIcon.classList.remove("hidden");
-}
+userData.length != 0 ? userIcon.classList.remove("hidden") : null;
 
 userIcon.addEventListener("click", () => {
   let userData = JSON.parse(localStorage.getItem("userdata")) || [];
@@ -99,13 +70,6 @@ userInfos.addEventListener("click", (e) => {
     userIcon.classList.add("hidden");
   }
 });
-
-// signInBtn.addEventListener("click", formHandler);
-// signUpBtn.addEventListener("click", formHandler);
-// function formHandler() {
-//   signUp.classList.toggle("hidden");
-//   signIn.classList.toggle("hidden");
-// }
 
 signInForm.addEventListener("submit", formDataHandler);
 function formDataHandler(e) {
@@ -212,21 +176,6 @@ function toggleMobileHeader() {
 }
 // Mobile Header - - - |
 
-// Carousel
-const carouselWrapper = document.querySelector(".carousel-wrapper"),
-  carousel = document.querySelector(".carousel"),
-  carouselItems = document.querySelectorAll(".carousel__item");
-
-carouselItems.forEach(
-  (item) =>
-    (item.style.width =
-      carousel.clientWidth -
-      parseInt(window.getComputedStyle(carouselItems[0]).paddingInline) * 2 +
-      "px")
-);
-
-// Carousel END - - - |
-
 // Products
 
 const productsContainer = document.querySelector(".products__container"),
@@ -306,10 +255,6 @@ favouritesIcon.addEventListener("click", () => {
 
   // fetchAllFavourites(favourites);
 });
-if (favourites.length != 0) {
-  favouriteCounter.classList.remove("invi");
-  favouriteCounter.textContent = favourites.length;
-}
 
 // Load products
 function loadProducts(data, destination, content) {
@@ -449,6 +394,12 @@ function loadProducts(data, destination, content) {
           }
           e.classList.toggle("active");
           favouriteCounter.textContent = favourites.length;
+          if (favourites.length == 0) {
+            favouriteCounter.classList.add("invi");
+            favouriteCounter.text = 0;
+          } else {
+            favouriteCounter.classList.remove("invi");
+          }
         }
         localStorage.setItem("favourites", JSON.stringify(favourites));
       });
@@ -457,131 +408,9 @@ function loadProducts(data, destination, content) {
 }
 // Products END - - - |
 
-// Categories
-const categories = document.querySelectorAll(".category");
-categories.forEach((item) => {
-  item.addEventListener("click", () => {
-    path = `products/category/${item.getAttribute("data-category")}`;
-    fetchApi(
-      API_URL,
-      `products/category/${item.getAttribute("data-category")}`,
-      0,
-      8,
-      "",
-      ".products__container"
-    );
-  });
-});
-// Categories - - - |
-
-// Search Products
-const searchWrapper = document.querySelector(".search-wrapper"),
-  desktopInput = document.querySelector("#search-desktop"),
-  mobileInput = document.querySelector("#mobile-input"),
-  searchLoaders = document.querySelector(".search-loaders"),
-  search = document.querySelector(".search");
-
-mobileInput.addEventListener("focus", (e) => showSearching(e));
-desktopInput.addEventListener("focus", showSearching);
-function showSearching(e) {
-  if (e.target.name == "mobile-search") {
-    mobileNav.classList.add("hidden");
-    mobileHeader.classList.add("searcher");
-  }
-  searchWrapper.classList.add("active");
-  header.classList.add("top");
-}
-
-desktopInput.addEventListener("input", (e) => showResult(e));
-mobileInput.addEventListener("input", (e) => showResult(e));
-function showResult(e) {
-  let val = e.target.value;
-  searchLoaders.classList.add("active");
-  search.innerHTML = "";
-  setTimeout(() => {
-    if (val) {
-      fetchApi(API_URL, "products/search", 0, 30, `&q=${val}`, ".search");
-    } else {
-      search.innerHTML = "<h1>What do you want ?</h1>";
-    }
-    searchLoaders.classList.remove("active");
-  }, 800);
-}
-
-searchWrapper.addEventListener("click", (e) => {
-  e = e.target;
-  if (
-    e.classList.contains("search-wrapper") ||
-    e.classList.contains("search__close")
-  ) {
-    searchWrapper.classList.remove("active");
-    desktopInput.value = "";
-    search.innerHTML = "<h1>What do you want ?</h1>";
-  }
-});
-
-// Search Products - - - |
-
-// Timer
-function startCountdown(duration) {
-  const daysElement = document.getElementById("days"),
-    hoursElement = document.getElementById("hours"),
-    minutesElement = document.getElementById("minutes"),
-    secondsElement = document.getElementById("seconds");
-
-  let endTime = Date.now() + duration * 1000;
-
-  function updateTimer() {
-    let timeLeft = endTime - Date.now();
-    if (timeLeft <= 0) {
-      daysElement.textContent = "00";
-      hoursElement.textContent = "00";
-      minutesElement.textContent = "00";
-      secondsElement.textContent = "00";
-      clearInterval(timerInterval);
-      return;
-    }
-
-    let days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-    let hours = Math.floor(
-      (timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-    );
-    let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-    let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-    days = String(days).padStart(2, "0");
-    hours = String(hours).padStart(2, "0");
-    minutes = String(minutes).padStart(2, "0");
-    seconds = String(seconds).padStart(2, "0");
-
-    daysElement.innerHTML = days;
-    hoursElement.innerHTML = hours;
-    minutesElement.innerHTML = minutes;
-    secondsElement.innerHTML = seconds;
-  }
-
-  updateTimer();
-  const timerInterval = setInterval(updateTimer, 1000);
-}
-
-// Start a countdown of 1 day (86400 seconds)
-startCountdown(440000);
-
-// Timer - - - |
-
-// Footer
-const footerItems = document.querySelectorAll(".footer__item"),
-  downIcons = document.querySelectorAll(".down-icon");
-
-downIcons.forEach((item, idx) => {
-  item.addEventListener("click", (e) => {
-    if (downIcons[idx].classList.contains("active")) {
-      footerItems[idx].style.height = 2.25 + "rem";
-    } else {
-      footerItems[idx].style.height = footerItems[idx].scrollHeight + "px";
-    }
-    downIcons[idx].classList.toggle("active");
-    footerItems[idx].classList.toggle("active");
-  });
-});
-// Footer END - - - |
+favouriteCounterFun(favourites, favouriteCounter);
+pagesChanging(headerLinks, headerNav, headerMobileNav, details, home, register);
+categories(API_URL, fetchApi, path);
+search(API_URL, fetchApi, header);
+timer();
+footer();

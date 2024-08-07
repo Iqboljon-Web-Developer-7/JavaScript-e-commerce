@@ -33,6 +33,14 @@
     gap: rem(30);
     overflow-x: auto;
     scroll-snap-type: x mandatory;
+    &::-webkit-scrollbar {
+      height: 0.1rem;
+      background-color: rgba(128, 128, 128, 0.2);
+    }
+    &::-webkit-scrollbar-thumb {
+      background: black;
+    }
+
     img {
       max-width: rem(56);
     }

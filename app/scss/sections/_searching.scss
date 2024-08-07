@@ -30,12 +30,12 @@
     position: absolute;
     inset: 5% 2% auto auto;
     font-size: rem(22);
-    text-shadow: 0 0 0.4rem rgb(168, 245, 12);
+    color: #ffffff;
+    text-shadow: 0 0 0.2rem rgb(0, 0, 0);
     cursor: pointer;
     z-index: 1;
     background-color: color.adjust($text-white, $alpha: -0.8);
     border-radius: 50%;
-    color: #fed9b7;
     transition: all 200ms linear;
     &:hover {
       background-color: color.adjust($text-white, $alpha: -0.9);
@@ -48,9 +48,11 @@
     display: grid;
     grid-template-columns: repeat(4, 4fr);
     gap: 1vw;
-    overflow: scroll;
+    overflow: auto;
     background-color: $text-white;
-    box-shadow: #939393 0px 24px 100px 0px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 1px 2px, rgba(0, 0, 0, 0.4) 0px 2px 4px,
+      rgba(0, 0, 0, 0.4) 0px 4px 8px, rgba(0, 0, 0, 0.4) 0px 8px 16px,
+      rgba(0, 0, 0, 0.4) 0px 16px 32px, rgba(0, 0, 0, 0.4) 0px 32px 64px;
     @media (max-width: rem(1120)) {
       grid-template-columns: repeat(3, 3fr);
     }
@@ -61,8 +63,8 @@
       grid-template-columns: 1fr;
     }
     h1 {
-      color: #f77f00;
-      text-shadow: 0 0.1rem 0.1rem rgb(172, 172, 172);
+      color: #023e8a;
+      text-shadow: 0 0.1rem 0.1rem rgb(172, 172, 172, 0.7);
     }
     .product {
       border-radius: rem(5);
@@ -84,7 +86,7 @@
           position: absolute;
           inset: 5% 5% auto auto;
           gap: rem(8);
-          svg {
+          img {
             padding: 0.4rem;
             background-color: $white;
             border-radius: 50%;
@@ -95,6 +97,10 @@
               background-color: color.adjust($orange, $alpha: -0.9);
               filter: drop-shadow(0 0 0.4rem white);
               color: $orange;
+            }
+            &.active {
+              filter: invert(1);
+              background-color: #00f3e5;
             }
           }
         }

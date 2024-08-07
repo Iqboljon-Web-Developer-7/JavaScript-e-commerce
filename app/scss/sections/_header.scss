@@ -32,6 +32,15 @@
       opacity: 1;
     }
   }
+  img,
+  i {
+    cursor: pointer;
+    transition: all 200ms ease;
+    &:hover {
+      filter: contrast(110%);
+      filter: drop-shadow(0 0 rem(6) color.adjust($primary, $alpha: -0.7));
+    }
+  }
   .user {
     min-width: rem(140);
     * {
@@ -134,6 +143,7 @@
       }
     }
   }
+
   &__end {
     gap: 1.5rem;
 
@@ -151,14 +161,6 @@
         outline: none;
         &::placeholder {
           color: color.adjust($primary, $alpha: -0.5);
-        }
-      }
-      img {
-        cursor: pointer;
-        transition: all 200ms ease;
-        &:hover {
-          filter: contrast(110%);
-          filter: drop-shadow(0 0 rem(6) color.adjust($primary, $alpha: -0.75));
         }
       }
     }
@@ -180,7 +182,7 @@
       display: block;
     }
   }
-  @media (max-width: rem(520)) {
+  @media (max-width: rem(620)) {
     form {
       display: none;
     }

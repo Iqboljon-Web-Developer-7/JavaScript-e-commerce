@@ -28,6 +28,7 @@
     max-width: rem(40);
   }
   &__item {
+    width: -webkit-fill-available;
     scroll-snap-align: center;
     padding: rem(58) rem(64);
     background-color: $primary;
