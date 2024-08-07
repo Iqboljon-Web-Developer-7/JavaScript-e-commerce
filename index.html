@@ -27,6 +27,7 @@
 
 <body>
   <main id="main">
+    <!-- Sup header -->
     <header class="sup-header-wrapper">
       <div class="sup-header container flex-center">
         <p class="sup-header__info">
@@ -40,6 +41,9 @@
         </select>
       </div>
     </header>
+    <!-- Sup header end -->
+
+    <!-- Header -->
     <section class="header-wrapper">
       <header class="header container flex-center">
         <h3 class="header__logo"><a href="#">Exclusive</a></h3>
@@ -72,6 +76,9 @@
         </div>
       </header>
     </section>
+    <!-- Header end -->
+
+    <!-- Searching -->
     <section class="search-wrapper">
       <i class="fa-solid fa-angle-up search__close"></i>
       <div class="loaders container search-loaders">
@@ -137,6 +144,9 @@
       </div>
 
     </section>
+    <!-- Searching end -->
+
+    <!-- Mobile header -->
     <header class="mobile-header flex-center">
       <i class="fa-solid fa-x close-icon"></i>
       <nav class="mobile-header__nav flex-center">
@@ -152,6 +162,8 @@
         </form>
       </form>
     </header>
+    <!-- Mobile header end-->
+
     <!-- Details -->
     <div class="details hidden">
       <div class="item-path container">
@@ -161,6 +173,7 @@
       </section>
     </div>
     <!-- Details end -->
+
     <!-- SignIN -->
     <section class="register flex-center hidden">
       <div class="register__img">
@@ -192,6 +205,8 @@
       </div>
     </section>
     <!-- SignIN end -->
+
+    <!-- Home -->
     <div class="home">
       <section class="carousel-wrapper container">
         <div class="carousel container flex-center">
@@ -398,11 +413,20 @@
         </div>
       </section>
     </div>
+    <!-- Home end -->
 
     <!-- Favourites -->
     <div class="favourites container hidden">
-      <div class="favourites__container"></div>
+      <div class="favourites__header flex-center">
+        <h4>Wishlist (<span>1</span>)</h4>
+        <button>Move All To Bag</button>
+      </div>
+      <div class="favourites__container flex-center">
+
+      </div>
     </div>
+    <!-- Favourites end -->
+
     <!--Footer -->
     <footer class="footer-wrapper">
       <div class="footer container flex-center">
@@ -469,7 +493,7 @@
         </div>
       </div>
     </footer>
-
+    <!-- Footer end -->
   </main>
   <script src="./app/js/script.js"></script>
 </body>

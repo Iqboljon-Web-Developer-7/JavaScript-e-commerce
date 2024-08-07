@@ -289,21 +289,22 @@ let favourites = JSON.parse(localStorage.getItem("favourites")) || [],
   favouritesPage = document.querySelector(".favourites"),
   favouritesContainer = document.querySelector(".favourites__container");
 
-console.log(favourites);
+async function fetchAllFavourites(list) {
+  const fetchedDatas = await list.map((item) =>
+    fetch(`https://dummyjson.com/products/${item}`).then((data) => data.json())
+  );
+
+  const response = await Promise.all(fetchedDatas);
+
+  loadProducts(response, ".favourites__container");
+}
 
 favouritesIcon.addEventListener("click", () => {
   favouritesPage.classList.remove("hidden");
   home.classList.add("hidden");
-  for (let i = 0; i < favourites.length; i++) {
-    fetchApi(
-      API_URL,
-      `products/${favourites[i]}`,
-      0,
-      4,
-      "",
-      ".favourites__container"
-    );
-  }
+  fetchAllFavourites(favourites);
+
+  // fetchAllFavourites(favourites);
 });
 if (favourites.length != 0) {
   favouriteCounter.classList.remove("invi");
@@ -322,7 +323,7 @@ function loadProducts(data, destination, content) {
   productsLoaders.style.display = "none";
 
   // get only products array
-  data = data.products;
+  data = data.products || data;
 
   // data is empty or end of data(products)
   if (data.length == 0) {
