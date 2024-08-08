@@ -1,4 +1,12 @@
-function search(API_URL, fetchApi, header, mobileNav, mobileHeader) {
+import {
+  API_URL,
+  fetchApi,
+  header,
+  mobileNav,
+  mobileHeader,
+} from "./script.js";
+
+function search() {
   // Search Products
   let mobileInput = document.querySelector("#mobile-input");
   let desktopInput = document.querySelector("#search-desktop");

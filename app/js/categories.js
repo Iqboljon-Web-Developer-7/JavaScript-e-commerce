@@ -1,9 +1,11 @@
-function categories(API_URL, fetchApi, path) {
+import { API_URL, fetchApi } from "./script.js";
+
+function categories(updatePath) {
   // Categories
   const categories = document.querySelectorAll(".category");
   categories.forEach((item) => {
     item.addEventListener("click", () => {
-      path = `products/category/${item.getAttribute("data-category")}`;
+      updatePath(`products/category/${item.getAttribute("data-category")}`);
       fetchApi(
         API_URL,
         `products/category/${item.getAttribute("data-category")}`,

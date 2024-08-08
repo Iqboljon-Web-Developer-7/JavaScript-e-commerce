@@ -1,4 +1,6 @@
-function headerFun(header, headerWrapper) {
+import { header, headerWrapper } from "./script.js";
+
+function headerFun() {
   // Header
 
   window.addEventListener("scroll", (e) => {

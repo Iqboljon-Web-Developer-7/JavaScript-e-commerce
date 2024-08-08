@@ -18,6 +18,9 @@ const API_URL = "https://dummyjson.com";
 
 // API_PATH
 let path = "products";
+function updatePath(value) {
+  path = value;
+}
 
 // Mobile Input
 let mobileInput = document.querySelector("#mobile-input");
@@ -71,16 +74,31 @@ leftBtn.addEventListener("click", () => changeProducts("left"));
 // First load of products
 fetchApi(API_URL, "products", 0, 8, "", ".products__container");
 
-productsNavFun(loadMoreBtn, loadLessBtn, fetchApi, API_URL, path);
-favouritesFun(favouritesIcon, favouritesPage, home, favourites);
-headerFun(header, headerWrapper);
-supHeaderFun(header);
-registerFun(register, home, headerLinks);
+productsNavFun();
+favouritesFun(favouritesIcon, favouritesPage, favourites);
+headerFun();
+supHeaderFun();
+registerFun(headerLinks);
 favouriteCounterFun(favourites, favouriteCounter);
-pagesChanging(headerLinks, headerNav, headerMobileNav, details, home, register);
-categories(API_URL, fetchApi, path);
-search(API_URL, fetchApi, header, mobileNav, mobileHeader);
+pagesChanging(headerLinks, headerNav, headerMobileNav);
+categories(updatePath);
+search();
 timer();
 footer();
 
-export { API_URL, fetchApi, path, leftBtn };
+// i tried to export less elements so it's good for performance
+export {
+  API_URL,
+  fetchApi,
+  path,
+  leftBtn,
+  loadLessBtn,
+  loadMoreBtn,
+  header,
+  headerWrapper,
+  mobileNav,
+  mobileHeader,
+  home,
+  details,
+  register,
+};

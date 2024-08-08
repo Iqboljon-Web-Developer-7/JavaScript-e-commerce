@@ -1,10 +1,9 @@
-function registerFun(register, home, headerLinks) {
+import { register, home } from "./script.js";
+
+function registerFun(headerLinks) {
   // Register forms
   const signUp = document.querySelector(".sign-up"),
     signIn = document.querySelector(".sign-in"),
-    signInBtn = document.querySelector("#loginBtn"),
-    signUpBtn = document.querySelector("#signUpBtn"),
-    signUpForm = document.querySelector("#signUpForm"),
     signInForm = document.querySelector("#signInForm"),
     userIcon = document.querySelector(".fa-user"),
     userInfos = document.querySelector(".user");
@@ -12,7 +11,6 @@ function registerFun(register, home, headerLinks) {
   signUp.classList.add("hidden");
   signIn.classList.remove("hidden");
 
-  let isLoggedIn = false;
   let userData = JSON.parse(localStorage.getItem("userdata")) || [];
   userData.length != 0 ? userIcon.classList.remove("hidden") : null;
 

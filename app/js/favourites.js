@@ -1,6 +1,7 @@
 import loadProducts from "./products.js";
+import { home } from "./script.js";
 
-function favouritesFun(favouritesIcon, favouritesPage, home, favourites) {
+function favouritesFun(favouritesIcon, favouritesPage, favourites) {
   async function fetchAllFavourites(list) {
     const fetchedDatas = await list.map((item) =>
       fetch(`https://dummyjson.com/products/${item}`).then((data) =>

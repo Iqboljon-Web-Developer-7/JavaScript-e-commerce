@@ -1,4 +1,6 @@
-function supHeaderFun(header) {
+import { header } from "./script.js";
+
+function supHeaderFun() {
   // Sup Header - Header
   const supHeader = document.querySelector(".sup-header-wrapper");
   setTimeout(() => {

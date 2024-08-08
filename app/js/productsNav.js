@@ -1,4 +1,7 @@
-function productsNavFun(loadMoreBtn, loadLessBtn, fetchApi, API_URL, path) {
+import { loadLessBtn, loadMoreBtn, API_URL, path } from "./script.js";
+import fetchApi from "./fetchApi.js";
+
+function productsNavFun() {
   // Load more or less
   let allContent = false;
   localStorage.setItem("allContent", JSON.stringify(allContent));

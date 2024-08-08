@@ -1,11 +1,6 @@
-function pagesChanging(
-  headerLinks,
-  headerNav,
-  headerMobileNav,
-  details,
-  home,
-  register
-) {
+import { home, details, register } from "./script.js";
+
+function pagesChanging(headerLinks, headerNav, headerMobileNav) {
   // Pages changing
 
   headerLinks.forEach((link, idx) => {
