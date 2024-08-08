@@ -53,6 +53,7 @@ closeIcon.addEventListener("click", () =>
 // Favourites page
 let favourites = JSON.parse(localStorage.getItem("favourites")) || [],
   favouriteCounter = document.querySelector(".favourite-counter"),
+  favouritesPageCounter = document.querySelector(".favourites__header--count"),
   favouritesIcon = document.querySelector(".heart-icon"),
   favouritesPage = document.querySelector(".favourites");
 
@@ -92,6 +93,7 @@ export {
   fetchApi,
   path,
   leftBtn,
+  rightBtn,
   loadLessBtn,
   loadMoreBtn,
   header,
@@ -101,4 +103,5 @@ export {
   home,
   details,
   register,
+  favouritesPageCounter,
 };

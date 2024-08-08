@@ -1,16 +1,19 @@
 // Load products
 import rating from "./rating.js";
-import { API_URL } from "./script.js";
+import {
+  API_URL,
+  favouritesPageCounter,
+  loadMoreBtn,
+  rightBtn,
+  mobileHeader,
+  mobileNav,
+  home,
+  details,
+} from "./script.js";
 
 const loadProducts = (data, destination) => {
   let allContent = JSON.parse(localStorage.getItem("allContent"));
-  const loadMoreBtn = document.querySelector(".load-all"),
-    productsLoaders = document.querySelector(".products-loaders"),
-    rightBtn = document.querySelector(".products__controls--right"),
-    mobileHeader = document.querySelector(".mobile-header"),
-    mobileNav = document.querySelector(".mobile-header__nav"),
-    home = document.querySelector(".home"),
-    details = document.querySelector(".details"),
+  const productsLoaders = document.querySelector(".products-loaders"),
     searchWrapper = document.querySelector(".search-wrapper");
 
   let favourites = JSON.parse(localStorage.getItem("favourites")) || [],
@@ -84,6 +87,8 @@ const loadProducts = (data, destination) => {
       container.append(product);
 
       product.addEventListener("click", (e) => {
+        window.scrollTo(0, 0);
+
         e = e.target;
         if (e.classList.contains("product__img")) {
           // on mobile searching it removes mobile header and results
@@ -153,11 +158,14 @@ const loadProducts = (data, destination) => {
           }
           e.classList.toggle("active");
           favouriteCounter.textContent = favourites.length;
+          favouritesPageCounter.textContent = favourites.length;
           if (favourites.length == 0) {
             favouriteCounter.classList.add("invi");
-            favouriteCounter.text = 0;
+            favouriteCounter.textContent = 0;
+            favouritesPageCounter.textContent = 0;
           } else {
             favouriteCounter.classList.remove("invi");
+            favouritesPageCounter.classList.remove("invi");
           }
         }
         localStorage.setItem("favourites", JSON.stringify(favourites));

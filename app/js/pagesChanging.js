@@ -6,11 +6,16 @@ function pagesChanging(headerLinks, headerNav, headerMobileNav) {
   headerLinks.forEach((link, idx) => {
     link.addEventListener("click", () => {
       headerLinks[idx].classList.add("active");
+
       headerLinks.forEach((link2, idx2) => {
         if (idx != idx2) {
           headerLinks[idx2].classList.remove("active");
         }
       });
+
+      setTimeout(() => {
+        window.scroll({ top: 0, left: 0 }); // Smooth scroll to the top-left corner
+      }, 100);
     });
   });
   headerNav.addEventListener("click", (e) => changePages(e));
