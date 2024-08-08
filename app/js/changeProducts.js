@@ -1,6 +1,9 @@
+import fetchApi from "./fetchApi.js";
+import { API_URL, path, leftBtn } from "./script.js";
+
 let limit = 0;
 
-function changeProducts(direction, fetchApi, API_URL, path, leftBtn) {
+function changeProducts(direction) {
   if (direction === "right") {
     limit += 8;
     leftBtn.disabled = false;

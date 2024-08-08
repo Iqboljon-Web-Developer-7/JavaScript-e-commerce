@@ -1,4 +1,4 @@
-function search(API_URL, fetchApi, header) {
+function search(API_URL, fetchApi, header, mobileNav, mobileHeader) {
   // Search Products
   let mobileInput = document.querySelector("#mobile-input");
   let desktopInput = document.querySelector("#search-desktop");

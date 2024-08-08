@@ -1,19 +1,21 @@
 // Load products
 import rating from "./rating.js";
+import { API_URL } from "./script.js";
+
 const loadProducts = (data, destination) => {
   let allContent = JSON.parse(localStorage.getItem("allContent"));
-  const productsContainer = document.querySelector(".products__container"),
-    loadMoreBtn = document.querySelector(".load-all"),
-    loadLessBtn = document.querySelector(".load-less"),
+  const loadMoreBtn = document.querySelector(".load-all"),
     productsLoaders = document.querySelector(".products-loaders"),
-    leftBtn = document.querySelector(".products__controls--left"),
-    rightBtn = document.querySelector(".products__controls--right");
+    rightBtn = document.querySelector(".products__controls--right"),
+    mobileHeader = document.querySelector(".mobile-header"),
+    mobileNav = document.querySelector(".mobile-header__nav"),
+    home = document.querySelector(".home"),
+    details = document.querySelector(".details"),
+    searchWrapper = document.querySelector(".search-wrapper");
 
   let favourites = JSON.parse(localStorage.getItem("favourites")) || [],
-    favouriteCounter = document.querySelector(".favourite-counter"),
-    favouritesIcon = document.querySelector(".heart-icon"),
-    favouritesPage = document.querySelector(".favourites"),
-    favouritesContainer = document.querySelector(".favourites__container");
+    favouriteCounter = document.querySelector(".favourite-counter");
+
   // where products should be loaded ?
   let container = document.querySelector(destination);
 

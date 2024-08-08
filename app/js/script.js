@@ -66,13 +66,8 @@ const loadMoreBtn = document.querySelector(".load-all"),
 leftBtn.disabled = true;
 
 // Changing products
-rightBtn.addEventListener("click", () =>
-  changeProducts("right", fetchApi, API_URL, path, leftBtn)
-);
-leftBtn.addEventListener("click", () =>
-  changeProducts("left", fetchApi, API_URL, path, leftBtn)
-);
-
+rightBtn.addEventListener("click", () => changeProducts("right"));
+leftBtn.addEventListener("click", () => changeProducts("left"));
 // First load of products
 fetchApi(API_URL, "products", 0, 8, "", ".products__container");
 
@@ -84,6 +79,8 @@ registerFun(register, home, headerLinks);
 favouriteCounterFun(favourites, favouriteCounter);
 pagesChanging(headerLinks, headerNav, headerMobileNav, details, home, register);
 categories(API_URL, fetchApi, path);
-search(API_URL, fetchApi, header);
+search(API_URL, fetchApi, header, mobileNav, mobileHeader);
 timer();
 footer();
+
+export { API_URL, fetchApi, path, leftBtn };
