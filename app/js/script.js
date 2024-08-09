@@ -103,6 +103,8 @@ export {
   home,
   details,
   register,
+  favourites,
+  favouriteCounter,
   favouritesPage,
   favouritesPageCounter,
 };

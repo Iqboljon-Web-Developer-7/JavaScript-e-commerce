@@ -146,16 +146,22 @@ const loadProducts = (data, destination) => {
               `;
           }
         } else if (e.classList.contains("heart")) {
-          if (!e.classList.contains("active")) {
-            favourites.push(item.id);
+          if (JSON.parse(localStorage.getItem("isLogged"))) {
+            if (!e.classList.contains("active")) {
+              favourites.push(item.id);
+              e.classList.add("active");
+            } else {
+              let remove = favourites.splice(
+                favourites.findIndex((element) => element == item.id),
+                1
+              );
+              e.classList.remove("active");
+
+              favourites.filter((element) => element != remove);
+            }
           } else {
-            let remove = favourites.splice(
-              favourites.findIndex((element) => element == item.id),
-              1
-            );
-            favourites.filter((element) => element != remove);
+            alert("Please Login First");
           }
-          e.classList.toggle("active");
           favouriteCounter.textContent = favourites.length;
           favouritesPageCounter.textContent = favourites.length;
           if (favourites.length == 0) {

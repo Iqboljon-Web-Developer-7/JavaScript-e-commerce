@@ -1,4 +1,5 @@
-import { register, home } from "./script.js";
+import { register, home, favourites, favouriteCounter } from "./script.js";
+import favouriteCounterFun from "./favouriteCounter.js";
 
 function registerFun(headerLinks) {
   // Register forms
@@ -36,6 +37,14 @@ function registerFun(headerLinks) {
       localStorage.removeItem("userdata");
       userInfos.classList.remove("active");
       userIcon.classList.add("hidden");
+      localStorage.removeItem("favourites");
+      localStorage.removeItem("name");
+      localStorage.removeItem("isLogged");
+      favouriteCounterFun([], favouriteCounter);
+      let heartIcons = document.querySelectorAll(".heart");
+      heartIcons.forEach((heartIcon) => {
+        heartIcon.classList.remove("active");
+      });
     }
   });
 
@@ -74,22 +83,29 @@ function registerFun(headerLinks) {
 
       if (
         data.message == "Username and password required" ||
-        data.message == "Invalid credentials"
+        data.message == "Invalid credentials" ||
+        input1.value == JSON.parse(localStorage.getItem("name"))
       ) {
         input1.classList.add("error");
         input2.classList.add("error");
+        if (input1.value == JSON.parse(localStorage.getItem("name"))) {
+          button.innerHTML = "Already Logged In :)";
+        }
+        // localStorage.setItem("isLogged", JSON.parse(false));
       } else {
         localStorage.setItem("userdata", JSON.stringify(data));
         input1.classList.remove("error");
         input2.classList.remove("error");
+        button.innerHTML = "Logged In :)";
+        register.classList.add("hidden");
+        home.classList.remove("hidden");
+        userIcon.classList.remove("hidden");
+        headerLinks[0].classList.add("active");
+        headerLinks[3].classList.remove("active");
+        localStorage.setItem("name", JSON.stringify(name));
+        localStorage.setItem("isLogged", JSON.parse(true));
       }
 
-      button.innerHTML = "Logged In :)";
-      register.classList.add("hidden");
-      home.classList.remove("hidden");
-      userIcon.classList.remove("hidden");
-      headerLinks[0].classList.add("active");
-      headerLinks[3].classList.remove("active");
       setTimeout(() => {
         button.innerHTML = "Login";
       }, 1000);
