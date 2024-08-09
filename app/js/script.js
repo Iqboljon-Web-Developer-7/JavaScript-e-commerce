@@ -103,5 +103,6 @@ export {
   home,
   details,
   register,
+  favouritesPage,
   favouritesPageCounter,
 };

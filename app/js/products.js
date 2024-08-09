@@ -87,10 +87,9 @@ const loadProducts = (data, destination) => {
       container.append(product);
 
       product.addEventListener("click", (e) => {
-        window.scrollTo(0, 0);
-
         e = e.target;
         if (e.classList.contains("product__img")) {
+          window.scrollTo(0, 0);
           // on mobile searching it removes mobile header and results
           mobileHeader.classList.remove("searcher");
           mobileHeader.classList.remove("active");

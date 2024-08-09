@@ -1,5 +1,5 @@
 import loadProducts from "./products.js";
-import { home } from "./script.js";
+import { home, details, register } from "./script.js";
 
 function favouritesFun(favouritesIcon, favouritesPage, favourites) {
   async function fetchAllFavourites(list) {
@@ -17,6 +17,8 @@ function favouritesFun(favouritesIcon, favouritesPage, favourites) {
   favouritesIcon.addEventListener("click", () => {
     favouritesPage.classList.remove("hidden");
     home.classList.add("hidden");
+    register.classList.add("hidden");
+    details.classList.add("hidden");
     favourites = JSON.parse(localStorage.getItem("favourites")) || [];
     fetchAllFavourites(favourites);
   });
