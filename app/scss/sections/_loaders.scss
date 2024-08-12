@@ -3,7 +3,6 @@
 @use "../global/colors" as *;
 
 .loaders {
-  width: 100%;
   padding: rem(40) rem(10);
   display: grid;
   grid-template-columns: repeat(4, 4fr);

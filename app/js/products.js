@@ -11,13 +11,16 @@ import {
   details,
 } from "./script.js";
 
-const loadProducts = (data, destination) => {
+const loadProducts = (data, destination, isNav) => {
   let allContent = JSON.parse(localStorage.getItem("allContent"));
   const productsLoaders = document.querySelector(".products-loaders"),
-    searchWrapper = document.querySelector(".search-wrapper");
+    searchWrapper = document.querySelector(".search-wrapper"),
+    favouritesLoaders = document.querySelector(".favourites-loaders");
 
   let favourites = JSON.parse(localStorage.getItem("favourites")) || [],
-    favouriteCounter = document.querySelector(".favourite-counter");
+    favouriteCounter = document.querySelector(".favourite-counter"),
+    cartList = JSON.parse(localStorage.getItem("cartList")) || [],
+    cartCounter = document.querySelector(".cart-counter");
 
   // where products should be loaded ?
   let container = document.querySelector(destination);
@@ -59,15 +62,22 @@ const loadProducts = (data, destination) => {
       product.innerHTML = `
               <div class="product__main flex-center">
                 <img src=${item.images[0]} alt="img" class="product__img"/>
-                <div class="controls flex-center f-column">
-                  <img src="./images/home/products/heart.svg" alt="heart svg" class="heart ${
-                    favourites.includes(item.id) && "active"
-                  }">
-                  <img src="./images/home/products/cart.svg" alt="cart">
-                </div>
-                <button class="product__btn">Add To Cart</button>
+                ${
+                  isNav
+                    ? `<div class="controls flex-center f-column">
+                      <img src="./images/home/products/heart.svg" alt="heart svg" class="heart ${
+                        favourites.includes(item.id) && "active"
+                      }">
+                      <img src="./images/home/products/cart.svg" alt="cart">
+                     </div>`
+                    : `<img src="./images/home/products/delete-icon.svg" class="delete-product" alt="cart">`
+                }
+                ${
+                  cartList.includes(item.id)
+                    ? `<button class="product__btn active">Remove From Cart</button>`
+                    : `<button class="product__btn">Add To Cart</button>`
+                }
               </div>
-    
               <div class="product__info">
                 <h4 class="product__info--name">${item.title}</h4>
                 <div class="product__info--end flex-center">
@@ -162,17 +172,52 @@ const loadProducts = (data, destination) => {
           } else {
             alert("Please Login First");
           }
-          favouriteCounter.textContent = favourites.length;
-          favouritesPageCounter.textContent = favourites.length;
-          if (favourites.length == 0) {
-            favouriteCounter.classList.add("invi");
-            favouriteCounter.textContent = 0;
-            favouritesPageCounter.textContent = 0;
+        } else if (e.classList.contains("delete-product")) {
+          if (e.closest(".cartList__container")) {
+            cartList = cartList.filter((element) => element != item.id);
+            e.closest(".product").remove();
           } else {
-            favouriteCounter.classList.remove("invi");
-            favouritesPageCounter.classList.remove("invi");
+            favourites = favourites.filter((element) => element != item.id);
+            e.closest(".product").remove();
+          }
+        } else if (e.classList.contains("product__btn")) {
+          if (JSON.parse(localStorage.getItem("isLogged"))) {
+            if (!e.classList.contains("active")) {
+              cartList.push(item.id);
+              e.classList.add("active");
+              e.textContent = "Remove From Cart";
+            } else {
+              e.textContent = "Add To Cart";
+              let remove = cartList.splice(
+                cartList.findIndex((element) => element == item.id),
+                1
+              );
+              e.classList.remove("active");
+              cartList.filter((element) => element != remove);
+            }
+          } else {
+            alert("Please Login First");
           }
         }
+        favouriteCounter.textContent = favourites.length;
+        favouritesPageCounter.textContent = favourites.length;
+        cartCounter.textContent = cartList.length;
+
+        if (favourites.length == 0) {
+          favouriteCounter.classList.add("invi");
+          favouriteCounter.textContent = 0;
+          favouritesPageCounter.textContent = 0;
+        } else {
+          favouriteCounter.classList.remove("invi");
+          favouritesPageCounter.classList.remove("invi");
+        }
+        if (cartList.length == 0) {
+          cartCounter.classList.add("invi");
+          cartCounter.textContent = 0;
+        } else {
+          cartCounter.classList.remove("invi");
+        }
+        localStorage.setItem("cartList", JSON.stringify(cartList));
         localStorage.setItem("favourites", JSON.stringify(favourites));
       });
     });

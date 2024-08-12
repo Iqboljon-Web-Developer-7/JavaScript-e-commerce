@@ -1,4 +1,4 @@
-import { home, details, register, favouritesPage } from "./script.js";
+import { home, details, register, favouritesPage, cartPage } from "./script.js";
 
 function pagesChanging(headerLinks, headerNav, headerMobileNav) {
   // Pages changing
@@ -27,6 +27,7 @@ function pagesChanging(headerLinks, headerNav, headerMobileNav) {
       home.classList.remove("hidden");
       register.classList.add("hidden");
       favouritesPage.classList.add("hidden");
+      cartPage.classList.add("hidden");
     } else if (e.textContent == "Sign Up") {
       home.classList.add("hidden");
       details.classList.add("hidden");

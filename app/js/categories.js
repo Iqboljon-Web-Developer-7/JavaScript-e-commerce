@@ -12,7 +12,8 @@ function categories(updatePath) {
         0,
         8,
         "",
-        ".products__container"
+        ".products__container",
+        true
       );
     });
   });

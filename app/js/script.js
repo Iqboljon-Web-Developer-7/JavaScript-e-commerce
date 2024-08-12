@@ -12,6 +12,8 @@ import toggleMobileHeader from "./mobileHeader.js";
 import productsNavFun from "./productsNav.js";
 import changeProducts from "./changeProducts.js";
 import fetchApi from "./fetchApi.js";
+import cartListCounterFun from "./cartListCounter.js";
+import cartListFun from "./cartList.js";
 
 // API Fetcher Function
 const API_URL = "https://dummyjson.com";
@@ -28,7 +30,8 @@ let mobileInput = document.querySelector("#mobile-input");
 // Pages
 const details = document.querySelector(".details"),
   home = document.querySelector(".home"),
-  register = document.querySelector(".register");
+  register = document.querySelector(".register"),
+  cartPage = document.querySelector(".cart");
 
 // Header
 const headerWrapper = document.querySelector(".header-wrapper"),
@@ -57,6 +60,10 @@ let favourites = JSON.parse(localStorage.getItem("favourites")) || [],
   favouritesIcon = document.querySelector(".heart-icon"),
   favouritesPage = document.querySelector(".favourites");
 
+let cartList = JSON.parse(localStorage.getItem("cartList")) || [],
+  cartCounter = document.querySelector(".cart-counter"),
+  cartListIcon = document.querySelector(".cart-icon");
+
 // Products
 
 const loadMoreBtn = document.querySelector(".load-all"),
@@ -73,21 +80,22 @@ leftBtn.disabled = true;
 rightBtn.addEventListener("click", () => changeProducts("right"));
 leftBtn.addEventListener("click", () => changeProducts("left"));
 // First load of products
-fetchApi(API_URL, "products", 0, 8, "", ".products__container");
+fetchApi(API_URL, "products", 0, 8, "", ".products__container", true);
 
 productsNavFun();
 favouritesFun(favouritesIcon, favouritesPage, favourites);
+cartListFun(cartListIcon, cartList);
 headerFun();
 supHeaderFun();
 registerFun(headerLinks);
 favouriteCounterFun(favourites, favouriteCounter);
+cartListCounterFun(cartList, cartCounter);
 pagesChanging(headerLinks, headerNav, headerMobileNav);
 categories(updatePath);
 search();
 timer();
 footer();
 
-// i tried to export less elements so it's good for performance
 export {
   API_URL,
   fetchApi,
@@ -103,6 +111,7 @@ export {
   home,
   details,
   register,
+  cartPage,
   favourites,
   favouriteCounter,
   favouritesPage,

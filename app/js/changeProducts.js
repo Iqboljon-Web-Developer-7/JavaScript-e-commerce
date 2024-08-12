@@ -17,7 +17,7 @@ function changeProducts(direction) {
     limit = 0;
     leftBtn.disabled = true;
   } else {
-    fetchApi(API_URL, path, limit, 8, "", ".products__container");
+    fetchApi(API_URL, path, limit, 8, "", ".products__container", true);
   }
 }
 
