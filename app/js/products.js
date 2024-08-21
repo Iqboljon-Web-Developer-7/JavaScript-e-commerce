@@ -40,14 +40,15 @@ const loadProducts = (data, destination, isNav) => {
     container.textContent = "Nothig found :(";
   } else {
     // data has less than 8 products so
-    if (data.length < 8) {
-      rightBtn.disabled = true;
-      loadMoreBtn.classList.add("hidden");
-    } else {
-      loadMoreBtn.classList.remove("hidden");
-      rightBtn.disabled = false;
+    if (destination != ".search-wrapper") {
+      if (data.length < 8) {
+        rightBtn.disabled = true;
+        loadMoreBtn.classList.add("hidden");
+      } else {
+        loadMoreBtn.classList.remove("hidden");
+        rightBtn.disabled = false;
+      }
     }
-
     // do all content display ?
     if (allContent) {
       rightBtn.disabled = true;
@@ -183,7 +184,11 @@ const loadProducts = (data, destination, isNav) => {
         } else if (e.classList.contains("product__btn")) {
           if (JSON.parse(localStorage.getItem("isLogged"))) {
             if (!e.classList.contains("active")) {
-              cartList.push(item.id);
+              cartList.push({
+                id: item.id,
+                quantity: 1,
+                price: item.price,
+              });
               e.classList.add("active");
               e.textContent = "Remove From Cart";
             } else {

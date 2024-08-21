@@ -1,4 +1,5 @@
 async function fetchAllCart(list) {
+  let cartList = JSON.parse(localStorage.getItem("cartList"));
   setTimeout(() => {
     let incrementBtn = document.querySelectorAll(".increment");
     let decrementBtn = document.querySelectorAll(".decrement");
@@ -17,16 +18,28 @@ async function fetchAllCart(list) {
     function increment(idx) {
       setTimeout(() => {
         inputs[idx].value = parseInt(inputs[idx].value) + 1;
+        cartList[idx].quantity = parseInt(inputs[idx].value);
+        cartList[idx].price = (
+          cartList[idx].price * parseInt(inputs[idx].value)
+        ).toFixed(2);
+        localStorage.setItem("cartList", JSON.stringify(cartList));
       }, 100);
     }
 
     function decrement(idx) {
-      input[idx].value =
-        parseInt(input.value) > 1 ? parseInt(inputs[idx].value) - 1 : 1;
+      inputs[idx].value =
+        parseInt(inputs[idx].value) > 1 ? parseInt(inputs[idx].value) - 1 : 1;
+      cartList[idx].quantity = parseInt(inputs[idx].value);
+      cartList[idx].price = (
+        cartList[idx].price * parseInt(inputs[idx].value)
+      ).toFixed(2);
+      localStorage.setItem("cartList", JSON.stringify(cartList));
     }
-  }, 100);
+  }, 0);
 
-  let carContainer = document.querySelector(".cart__container");
+  let cartContainer = document.querySelector(".cart__container");
+  cartContainer.innerHTML = "";
+
   list.forEach((item) => {
     const cartItem = document.createElement("div");
     cartItem.className = "cartItem";
@@ -47,7 +60,7 @@ async function fetchAllCart(list) {
         $${item.price}
       </div>
       `;
-    carContainer.appendChild(cartItem);
+    cartContainer.appendChild(cartItem);
   });
 }
 

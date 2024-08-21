@@ -152,7 +152,6 @@ ol {
   inset: 6.25rem 0.625rem auto auto;
   padding: 0.625rem 0.5rem;
   background-color: #fff;
-  z-index: 2;
   border-radius: 0.2rem;
   box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
   opacity: 0;
@@ -164,6 +163,7 @@ ol {
   padding: 0;
 }
 .header .user.active {
+  z-index: 2;
   opacity: 1;
   transform: translateX(0rem);
 }
@@ -1216,6 +1216,21 @@ ol {
 .search-wrapper .search .product__main .controls img.active {
   filter: invert(1);
   background-color: #00f3e5;
+}
+.search-wrapper .search .product__main .delete-product {
+  width: 1.25rem;
+  height: 1.25rem;
+  padding: 0.5rem;
+  position: absolute;
+  inset: 6% 6% auto auto;
+  background-color: #fff;
+  border-radius: 50%;
+  overflow: visible;
+  transition: all 200ms linear;
+  cursor: pointer;
+}
+.search-wrapper .search .product__main .delete-product:hover {
+  filter: invert(1);
 }
 .search-wrapper .search .product__main:hover button {
   bottom: 0%;

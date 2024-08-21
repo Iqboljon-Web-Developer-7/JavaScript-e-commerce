@@ -1,4 +1,3 @@
-import loadProducts from "./products.js";
 import fetchAllCarts from "./cartFetchFun.js";
 import { home, details, register, cartPage, favouritesPage } from "./script.js";
 
@@ -7,14 +6,13 @@ function cartListFun(cartListIcon, cartList) {
 
   async function fetchAllCart(list) {
     const fetchedDatas = await list.map((item) =>
-      fetch(`https://dummyjson.com/products/${item}`).then((data) =>
+      fetch(`https://dummyjson.com/products/${item.id}`).then((data) =>
         data.json()
       )
     );
 
     const response = await Promise.all(fetchedDatas);
 
-    // loadProducts(response, ".cart__container", false);
     fetchAllCarts(response);
 
     cartLoaders.style.display = "none";

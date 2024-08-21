@@ -51,13 +51,13 @@
     inset: rem(100) rem(10) auto auto;
     padding: rem(10) rem(8);
     background-color: #fff;
-    z-index: 2;
     border-radius: 0.2rem;
     box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
     opacity: 0;
     transform: translateY(rem(-10));
     transition: all 100ms linear;
     &.active {
+      z-index: 2;
       opacity: 1;
       transform: translateX(rem(0));
     }

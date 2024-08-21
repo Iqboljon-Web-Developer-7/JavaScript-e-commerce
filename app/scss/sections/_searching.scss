@@ -104,6 +104,21 @@
             }
           }
         }
+        .delete-product {
+          width: rem(20);
+          height: rem(20);
+          padding: 0.5rem;
+          position: absolute;
+          inset: 6% 6% auto auto;
+          background-color: #fff;
+          border-radius: 50%;
+          overflow: visible;
+          transition: all 200ms linear;
+          cursor: pointer;
+          &:hover {
+            filter: invert(1);
+          }
+        }
         &:hover button {
           bottom: 0%;
         }

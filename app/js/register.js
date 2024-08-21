@@ -26,7 +26,6 @@ function registerFun(headerLinks) {
       </div>
     </div>
     <div class="user__nav flex-center f-column">
-     
       <button class="leave" name="logout">Log Out</button>
     </div>
 `;
@@ -34,12 +33,9 @@ function registerFun(headerLinks) {
   });
   userInfos.addEventListener("click", (e) => {
     if (e.target.name == "logout") {
-      localStorage.removeItem("userdata");
       userInfos.classList.remove("active");
       userIcon.classList.add("hidden");
-      localStorage.removeItem("favourites");
-      localStorage.removeItem("name");
-      localStorage.removeItem("isLogged");
+      localStorage.clear();
       favouriteCounterFun([], favouriteCounter);
       let heartIcons = document.querySelectorAll(".heart");
       heartIcons.forEach((heartIcon) => {
