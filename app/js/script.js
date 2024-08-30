@@ -116,4 +116,5 @@ export {
   favouriteCounter,
   favouritesPage,
   favouritesPageCounter,
+  cartCounter,
 };

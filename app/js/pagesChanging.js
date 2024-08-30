@@ -19,7 +19,10 @@ function pagesChanging(headerLinks, headerNav, headerMobileNav) {
     });
   });
   headerNav.addEventListener("click", (e) => changePages(e));
-  headerMobileNav.addEventListener("click", (e) => changePages(e));
+  headerMobileNav.addEventListener("click", (e) => {
+    headerMobileNav.parentElement.classList.remove("active");
+    changePages(e);
+  });
   function changePages(e) {
     e = e.target;
     if (e.textContent == "Home") {

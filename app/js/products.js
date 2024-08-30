@@ -11,6 +11,17 @@ import {
   details,
 } from "./script.js";
 
+function myPopup(title, src) {
+  new Popup({
+    id: "my-popup",
+    title,
+    content: ` 
+      <img src="${src}" class="popUpImg"/>
+    `,
+    showImmediately: true,
+  });
+}
+
 const loadProducts = (data, destination, isNav) => {
   let allContent = JSON.parse(localStorage.getItem("allContent"));
   const productsLoaders = document.querySelector(".products-loaders"),
@@ -62,14 +73,14 @@ const loadProducts = (data, destination, isNav) => {
       product.className = "product";
       product.innerHTML = `
               <div class="product__main flex-center">
-                <img src=${item.images[0]} alt="img" class="product__img"/>
+                <img src=${item.thumbnail} alt="img" class="product__img"/>
                 ${
                   isNav
                     ? `<div class="controls flex-center f-column">
                       <img src="./images/home/products/heart.svg" alt="heart svg" class="heart ${
                         favourites.includes(item.id) && "active"
                       }">
-                      <img src="./images/home/products/cart.svg" alt="cart">
+                      <img src="./images/home/products/cart.svg" class="seeProductImg" alt="cart">
                      </div>`
                     : `<img src="./images/home/products/delete-icon.svg" class="delete-product" alt="cart">`
                 }
@@ -171,16 +182,14 @@ const loadProducts = (data, destination, isNav) => {
               favourites.filter((element) => element != remove);
             }
           } else {
-            alert("Please Login First");
+            myPopup(
+              "Login to Save",
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF2LTxzjp2cMwur3el5C9GHxA-jZfB0VcXlw&s"
+            );
           }
         } else if (e.classList.contains("delete-product")) {
-          if (e.closest(".cartList__container")) {
-            cartList = cartList.filter((element) => element != item.id);
-            e.closest(".product").remove();
-          } else {
-            favourites = favourites.filter((element) => element != item.id);
-            e.closest(".product").remove();
-          }
+          favourites = favourites.filter((element) => element != item.id);
+          e.closest(".product").remove();
         } else if (e.classList.contains("product__btn")) {
           if (JSON.parse(localStorage.getItem("isLogged"))) {
             if (!e.classList.contains("active")) {
@@ -203,6 +212,8 @@ const loadProducts = (data, destination, isNav) => {
           } else {
             alert("Please Login First");
           }
+        } else if (e.classList.contains("seeProductImg")) {
+          myPopup(item.title, item.images[0]);
         }
         favouriteCounter.textContent = favourites.length;
         favouritesPageCounter.textContent = favourites.length;

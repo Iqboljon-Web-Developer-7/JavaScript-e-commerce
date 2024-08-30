@@ -1,9 +1,12 @@
 async function fetchAllCart(list) {
   let cartList = JSON.parse(localStorage.getItem("cartList"));
+  let initialPrices = [];
   setTimeout(() => {
     let incrementBtn = document.querySelectorAll(".increment");
     let decrementBtn = document.querySelectorAll(".decrement");
     let inputs = document.querySelectorAll(".cartItem__units--input");
+
+    cartList.forEach((item) => initialPrices.push(item.price));
 
     incrementBtn.forEach((item, idx) =>
       item.addEventListener("click", () => {
@@ -19,9 +22,7 @@ async function fetchAllCart(list) {
       setTimeout(() => {
         inputs[idx].value = parseInt(inputs[idx].value) + 1;
         cartList[idx].quantity = parseInt(inputs[idx].value);
-        cartList[idx].price = (
-          cartList[idx].price * parseInt(inputs[idx].value)
-        ).toFixed(2);
+        cartList[idx].price += initialPrices[idx];
         localStorage.setItem("cartList", JSON.stringify(cartList));
       }, 100);
     }
@@ -30,9 +31,7 @@ async function fetchAllCart(list) {
       inputs[idx].value =
         parseInt(inputs[idx].value) > 1 ? parseInt(inputs[idx].value) - 1 : 1;
       cartList[idx].quantity = parseInt(inputs[idx].value);
-      cartList[idx].price = (
-        cartList[idx].price * parseInt(inputs[idx].value)
-      ).toFixed(2);
+      cartList[idx].price -= initialPrices[idx];
       localStorage.setItem("cartList", JSON.stringify(cartList));
     }
   }, 0);

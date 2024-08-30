@@ -10,7 +10,7 @@ function productsNavFun() {
 
     localStorage.setItem("allContent", JSON.stringify(allContent));
 
-    fetchApi(API_URL, path, 0, 30, "", ".products__container");
+    fetchApi(API_URL, path, 0, 30, "", ".products__container", true);
     setTimeout(() => {
       loadLessBtn.classList.remove("hidden");
     }, 500);
@@ -19,7 +19,7 @@ function productsNavFun() {
     allContent = false;
     localStorage.setItem("allContent", JSON.stringify(allContent));
 
-    fetchApi(API_URL, path, 0, 8, "", ".products__container");
+    fetchApi(API_URL, path, 0, 8, "", ".products__container", true);
     setTimeout(() => {
       loadLessBtn.classList.add("hidden");
     }, 500);

@@ -1,3 +1,4 @@
+import loadProducts from "./products.js";
 import {
   API_URL,
   fetchApi,
@@ -46,6 +47,7 @@ function search() {
       e.classList.contains("search-wrapper") ||
       e.classList.contains("search__close")
     ) {
+      fetchApi(API_URL, "products", 0, 8, "", ".products__container", true);
       searchWrapper.classList.remove("active");
       desktopInput.value = "";
       search.innerHTML = "<h1>What do you want ?</h1>";

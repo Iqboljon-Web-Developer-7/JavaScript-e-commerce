@@ -1,5 +1,6 @@
-import { register, home, favourites, favouriteCounter } from "./script.js";
+import { register, home, favouriteCounter, cartCounter } from "./script.js";
 import favouriteCounterFun from "./favouriteCounter.js";
+import cartListCounterFun from "./cartListCounter.js";
 
 function registerFun(headerLinks) {
   // Register forms
@@ -37,6 +38,7 @@ function registerFun(headerLinks) {
       userIcon.classList.add("hidden");
       localStorage.clear();
       favouriteCounterFun([], favouriteCounter);
+      cartListCounterFun([], cartCounter);
       let heartIcons = document.querySelectorAll(".heart");
       heartIcons.forEach((heartIcon) => {
         heartIcon.classList.remove("active");

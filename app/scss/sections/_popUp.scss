@@ -1,0 +1,15 @@
+@use "../util" as *;
+
+.popup-title {
+  font-size: 3rem !important;
+  margin-bottom: 2rem;
+  @media (max-width: rem(720)) {
+    font-size: 2.2rem !important;
+    margin-block: 1.2rem;
+  }
+}
+.popUpImg {
+  max-width: 20rem;
+  max-height: 30rem;
+  object-fit: contain;
+}

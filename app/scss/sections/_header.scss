@@ -3,9 +3,6 @@
 @use "../global/colors" as *;
 .header-wrapper {
   border-bottom: 0.1rem solid color.adjust($primary, $alpha: -0.9);
-  &.top {
-    background-color: $white;
-  }
 }
 .header {
   justify-content: space-between;
@@ -18,11 +15,15 @@
     padding-top: rem(16);
   }
   &.top {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+      rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+      rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     opacity: 0;
     padding-top: rem(16);
     position: fixed;
     inset: 0 0 auto 0;
-    background-color: $white;
+    backdrop-filter: blur(0.5rem);
+    background-color: rgba(255, 255, 255, 0.6);
     z-index: 2;
     box-shadow: 0 -6rem 0 6rem white;
     animation: headerAnime 0.2s linear 1 forwards;
