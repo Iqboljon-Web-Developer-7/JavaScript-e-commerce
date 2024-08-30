@@ -5,8 +5,13 @@ async function fetchAllCart(list) {
     let incrementBtn = document.querySelectorAll(".increment");
     let decrementBtn = document.querySelectorAll(".decrement");
     let inputs = document.querySelectorAll(".cartItem__units--input");
+    let cartTotalPrice = document.querySelectorAll(".cartItem__total");
 
-    cartList.forEach((item) => initialPrices.push(item.price));
+    cartList.forEach((item) => {
+      initialPrices.push(item.price);
+      // cartTotalPrice
+    });
+    console.log(cartList);
 
     incrementBtn.forEach((item, idx) =>
       item.addEventListener("click", () => {
@@ -23,6 +28,9 @@ async function fetchAllCart(list) {
         inputs[idx].value = parseInt(inputs[idx].value) + 1;
         cartList[idx].quantity = parseInt(inputs[idx].value);
         cartList[idx].price += initialPrices[idx];
+        cartList[idx].price = +cartList[idx].price.toFixed(2);
+        cartTotalPrice[idx].textContent = `$${cartList[idx].price}`;
+
         localStorage.setItem("cartList", JSON.stringify(cartList));
       }, 100);
     }

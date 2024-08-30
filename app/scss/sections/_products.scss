@@ -63,10 +63,12 @@
       overflow: hidden;
       &__main {
         padding: rem(20) rem(12);
+        // background-color: #000;
         background-color: $secondary;
         position: relative;
         overflow: hidden;
         border-radius: inherit;
+
         .controls {
           position: absolute;
           inset: 5% 5% auto auto;

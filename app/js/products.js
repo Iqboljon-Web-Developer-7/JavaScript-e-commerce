@@ -196,7 +196,8 @@ const loadProducts = (data, destination, isNav) => {
               cartList.push({
                 id: item.id,
                 quantity: 1,
-                price: item.price,
+                initialPrice: item.price,
+                subTotal: item.price,
               });
               e.classList.add("active");
               e.textContent = "Remove From Cart";
@@ -210,7 +211,10 @@ const loadProducts = (data, destination, isNav) => {
               cartList.filter((element) => element != remove);
             }
           } else {
-            alert("Please Login First");
+            myPopup(
+              "Login to Add",
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF2LTxzjp2cMwur3el5C9GHxA-jZfB0VcXlw&s"
+            );
           }
         } else if (e.classList.contains("seeProductImg")) {
           myPopup(item.title, item.images[0]);
