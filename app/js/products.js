@@ -37,6 +37,21 @@ function hideAllSections() {
   contact.classList.add("hidden");
 }
 
+let imgIdx = 0;
+let imgUrls = [];
+function detailsImagesFun() {
+  setTimeout(() => {
+    const detailsImages = document.querySelectorAll(".detailsImages");
+    const mainImg = document.querySelector(".mainImg");
+    detailsImages.forEach((item) => {
+      item.addEventListener("click", () => {
+        imgIdx = +item.getAttribute("data-id");
+        mainImg.src = imgUrls[imgIdx];
+      });
+    });
+  }, 2200);
+}
+
 const loadProducts = (data, destination, isNav) => {
   let allContent = JSON.parse(localStorage.getItem("allContent"));
   const productsLoaders = document.querySelector(".products-loaders"),
@@ -124,6 +139,7 @@ const loadProducts = (data, destination, isNav) => {
 
       product.addEventListener("click", (e) => {
         e = e.target;
+        detailsImagesFun();
         if (e.classList.contains("product__img")) {
           hideAllSections();
           window.scrollTo(0, 0);
@@ -147,7 +163,10 @@ const loadProducts = (data, destination, isNav) => {
           // custom Details function
           async function fetchApiDetails(url, path, id) {
             let res = await fetch(`${url}/${path}/${id}`);
-            res.json().then((data) => loadProductsDetail(data));
+            res.json().then((data) => {
+              imgUrls = data.images;
+              loadProductsDetail(data);
+            });
           }
 
           fetchApiDetails(API_URL, "products", id);
@@ -155,14 +174,16 @@ const loadProducts = (data, destination, isNav) => {
             itemPath.textContent = data.title;
             detail.innerHTML = `
                  <div class="detail__img">
-                    <img src=${data.images[0]} alt="">
+                    <div>
+                      <img src=${data.images[imgIdx]} class="mainImg" alt="">
+                    </div>
                     <div class="detail__imgs--container">
                       ${
                         data.images.length > 1
                           ? data.images.map((item, idx) => {
-                              return `<img src=${data.images[idx]}>`;
+                              return `<img class="detailsImages" data-id="${idx}" src=${data.images[idx]}>`;
                             })
-                          : ``
+                          : ""
                       }
                     </div>
                   </div>
