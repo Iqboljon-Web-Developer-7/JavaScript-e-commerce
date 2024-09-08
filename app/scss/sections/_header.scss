@@ -225,6 +225,9 @@
     i.fa-bars {
       display: block;
     }
+    form {
+      display: none;
+    }
   }
   @media (max-width: rem(620)) {
     form {

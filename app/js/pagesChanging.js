@@ -1,4 +1,12 @@
-import { home, details, register, favouritesPage, cartPage } from "./script.js";
+import {
+  home,
+  details,
+  register,
+  favouritesPage,
+  cartPage,
+  contact,
+  about,
+} from "./script.js";
 
 function pagesChanging(headerLinks, headerNav, headerMobileNav) {
   // Pages changing
@@ -23,19 +31,33 @@ function pagesChanging(headerLinks, headerNav, headerMobileNav) {
     headerMobileNav.parentElement.classList.remove("active");
     changePages(e);
   });
+  function hideAllSections() {
+    about.classList.add("hidden");
+    home.classList.add("hidden");
+    details.classList.add("hidden");
+    register.classList.add("hidden");
+    favouritesPage.classList.add("hidden");
+    cartPage.classList.add("hidden");
+    contact.classList.add("hidden");
+  }
   function changePages(e) {
+    hideAllSections();
     e = e.target;
-    if (e.textContent == "Home") {
-      details.classList.add("hidden");
-      home.classList.remove("hidden");
-      register.classList.add("hidden");
-      favouritesPage.classList.add("hidden");
-      cartPage.classList.add("hidden");
-    } else if (e.textContent == "Sign Up") {
-      home.classList.add("hidden");
-      details.classList.add("hidden");
-      register.classList.remove("hidden");
-      favouritesPage.classList.add("hidden");
+    switch (e.textContent) {
+      case "Home":
+        home.classList.remove("hidden");
+        break;
+      case "Login":
+        register.classList.remove("hidden");
+        break;
+      case "Contact":
+        contact.classList.remove("hidden");
+        break;
+      case "About":
+        about.classList.remove("hidden");
+        break;
+      default:
+        home.classList.remove("hidden");
     }
   }
 

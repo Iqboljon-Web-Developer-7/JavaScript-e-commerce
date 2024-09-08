@@ -1,4 +1,3 @@
-import loadProducts from "./products.js";
 import {
   API_URL,
   fetchApi,
@@ -33,7 +32,15 @@ function search() {
     search.innerHTML = "";
     setTimeout(() => {
       if (val) {
-        fetchApi(API_URL, "products/search", 0, 30, `&q=${val}`, ".search");
+        fetchApi(
+          API_URL,
+          "products/search",
+          0,
+          30,
+          `&q=${val}`,
+          ".search",
+          true
+        );
       } else {
         search.innerHTML = "<h1>What do you want ?</h1>";
       }
@@ -47,6 +54,8 @@ function search() {
       e.classList.contains("search-wrapper") ||
       e.classList.contains("search__close")
     ) {
+      mobileHeader.classList.remove("active");
+      mobileHeader.classList.remove("searcher");
       fetchApi(API_URL, "products", 0, 8, "", ".products__container", true);
       searchWrapper.classList.remove("active");
       desktopInput.value = "";

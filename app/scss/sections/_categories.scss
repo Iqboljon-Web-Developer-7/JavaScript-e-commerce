@@ -62,6 +62,17 @@
     @media (max-width: rem(760)) {
       display: grid;
       grid-template-columns: repeat(3, 3fr);
+      gap: rem(18);
+      .category {
+        padding: rem(20);
+        img {
+          max-width: rem(44);
+        }
+        p {
+          margin-block: 0;
+          font-size: rem(14);
+        }
+      }
     }
     @media (max-width: rem(620)) {
       grid-template-columns: repeat(2, 2fr);
@@ -71,6 +82,7 @@
     }
   }
   @media (max-width: rem(600)) {
+    margin-top: rem(30);
     &__info {
       span {
         width: rem(12);

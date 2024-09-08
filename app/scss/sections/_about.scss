@@ -1,0 +1,32 @@
+@use "sass:color";
+@use "../util" as *;
+@use "../global/colors" as *;
+
+.about__container {
+  .path {
+    margin-block: min(5vw, 4rem);
+    span {
+      color: #00000044;
+    }
+  }
+  .about {
+    display: grid;
+    grid-template-columns: 2fr 2.4fr;
+    @media (max-width: rem(900)) {
+      grid-template-columns: 1fr;
+      h2 {
+        margin-block: 1rem;
+      }
+    }
+    gap: 5vw;
+    padding-bottom: rem(90);
+    h2 {
+      font-size: rem(54);
+      font-weight: 600;
+    }
+    p {
+      font-size: rem(15);
+      font-weight: 400;
+    }
+  }
+}

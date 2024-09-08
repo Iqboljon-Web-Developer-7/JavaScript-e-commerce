@@ -9,6 +9,11 @@ import {
   mobileNav,
   home,
   details,
+  register,
+  favouritesPage,
+  cartPage,
+  contact,
+  about,
 } from "./script.js";
 
 function myPopup(title, src) {
@@ -22,11 +27,20 @@ function myPopup(title, src) {
   });
 }
 
+function hideAllSections() {
+  about.classList.add("hidden");
+  home.classList.add("hidden");
+  details.classList.add("hidden");
+  register.classList.add("hidden");
+  favouritesPage.classList.add("hidden");
+  cartPage.classList.add("hidden");
+  contact.classList.add("hidden");
+}
+
 const loadProducts = (data, destination, isNav) => {
   let allContent = JSON.parse(localStorage.getItem("allContent"));
   const productsLoaders = document.querySelector(".products-loaders"),
-    searchWrapper = document.querySelector(".search-wrapper"),
-    favouritesLoaders = document.querySelector(".favourites-loaders");
+    searchWrapper = document.querySelector(".search-wrapper");
 
   let favourites = JSON.parse(localStorage.getItem("favourites")) || [],
     favouriteCounter = document.querySelector(".favourite-counter"),
@@ -111,6 +125,7 @@ const loadProducts = (data, destination, isNav) => {
       product.addEventListener("click", (e) => {
         e = e.target;
         if (e.classList.contains("product__img")) {
+          hideAllSections();
           window.scrollTo(0, 0);
           // on mobile searching it removes mobile header and results
           mobileHeader.classList.remove("searcher");
@@ -140,15 +155,22 @@ const loadProducts = (data, destination, isNav) => {
             itemPath.textContent = data.title;
             detail.innerHTML = `
                  <div class="detail__img">
-                      <div class="detail__imgs--container">
-                      </div>
-                      <img src=${data.images[0]} alt="">
+                    <img src=${data.images[0]} alt="">
+                    <div class="detail__imgs--container">
+                      ${
+                        data.images.length > 1
+                          ? data.images.map((item, idx) => {
+                              return `<img src=${data.images[idx]}>`;
+                            })
+                          : ``
+                      }
+                    </div>
                   </div>
                   <div class="detail__info">
                       <h3 class="detail-info--name">${data.title}</h3>
                       <div class="detail-info--rating flex-center">
                         <div class="stars">
-                           <i class="${rating(1, data)}"></i>
+                            <i class="${rating(1, data)}"></i>
                             <i class="${rating(2, data)}"></i>
                             <i class="${rating(3, data)}"></i>
                             <i class="${rating(4, data)}"></i>

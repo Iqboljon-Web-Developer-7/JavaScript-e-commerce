@@ -28,7 +28,7 @@
 <body>
   <main id="main">
     <!-- Sup header -->
-    <header class="sup-header-wrapper">
+    <!-- <header class="sup-header-wrapper">
       <div class="sup-header container flex-center">
         <p class="sup-header__info">
           Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
@@ -40,7 +40,7 @@
           <option value="french">French</option>
         </select>
       </div>
-    </header>
+    </header> -->
     <!-- Sup header end -->
 
     <!-- Header -->
@@ -51,7 +51,7 @@
           <a href="#" class="active" name="home">Home</a>
           <a href="#" class="contact">Contact</a>
           <a href="#" class="about">About</a>
-          <a href="#" class="signIn">Sign Up</a>
+          <a href="#" class="signIn">Login</a>
         </nav>
         <div class="header__end flex-center">
           <form class="heaer-end__form flex-center">
@@ -153,14 +153,14 @@
         <a href="#">Home</a>
         <a href="#">Contact</a>
         <a href="#">About</a>
-        <a href="#">Sign Up</a>
+        <a href="#">Login</a>
       </nav>
-      <form class="mobile-header__form flex-center">
+      <div class="mobile-header__form flex-center">
         <form class="header-end__form flex-center">
           <input type="text" name="mobile-search" id="mobile-input" placeholder="What do you want?" />
           <img src="./images/home/header/search.png" alt="img of search icon" />
         </form>
-      </form>
+      </div>
     </header>
     <!-- Mobile header end-->
 
@@ -415,8 +415,66 @@
     </section>
     <!-- Home end -->
 
+    <!-- Contact -->
+    <section class="contact__container container hidden">
+      <p class="path"><span>Home / </span> Contact</p>
+      <div class="contact">
+        <div class="contact__info">
+          <div class="contact__info--phone ">
+            <div class="info flex-center">
+              <img src="./images/contact/phone.svg" alt="img of phone">
+              <h3>Call To Us</h3>
+            </div>
+            <p>We are available 24/7, 7 days a week.</p>
+            <p>Phone: +8801611112222</p>
+          </div>
+          <div class="contact__info--email">
+            <div class="info flex-center">
+              <img src="./images/contact/envelope.svg" alt="img of phone">
+              <h3>Write To Us</h3>
+            </div>
+            <p>Fill out our form and we will contact you within 24 hours.</p>
+            <p>Emails: customer@exclusive.com</p>
+            <p>Emails: support@exclusive.com</p>
+          </div>
+        </div>
+        <form class="contact__form">
+          <div>
+            <input type="text" name="name" id="name" placeholder="Your Name *" required>
+            <input type="email" name="email" id="email" placeholder="Your Email *" required>
+            <input type="number" name="phone" id="phone" placeholder="You Phone *" required>
+            <textarea name="message" id="message" rows="10" placeholder="Your Message"></textarea>
+          </div>
+          <button>
+            Send Message
+          </button>
+        </form>
+      </div>
+    </section>
+    <!-- Contact end -->
+
+    <!-- About -->
+    <section class="about__container container hidden">
+      <p class="path"><span>Home / </span> About</p>
+      <div class="about">
+        <div class="about__info">
+          <h2>Our Story</h2>
+          <p>Launced in 2015, Exclusive is South Asia’s premier online shopping makterplace with an active presense in
+            Bangladesh. Supported by wide range of tailored marketing, data and service solutions, Exclusive has 10,500
+            sallers and 300 brands and serves 3 millioons customers across the region. </p>
+          <p>Exclusive has more than 1 Million products to offer, growing at a very fast. Exclusive offers a diverse
+            assotment in categories ranging from consumer.</p>
+        </div>
+        <div class="about__img">
+          <img src="./images/about/about-banner.jpg" alt="">
+        </div>
+      </div>
+    </section>
+    <!-- About end -->
+
     <!-- Favourites -->
     <section class="favourites container hidden">
+
       <div class="favourites__header flex-center">
         <h4>Wishlist (<span class="favourites__header--count">1</span>)</h4>
         <button>Move All To Bag</button>
@@ -566,7 +624,7 @@
           <h3 class="footer__item--heading flex-center" id="website-name">Exclusive <i
               class="fa-solid fa-chevron-down down-icon"></i></h3>
           <h4 class="footer__item--name">Subscribe</h4>
-          <form class="footer__item--form">
+          <form class="footer__item--form" id="footer__item--form">
             <label for="order">Get 10% off your first order</label>
             <div class="form__container flex-center">
               <input type="email" placeholder="Enter your email">

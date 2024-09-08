@@ -7,39 +7,29 @@ async function fetchAllCart(list) {
     let inputs = document.querySelectorAll(".cartItem__units--input");
     let cartTotalPrice = document.querySelectorAll(".cartItem__total");
 
-    cartList.forEach((item) => {
-      initialPrices.push(item.price);
-      // cartTotalPrice
-    });
-    console.log(cartList);
-
     incrementBtn.forEach((item, idx) =>
       item.addEventListener("click", () => {
-        increment(idx);
+        changeCartInfo(idx, true);
       })
     );
     decrementBtn.forEach((item, idx) => {
       item.addEventListener("click", () => {
-        decrement(idx);
+        changeCartInfo(idx, false);
       });
     });
-    function increment(idx) {
-      setTimeout(() => {
+    function changeCartInfo(idx, isUp) {
+      if (isUp) {
         inputs[idx].value = parseInt(inputs[idx].value) + 1;
-        cartList[idx].quantity = parseInt(inputs[idx].value);
-        cartList[idx].price += initialPrices[idx];
-        cartList[idx].price = +cartList[idx].price.toFixed(2);
-        cartTotalPrice[idx].textContent = `$${cartList[idx].price}`;
-
-        localStorage.setItem("cartList", JSON.stringify(cartList));
-      }, 100);
-    }
-
-    function decrement(idx) {
-      inputs[idx].value =
-        parseInt(inputs[idx].value) > 1 ? parseInt(inputs[idx].value) - 1 : 1;
+      } else {
+        inputs[idx].value =
+          parseInt(inputs[idx].value) > 1 ? parseInt(inputs[idx].value) - 1 : 1;
+      }
       cartList[idx].quantity = parseInt(inputs[idx].value);
-      cartList[idx].price -= initialPrices[idx];
+
+      cartList[idx].subTotal =
+        cartList[idx].initialPrice * cartList[idx].quantity;
+
+      cartTotalPrice[idx].textContent = `$${cartList[idx].subTotal.toFixed(2)}`;
       localStorage.setItem("cartList", JSON.stringify(cartList));
     }
   }, 0);

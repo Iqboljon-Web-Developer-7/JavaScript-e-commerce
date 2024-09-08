@@ -1,6 +1,7 @@
 @use "../util" as *;
 
 .register {
+  padding-block: 4rem;
   justify-content: space-between;
   &__img {
     width: 50%;

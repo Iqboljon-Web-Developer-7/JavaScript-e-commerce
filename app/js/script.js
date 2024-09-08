@@ -31,7 +31,9 @@ let mobileInput = document.querySelector("#mobile-input");
 const details = document.querySelector(".details"),
   home = document.querySelector(".home"),
   register = document.querySelector(".register"),
-  cartPage = document.querySelector(".cart");
+  cartPage = document.querySelector(".cart"),
+  contact = document.querySelector(".contact__container"),
+  about = document.querySelector(".about__container");
 
 // Header
 const headerWrapper = document.querySelector(".header-wrapper"),
@@ -46,12 +48,15 @@ const mobileHeader = document.querySelector(".mobile-header"),
   menuIcon = document.querySelector(".menu-icon"),
   mobileNav = document.querySelector(".mobile-header__nav");
 
+let searchWrapper = document.querySelector(".search-wrapper");
+
 menuIcon.addEventListener("click", () =>
   toggleMobileHeader(mobileHeader, mobileNav, mobileInput)
 );
-closeIcon.addEventListener("click", () =>
-  toggleMobileHeader(mobileHeader, mobileNav, mobileInput)
-);
+closeIcon.addEventListener("click", () => {
+  toggleMobileHeader(mobileHeader, mobileNav, mobileInput);
+  searchWrapper.classList.remove("active");
+});
 
 // Favourites page
 let favourites = JSON.parse(localStorage.getItem("favourites")) || [],
@@ -112,6 +117,8 @@ export {
   details,
   register,
   cartPage,
+  contact,
+  about,
   favourites,
   favouriteCounter,
   favouritesPage,

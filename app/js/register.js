@@ -29,11 +29,15 @@ function registerFun(headerLinks) {
     <div class="user__nav flex-center f-column">
       <button class="leave" name="logout">Log Out</button>
     </div>
-`;
+    `;
     userInfos.classList.toggle("active");
+    setTimeout(() => {
+      userInfos.innerHTML = "";
+      userInfos.classList.remove("active");
+    }, 2500);
   });
   userInfos.addEventListener("click", (e) => {
-    if (e.target.name == "logout") {
+    function logOut() {
       userInfos.classList.remove("active");
       userIcon.classList.add("hidden");
       localStorage.clear();
@@ -44,6 +48,7 @@ function registerFun(headerLinks) {
         heartIcon.classList.remove("active");
       });
     }
+    e.target.name == "logout" && logOut();
   });
 
   signInForm.addEventListener("submit", formDataHandler);
