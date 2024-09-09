@@ -6,6 +6,8 @@ import {
   cartPage,
   contact,
   about,
+  fetchApi,
+  API_URL,
 } from "./script.js";
 
 function pagesChanging(headerLinks, headerNav, headerMobileNav) {
@@ -46,6 +48,7 @@ function pagesChanging(headerLinks, headerNav, headerMobileNav) {
     switch (e.textContent) {
       case "Home":
         home.classList.remove("hidden");
+        fetchApi(API_URL, "products", 0, 8, "", ".products__container", true);
         break;
       case "Login":
         register.classList.remove("hidden");

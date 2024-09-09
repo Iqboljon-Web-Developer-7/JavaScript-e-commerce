@@ -1685,9 +1685,24 @@ ol {
   box-shadow: 0px 1px 13px 0px rgba(0, 0, 0, 0.0509803922);
 }
 .cart .cartItem__img-name {
+  position: relative;
   gap: 1.25rem;
   justify-content: start;
   justify-self: start;
+}
+.cart .cartItem__img-name span {
+  opacity: 0;
+  width: 1.125rem;
+  height: 1.125rem;
+  border-radius: 50%;
+  font-family: sans-serif;
+  color: #fff;
+  background-color: #db4444;
+  position: absolute;
+  inset: 2% auto auto -4%;
+  font-size: 0.6875rem;
+  transition: all 220ms;
+  cursor: pointer;
 }
 .cart .cartItem__img-name img {
   max-width: 3.25rem;
@@ -1696,6 +1711,9 @@ ol {
 .cart .cartItem__img-name h3 {
   font-size: 1rem;
   font-weight: normal;
+}
+.cart .cartItem:hover span {
+  opacity: 1;
 }
 .cart .cartItem__price {
   font-weight: normal;
@@ -1757,6 +1775,63 @@ ol {
   .cart .cartItem__price {
     display: none;
   }
+}
+.cart__total {
+  padding-bottom: 3rem;
+  align-items: start;
+  justify-content: space-between;
+}
+.cart__total .coupon-section {
+  display: flex;
+  margin-bottom: 20px;
+}
+.cart__total .coupon-section .coupon-input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+  width: 200px;
+}
+.cart__total .coupon-section .apply-coupon-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.cart__total .coupon-section .apply-coupon-btn:hover {
+  background-color: #c0392b;
+}
+.cart__total .cart-summary {
+  border: 1px solid #ccc;
+  padding: 20px;
+  width: 300px;
+  border-radius: 10px;
+}
+.cart__total .cart-summary h3 {
+  margin-bottom: 20px;
+}
+.cart__total .cart-summary .cart-total .subtotal,
+.cart__total .cart-summary .cart-total .shipping,
+.cart__total .cart-summary .cart-total .total {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.cart__total .cart-summary .cart-total .checkout-btn {
+  background-color: #e74c3c;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.cart__total .cart-summary .cart-total .checkout-btn:hover {
+  background-color: #c0392b;
 }
 
 .popup-title {

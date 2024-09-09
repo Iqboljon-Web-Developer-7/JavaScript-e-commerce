@@ -1,20 +1,29 @@
 async function fetchAllCart(list) {
   let cartList = JSON.parse(localStorage.getItem("cartList"));
-  let initialPrices = [];
+  let subtotalPrice;
+  let totalPrice;
+  let cartTotalPrice;
   setTimeout(() => {
     let incrementBtn = document.querySelectorAll(".increment");
     let decrementBtn = document.querySelectorAll(".decrement");
     let inputs = document.querySelectorAll(".cartItem__units--input");
-    let cartTotalPrice = document.querySelectorAll(".cartItem__total");
+    let cardDelete = document.querySelectorAll(".deleteCart");
+    cartTotalPrice = document.querySelectorAll(".cartItem__total");
+    subtotalPrice = document.querySelector(".subTotal-price");
+    totalPrice = document.querySelector(".totalPrice");
 
-    incrementBtn.forEach((item, idx) =>
+    incrementBtn.forEach((item, idx) => {
       item.addEventListener("click", () => {
         changeCartInfo(idx, true);
-      })
-    );
-    decrementBtn.forEach((item, idx) => {
-      item.addEventListener("click", () => {
-        changeCartInfo(idx, false);
+      });
+      decrementBtn[idx].addEventListener("click", () =>
+        changeCartInfo(idx, false)
+      );
+      cardDelete[idx].addEventListener("click", () => {
+        cartList.splice(idx, 1);
+        cardDelete[idx].closest(".cartItem").remove();
+        showTotalPrice();
+        localStorage.setItem("cartList", JSON.stringify(cartList));
       });
     });
     function changeCartInfo(idx, isUp) {
@@ -30,9 +39,26 @@ async function fetchAllCart(list) {
         cartList[idx].initialPrice * cartList[idx].quantity;
 
       cartTotalPrice[idx].textContent = `$${cartList[idx].subTotal.toFixed(2)}`;
+
+      showTotalPrice();
       localStorage.setItem("cartList", JSON.stringify(cartList));
     }
   }, 0);
+
+  setTimeout(() => {
+    showTotalPrice();
+  }, 100);
+
+  function showTotalPrice() {
+    let subTotal = 0;
+    cartTotalPrice.forEach((item) => {
+      item = item.textContent.trim().split("");
+      item.shift();
+      subTotal += +item.join("");
+    });
+    subtotalPrice.textContent = `$${subTotal.toFixed(2)}`;
+    totalPrice.textContent = `$${subTotal.toFixed(2)}`;
+  }
 
   let cartContainer = document.querySelector(".cart__container");
   cartContainer.innerHTML = "";
@@ -42,6 +68,7 @@ async function fetchAllCart(list) {
     cartItem.className = "cartItem";
     cartItem.innerHTML = `
       <div class="cartItem__img-name flex-center">
+        <span class="flex-center deleteCart">X</span>
         <img src="${item.images[0]}" alt="cartItem image">
         <p>${item.title}</p>
       </div>
@@ -49,9 +76,9 @@ async function fetchAllCart(list) {
         <p>$${item.price}</p>
       </div>
       <div class="cartItem__units">
-      <button class="increment"><i class="fa-solid fa-chevron-up"></i></button>
-      <input type="number" class="cartItem__units--input" value="1" id="numberInput">
-      <button class="decrement"><i class="fa-solid fa-chevron-down"></i></button>
+        <button class="increment"><i class="fa-solid fa-chevron-up"></i></button>
+        <input type="number" class="cartItem__units--input" value="1" id="numberInput">
+        <button class="decrement"><i class="fa-solid fa-chevron-down"></i></button>
       </div>
       <div class="cartItem__total">
         $${item.price}

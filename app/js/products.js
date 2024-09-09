@@ -114,7 +114,7 @@ const loadProducts = (data, destination, isNav) => {
                     : `<img src="./images/home/products/delete-icon.svg" class="delete-product" alt="cart">`
                 }
                 ${
-                  cartList.includes(item.id)
+                  cartList.some((element) => element.id == item.id)
                     ? `<button class="product__btn active">Remove From Cart</button>`
                     : `<button class="product__btn">Add To Cart</button>`
                 }
