@@ -7,7 +7,6 @@ function productsNavFun() {
   localStorage.setItem("allContent", JSON.stringify(allContent));
   loadMoreBtn.addEventListener("click", () => {
     allContent = true;
-
     localStorage.setItem("allContent", JSON.stringify(allContent));
 
     fetchApi(API_URL, path, 0, 30, "", ".products__container", true);

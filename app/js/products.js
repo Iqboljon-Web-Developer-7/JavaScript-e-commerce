@@ -14,6 +14,8 @@ import {
   cartPage,
   contact,
   about,
+  loadLessBtn,
+  leftBtn,
 } from "./script.js";
 
 function myPopup(title, src) {
@@ -83,18 +85,22 @@ const loadProducts = (data, destination, isNav) => {
     if (destination != ".search-wrapper") {
       if (data.length < 8) {
         rightBtn.disabled = true;
+        leftBtn.disabled = true;
+        loadLessBtn.classList.add("hidden");
         loadMoreBtn.classList.add("hidden");
       } else {
-        loadMoreBtn.classList.remove("hidden");
-        rightBtn.disabled = false;
+        if (allContent) {
+          loadMoreBtn.classList.add("hidden");
+          loadLessBtn.classList.remove("hidden");
+          rightBtn.disabled = true;
+          leftBtn.disabled = true;
+        } else {
+          loadMoreBtn.classList.remove("hidden");
+          loadLessBtn.classList.add("hidden");
+          rightBtn.disabled = false;
+          leftBtn.disabled = false;
+        }
       }
-    }
-    // do all content display ?
-    if (allContent) {
-      rightBtn.disabled = true;
-      loadMoreBtn.classList.add("hidden");
-      allContent = false;
-      localStorage.setItem("allContent", JSON.stringify(allContent));
     }
 
     data.forEach((item) => {

@@ -23,6 +23,14 @@
       p {
         color: $orange;
         font-weight: 600;
+        button {
+          padding: rem(8) rem(16);
+          color: red;
+          background-color: rgba(255, 0, 0, 0.2);
+          border: none;
+          border-radius: rem(24);
+          cursor: pointer;
+        }
       }
     }
   }

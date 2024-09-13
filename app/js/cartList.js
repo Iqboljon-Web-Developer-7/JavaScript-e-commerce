@@ -7,6 +7,7 @@ import {
   cartPage,
   contact,
   about,
+  vibrateIfEmpty,
 } from "./script.js";
 
 function cartListFun(cartListIcon, cartList) {
@@ -45,13 +46,13 @@ function cartListFun(cartListIcon, cartList) {
           cartList = JSON.parse(localStorage.getItem("cartList")) || [];
           fetchAllCart(cartList);
         } else {
-          cartListIcon.classList.remove("shake");
-          void cartListIcon.offsetWidth;
-          cartListIcon.classList.add("shake");
+          vibrateIfEmpty(cartListIcon);
         }
       } catch (error) {
         console.log(error);
       }
+    } else {
+      vibrateIfEmpty(cartListIcon);
     }
   });
 }

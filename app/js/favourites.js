@@ -1,5 +1,13 @@
 import loadProducts from "./products.js";
-import { home, details, register, cartPage, contact, about } from "./script.js";
+import {
+  home,
+  details,
+  register,
+  cartPage,
+  contact,
+  about,
+  vibrateIfEmpty,
+} from "./script.js";
 
 function favouritesFun(favouritesIcon, favouritesPage, favourites) {
   let favouritesLoaders = document.querySelector(".favourites-loaders");
@@ -37,13 +45,13 @@ function favouritesFun(favouritesIcon, favouritesPage, favourites) {
           favourites = JSON.parse(localStorage.getItem("favourites")) || [];
           fetchAllFavourites(favourites);
         } else {
-          favouritesIcon.classList.remove("shake");
-          void favouritesIcon.offsetWidth;
-          favouritesIcon.classList.add("shake");
+          vibrateIfEmpty(favouritesIcon);
         }
       } catch (error) {
         console.log(error);
       }
+    } else {
+      vibrateIfEmpty(favouritesIcon);
     }
   });
 }

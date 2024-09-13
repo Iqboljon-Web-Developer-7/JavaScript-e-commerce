@@ -42,6 +42,7 @@
       border: 0.1rem solid rgb(222, 222, 222);
       max-width: rem(100);
       max-height: rem(100);
+      object-fit: contain;
     }
   }
   &__info {

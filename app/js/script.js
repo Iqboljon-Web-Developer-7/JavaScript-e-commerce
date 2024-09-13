@@ -24,6 +24,9 @@ function updatePath(value) {
   path = value;
 }
 
+// First load of products
+fetchApi(API_URL, "products", 0, 8, "", ".products__container", true);
+
 // Mobile Input
 let mobileInput = document.querySelector("#mobile-input");
 
@@ -84,8 +87,12 @@ leftBtn.disabled = true;
 // Changing products
 rightBtn.addEventListener("click", () => changeProducts("right"));
 leftBtn.addEventListener("click", () => changeProducts("left"));
-// First load of products
-fetchApi(API_URL, "products", 0, 8, "", ".products__container", true);
+
+const categoryResetBtn = document.querySelector(".allProducts");
+categoryResetBtn.addEventListener("click", () => {
+  localStorage.setItem("allContent", false);
+  fetchApi(API_URL, "products", 0, 8, "", ".products__container", true);
+});
 
 productsNavFun();
 favouritesFun(favouritesIcon, favouritesPage, favourites);
@@ -100,6 +107,14 @@ categories(updatePath);
 search();
 timer();
 footer();
+
+// vibrates if wishlist or cart is empty
+function vibrateIfEmpty(icon) {
+  icon.classList.remove("shake");
+  // void is used to reset animation properties without it animation work only once it's new for me
+  void cartListIcon.offsetWidth;
+  icon.classList.add("shake");
+}
 
 export {
   API_URL,
@@ -124,4 +139,5 @@ export {
   favouritesPage,
   favouritesPageCounter,
   cartCounter,
+  vibrateIfEmpty,
 };

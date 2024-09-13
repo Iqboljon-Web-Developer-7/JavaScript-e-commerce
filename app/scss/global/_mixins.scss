@@ -6,6 +6,19 @@
   .product {
     border-radius: rem(5);
     overflow: hidden;
+
+    &:hover {
+      &__img {
+        display: none !important;
+      }
+    }
+    &__img {
+      transition: all 0.3s ease-in-out;
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.06);
+      }
+    }
     &__main {
       padding: rem(20) rem(12);
       background-color: $secondary;
@@ -27,11 +40,7 @@
           cursor: pointer;
           &:hover {
             background-color: rgb(251, 247, 163);
-            // background-color: color.adjust($orange, $alpha: -0.9);
             filter: drop-shadow(0 0 0.4rem white);
-            // color: $orange;
-            // color: white;
-            // fill: white;
           }
           &.active {
             filter: invert(1);

@@ -3,34 +3,95 @@ async function fetchAllCart(list) {
   let subtotalPrice;
   let totalPrice;
   let cartTotalPrice;
+  let inputs;
   setTimeout(() => {
     const cart = document.querySelector(".cart__container");
-    let incrementBtn = document.querySelectorAll(".increment");
-    let decrementBtn = document.querySelectorAll(".decrement");
-    let inputs = document.querySelectorAll(".cartItem__units--input");
-    // let cardDelete = document.querySelectorAll(".deleteCart");
+    inputs = document.querySelectorAll(".cartItem__units--input");
     cartTotalPrice = document.querySelectorAll(".cartItem__total");
     subtotalPrice = document.querySelector(".subTotal-price");
     totalPrice = document.querySelector(".totalPrice");
 
-    incrementBtn.forEach((item, idx) => {
-      item.addEventListener("click", () => {
-        changeCartInfo(idx, true);
-      });
-      decrementBtn[idx].addEventListener("click", () =>
-        changeCartInfo(idx, false)
-      );
+    cartList.forEach((item, idx) => {
+      inputs[idx].value = item.quantity;
+      cartTotalPrice[idx].textContent = `$${item.subTotal}`;
+      showTotalPrice();
     });
+
     cart.addEventListener("click", (e) => {
       let product = e.target.closest(".cartItem");
+      let input;
+      let inputValue;
+
       if (e.target.classList.contains("deleteCart")) {
         deleteItem(product.dataset.id);
       } else if (
         e.target.classList.contains("increment") ||
         e.target.parentElement.classList.contains("increment")
       ) {
-        console.log(1);
+        if (e.target.nextElementSibling) {
+          input = e.target.nextElementSibling;
+          inputValue = e.target.nextElementSibling.value;
+          input.value = Number(inputValue) + 1;
+          cartList.map((item) => {
+            if (item.id == product.dataset.id) {
+              item.quantity = input.value;
+              let subTotal = product.querySelector(".cartItem__total");
+              subTotal.textContent = `$${item.initialPrice * +input.value}`;
+              item.subTotal = item.initialPrice * +item.quantity;
+            }
+          });
+        } else if (e.target.parentElement.nextElementSibling) {
+          input = e.target.parentElement.nextElementSibling;
+          inputValue = e.target.parentElement.nextElementSibling.value;
+          input.value = Number(inputValue) + 1;
+          cartList.map((item) => {
+            if (item.id == product.dataset.id) {
+              item.quantity = input.value;
+              let subTotal = product.querySelector(".cartItem__total");
+              subTotal.textContent = `$${item.initialPrice * +input.value}`;
+              item.subTotal = item.initialPrice * +item.quantity;
+            }
+          });
+        }
+      } else if (
+        e.target.classList.contains("decrement") ||
+        e.target.parentElement.classList.contains("decrement")
+      ) {
+        if (e.target.previousElementSibling) {
+          input = e.target.previousElementSibling;
+          inputValue = e.target.previousElementSibling.value;
+          if (Number(inputValue) > 1) {
+            input.value = Number(inputValue) - 1;
+          }
+          cartList.map((item) => {
+            if (item.id == product.dataset.id) {
+              item.quantity = input.value;
+              let subTotal = product.querySelector(".cartItem__total");
+              subTotal.textContent = `$${item.initialPrice * +input.value}`;
+              item.subTotal = item.initialPrice * +item.quantity;
+            }
+          });
+        } else if (e.target.parentElement.previousElementSibling) {
+          input = e.target.parentElement.previousElementSibling;
+          inputValue = e.target.parentElement.previousElementSibling.value;
+          if (Number(inputValue) > 1) {
+            input.value = Number(inputValue) - 1;
+          }
+          cartList.map((item) => {
+            if (item.id == product.dataset.id) {
+              item.quantity = input.value;
+              let subTotal = product.querySelector(".cartItem__total");
+              subTotal.textContent = `$${item.initialPrice * +input.value}`;
+              item.subTotal = item.initialPrice * +item.quantity;
+            }
+          });
+        }
       }
+
+      console.log(cartList);
+
+      localStorage.setItem("cartList", JSON.stringify(cartList));
+      showTotalPrice();
     });
 
     function deleteItem(id) {
@@ -47,23 +108,6 @@ async function fetchAllCart(list) {
     }
     function updateCartlistStorage() {
       cartList = JSON.parse(localStorage.getItem("cartList"));
-    }
-    function changeCartInfo(idx, isUp) {
-      if (isUp) {
-        inputs[idx].value = parseInt(inputs[idx].value) + 1;
-      } else {
-        inputs[idx].value =
-          parseInt(inputs[idx].value) > 1 ? parseInt(inputs[idx].value) - 1 : 1;
-      }
-      cartList[idx].quantity = parseInt(inputs[idx].value);
-
-      cartList[idx].subTotal =
-        cartList[idx].initialPrice * cartList[idx].quantity;
-
-      cartTotalPrice[idx].textContent = `$${cartList[idx].subTotal.toFixed(2)}`;
-
-      showTotalPrice();
-      localStorage.setItem("cartList", JSON.stringify(cartList));
     }
   }, 0);
 

@@ -632,6 +632,14 @@ ol {
   color: #db4444;
   font-weight: 600;
 }
+.products__info--name p button {
+  padding: 0.5rem 1rem;
+  color: red;
+  background-color: rgba(255, 0, 0, 0.2);
+  border: none;
+  border-radius: 1.5rem;
+  cursor: pointer;
+}
 .products__controls {
   justify-content: end;
   gap: 0.5rem;
@@ -673,6 +681,16 @@ ol {
 .products__container .product {
   border-radius: 0.3125rem;
   overflow: hidden;
+}
+.products__container .product:hover__img {
+  display: none !important;
+}
+.products__container .product__img {
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+.products__container .product__img:hover {
+  transform: scale(1.06);
 }
 .products__container .product__main {
   padding: 1.25rem 0.75rem;
@@ -840,6 +858,8 @@ ol {
   border: 0.1rem solid rgb(222, 222, 222);
   max-width: 6.25rem;
   max-height: 6.25rem;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 .detail__info h3 {
   font-size: 1.5rem;
@@ -1242,6 +1262,16 @@ ol {
 .search-wrapper .search .product {
   border-radius: 0.3125rem;
   overflow: hidden;
+}
+.search-wrapper .search .product:hover__img {
+  display: none !important;
+}
+.search-wrapper .search .product__img {
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+.search-wrapper .search .product__img:hover {
+  transform: scale(1.06);
 }
 .search-wrapper .search .product__main {
   padding: 1.25rem 0.75rem;
