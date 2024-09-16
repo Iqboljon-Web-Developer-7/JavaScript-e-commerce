@@ -16,7 +16,6 @@
       margin-top: rem(80);
       display: grid;
       grid-template-columns: repeat(4, 4fr);
-      // justify-content: space-between;
       box-shadow: 0px 1px 13px 0px #0000000d;
       border-radius: 0.4rem;
       margin-bottom: 2.4rem;
@@ -213,6 +212,42 @@
           &:hover {
             background-color: #c0392b;
           }
+        }
+      }
+    }
+  }
+}
+.confirmModal {
+  .description {
+    color: rgba(200, 0, 0, 0.8);
+  }
+  span {
+    color: #047236;
+  }
+  .confirmBtns {
+    gap: 0.8rem;
+    button {
+      background-color: transparent;
+      font-size: 1rem;
+      border-radius: 0.6rem;
+      padding: rem(8) rem(16);
+      border: none;
+      transition: all 220ms;
+      color: white;
+      box-shadow: rgb(38, 57, 77) 0px 20px 20px -10px;
+      &:hover {
+        box-shadow: 0 0 0 transparent;
+      }
+      &.cancel {
+        background-color: red;
+        &:hover {
+          background-color: rgb(229, 0, 0);
+        }
+      }
+      &.confirm {
+        background-color: #047236;
+        &:hover {
+          background-color: #00612c;
         }
       }
     }

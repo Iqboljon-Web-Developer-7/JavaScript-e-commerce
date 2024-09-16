@@ -1,9 +1,25 @@
+import {
+  about,
+  cartPage,
+  contact,
+  details,
+  favouritesPage,
+  home,
+  register,
+} from "./script.js";
+
 async function fetchAllCart(list) {
   let cartList = JSON.parse(localStorage.getItem("cartList"));
+  let checkoutBtn = document.querySelector(".checkout-btn");
+
   let subtotalPrice;
   let totalPrice;
   let cartTotalPrice;
   let inputs;
+  let myPopup;
+  let cancelBtn;
+  let confirmBtn;
+
   setTimeout(() => {
     const cart = document.querySelector(".cart__container");
     inputs = document.querySelectorAll(".cartItem__units--input");
@@ -15,6 +31,40 @@ async function fetchAllCart(list) {
       inputs[idx].value = item.quantity;
       cartTotalPrice[idx].textContent = `$${item.subTotal}`;
       showTotalPrice();
+    });
+
+    myPopup = new Popup({
+      id: "my-popup",
+      title: "Confirm process",
+      content: `
+             <div class="confirmModal">
+               <p class="description">After confirmation you can't undo the process</p>
+               <p>Total price is <span>${totalPrice.textContent}</span></p>
+               <div class="confirmBtns flex-center">
+                <button class="cancel">Cancel</button>
+                <button class="confirm">Confirm</button>
+               </div>
+             </div>
+            `,
+    });
+
+    cancelBtn = document.querySelector(".cancel");
+    confirmBtn = document.querySelector(".confirm");
+
+    cancelBtn.addEventListener("click", () => {
+      myPopup.hide();
+    });
+    confirmBtn.addEventListener("click", () => {
+      myPopup.hide();
+      localStorage.removeItem("cartList");
+      about.classList.add("hidden");
+      home.classList.remove("hidden");
+      details.classList.add("hidden");
+      register.classList.add("hidden");
+      favouritesPage.classList.add("hidden");
+      cartPage.classList.add("hidden");
+      contact.classList.add("hidden");
+      window.scroll(0, 0);
     });
 
     cart.addEventListener("click", (e) => {
@@ -110,6 +160,10 @@ async function fetchAllCart(list) {
       cartList = JSON.parse(localStorage.getItem("cartList"));
     }
   }, 0);
+
+  checkoutBtn.addEventListener("click", () => {
+    myPopup.show();
+  });
 
   setTimeout(() => {
     showTotalPrice();

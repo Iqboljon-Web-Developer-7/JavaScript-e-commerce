@@ -1864,6 +1864,41 @@ ol {
   background-color: #c0392b;
 }
 
+.confirmModal .description {
+  color: rgba(200, 0, 0, 0.8);
+}
+.confirmModal span {
+  color: #047236;
+}
+.confirmModal .confirmBtns {
+  gap: 0.8rem;
+}
+.confirmModal .confirmBtns button {
+  background-color: transparent;
+  font-size: 1rem;
+  border-radius: 0.6rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  transition: all 220ms;
+  color: white;
+  box-shadow: rgb(38, 57, 77) 0px 20px 20px -10px;
+}
+.confirmModal .confirmBtns button:hover {
+  box-shadow: 0 0 0 transparent;
+}
+.confirmModal .confirmBtns button.cancel {
+  background-color: red;
+}
+.confirmModal .confirmBtns button.cancel:hover {
+  background-color: rgb(229, 0, 0);
+}
+.confirmModal .confirmBtns button.confirm {
+  background-color: #047236;
+}
+.confirmModal .confirmBtns button.confirm:hover {
+  background-color: #00612c;
+}
+
 .popup-title {
   font-size: 3rem !important;
   margin-bottom: 2rem;
