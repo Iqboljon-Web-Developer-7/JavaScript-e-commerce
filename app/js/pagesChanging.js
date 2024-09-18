@@ -8,6 +8,7 @@ import {
   about,
   fetchApi,
   API_URL,
+  searchWrapper,
 } from "./script.js";
 
 function pagesChanging(headerLinks, headerNav, headerMobileNav) {
@@ -17,6 +18,7 @@ function pagesChanging(headerLinks, headerNav, headerMobileNav) {
     link.addEventListener("click", () => {
       headerLinks[idx].classList.add("active");
 
+      searchWrapper.classList.remove("active");
       headerLinks.forEach((link2, idx2) => {
         if (idx != idx2) {
           headerLinks[idx2].classList.remove("active");
@@ -24,7 +26,7 @@ function pagesChanging(headerLinks, headerNav, headerMobileNav) {
       });
 
       setTimeout(() => {
-        window.scroll({ top: 0, left: 0 }); // Smooth scroll to the top-left corner
+        window.scroll({ top: 0, left: 0 }); // Smooth scroll to the top
       }, 100);
     });
   });

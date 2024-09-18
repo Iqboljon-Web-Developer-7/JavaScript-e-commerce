@@ -1,8 +1,9 @@
 // Load products
+import cartListCounterFun from "./cartListCounter.js";
+import favouriteCounterFun from "./favouriteCounter.js";
 import rating from "./rating.js";
 import {
   API_URL,
-  favouritesPageCounter,
   loadMoreBtn,
   rightBtn,
   mobileHeader,
@@ -147,6 +148,7 @@ const loadProducts = (data, destination, isNav) => {
         e = e.target;
         detailsImagesFun();
         if (e.classList.contains("product__img")) {
+          document.body.style.overflow = "auto";
           hideAllSections();
           window.scrollTo(0, 0);
           // on mobile searching it removes mobile header and results
@@ -180,7 +182,7 @@ const loadProducts = (data, destination, isNav) => {
             itemPath.textContent = data.title;
             detail.innerHTML = `
                  <div class="detail__img">
-                    <div>
+                    <div class="mainImgContainer">
                       <img src=${data.images[imgIdx]} class="mainImg" alt="">
                     </div>
                     <div class="detail__imgs--container">
@@ -238,6 +240,10 @@ const loadProducts = (data, destination, isNav) => {
           }
         } else if (e.classList.contains("delete-product")) {
           favourites = favourites.filter((element) => element != item.id);
+          if (favourites.length == 0) {
+            hideAllSections();
+            home.classList.remove("hidden");
+          }
           e.closest(".product").remove();
         } else if (e.classList.contains("product__btn")) {
           if (JSON.parse(localStorage.getItem("isLogged"))) {
@@ -268,30 +274,14 @@ const loadProducts = (data, destination, isNav) => {
         } else if (e.classList.contains("seeProductImg")) {
           myPopup(item.title, item.images[0]);
         }
-        favouriteCounter.textContent = favourites.length;
-        favouritesPageCounter.textContent = favourites.length;
-        cartCounter.textContent = cartList.length;
-
-        if (favourites.length == 0) {
-          favouriteCounter.classList.add("invi");
-          favouriteCounter.textContent = 0;
-          favouritesPageCounter.textContent = 0;
-        } else {
-          favouriteCounter.classList.remove("invi");
-          favouritesPageCounter.classList.remove("invi");
-        }
-        if (cartList.length == 0) {
-          cartCounter.classList.add("invi");
-          cartCounter.textContent = 0;
-        } else {
-          cartCounter.classList.remove("invi");
-        }
+        favouriteCounterFun(favourites, favouriteCounter);
+        cartListCounterFun(cartList, cartCounter);
         localStorage.setItem("cartList", JSON.stringify(cartList));
         localStorage.setItem("favourites", JSON.stringify(favourites));
       });
     });
   }
 };
-// Products END - - - |
 
 export default loadProducts;
+// Products END - - - |

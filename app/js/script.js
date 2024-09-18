@@ -53,11 +53,14 @@ const mobileHeader = document.querySelector(".mobile-header"),
 
 let searchWrapper = document.querySelector(".search-wrapper");
 
-menuIcon.addEventListener("click", () =>
-  toggleMobileHeader(mobileHeader, mobileNav, mobileInput)
-);
+menuIcon.addEventListener("click", () => {
+  toggleMobileHeader(mobileHeader, mobileNav, mobileInput);
+  document.body.style.overflow = "hidden";
+});
 closeIcon.addEventListener("click", () => {
   toggleMobileHeader(mobileHeader, mobileNav, mobileInput);
+  document.body.style.overflow = "auto";
+
   searchWrapper.classList.remove("active");
 });
 
@@ -140,4 +143,5 @@ export {
   favouritesPageCounter,
   cartCounter,
   vibrateIfEmpty,
+  searchWrapper,
 };

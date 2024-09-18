@@ -1,6 +1,7 @@
 @use "sass:color";
 @use "../util" as *;
 @use "../global/colors" as *;
+@use "../global" as *;
 .favourites {
   padding-block: 2rem;
   &__header {
@@ -30,100 +31,7 @@
       max-height: rem(180);
       width: fit-content;
     }
-    .product {
-      border-radius: rem(5);
-      overflow: hidden;
-      &__main {
-        padding: rem(20) rem(12);
-        background-color: $secondary;
-        position: relative;
-        overflow: hidden;
-        border-radius: inherit;
-        .controls {
-          position: absolute;
-          inset: 5% 5% auto auto;
-          gap: rem(8);
-
-          img {
-            padding: 0.4rem;
-            background-color: $white;
-            border-radius: 50%;
-            overflow: visible;
-            transition: all 200ms ease-in-out;
-            cursor: pointer;
-
-            &:hover {
-              background-color: color.adjust($orange, $alpha: -0.9);
-              filter: drop-shadow(0 0 0.4rem white);
-              color: $orange;
-            }
-            &.active {
-              filter: invert(1);
-              background-color: #00f3e5;
-            }
-          }
-        }
-        .delete-product {
-          width: rem(20);
-          height: rem(20);
-          padding: 0.5rem;
-          position: absolute;
-          inset: 6% 6% auto auto;
-          background-color: #fff;
-          border-radius: 50%;
-          overflow: visible;
-          transition: all 200ms linear;
-          cursor: pointer;
-          &:hover {
-            filter: invert(1);
-          }
-        }
-        &:hover button {
-          bottom: 0%;
-        }
-        button {
-          position: absolute;
-          inset: auto 0 -100% 0;
-          padding: rem(12) 0;
-          background-color: $primary;
-          color: $text-white;
-          transition: all 340ms linear;
-          border: none;
-          cursor: pointer;
-          font-size: rem(16);
-        }
-      }
-      &__info {
-        &--name {
-          display: -webkit-box;
-          -webkit-box-orient: vertical;
-          -webkit-line-clamp: 1;
-          overflow: hidden;
-          font-weight: 500;
-          font-size: rem(16);
-          margin: rem(16) 0 0 0;
-        }
-        &--end {
-          justify-content: start;
-          gap: rem(8);
-          margin: rem(10) 0 0 0;
-          padding-bottom: rem(32);
-          .price {
-            color: $red;
-          }
-          .rating {
-            color: color.adjust(#000, $alpha: -0.8);
-            i.active {
-              color: gold;
-            }
-          }
-          p {
-            margin: 0;
-            opacity: 0.7;
-          }
-        }
-      }
-    }
+    @include productStyle();
     @media (max-width: rem(1010)) {
       grid-template-columns: repeat(3, 3fr);
     }

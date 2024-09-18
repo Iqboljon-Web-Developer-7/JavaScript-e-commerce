@@ -1,5 +1,7 @@
+import cartListCounterFun from "./cartListCounter.js";
 import {
   about,
+  cartCounter,
   cartPage,
   contact,
   details,
@@ -19,6 +21,7 @@ async function fetchAllCart(list) {
   let myPopup;
   let cancelBtn;
   let confirmBtn;
+  let totalCartsPrice = 0;
 
   setTimeout(() => {
     const cart = document.querySelector(".cart__container");
@@ -29,7 +32,7 @@ async function fetchAllCart(list) {
 
     cartList.forEach((item, idx) => {
       inputs[idx].value = item.quantity;
-      cartTotalPrice[idx].textContent = `$${item.subTotal}`;
+      cartTotalPrice[idx].textContent = `$${item.subTotal.toFixed(2)}`;
       showTotalPrice();
     });
 
@@ -39,7 +42,7 @@ async function fetchAllCart(list) {
       content: `
              <div class="confirmModal">
                <p class="description">After confirmation you can't undo the process</p>
-               <p>Total price is <span>${totalPrice.textContent}</span></p>
+               <p>Total price is <span>${totalCartsPrice}</span></p>
                <div class="confirmBtns flex-center">
                 <button class="cancel">Cancel</button>
                 <button class="confirm">Confirm</button>
@@ -86,7 +89,9 @@ async function fetchAllCart(list) {
             if (item.id == product.dataset.id) {
               item.quantity = input.value;
               let subTotal = product.querySelector(".cartItem__total");
-              subTotal.textContent = `$${item.initialPrice * +input.value}`;
+              subTotal.textContent = `$${(
+                item.initialPrice * +input.value
+              ).toFixed(2)}`;
               item.subTotal = item.initialPrice * +item.quantity;
             }
           });
@@ -98,7 +103,9 @@ async function fetchAllCart(list) {
             if (item.id == product.dataset.id) {
               item.quantity = input.value;
               let subTotal = product.querySelector(".cartItem__total");
-              subTotal.textContent = `$${item.initialPrice * +input.value}`;
+              subTotal.textContent = `$${(
+                item.initialPrice * +input.value
+              ).toFixed(2)}`;
               item.subTotal = item.initialPrice * +item.quantity;
             }
           });
@@ -117,7 +124,9 @@ async function fetchAllCart(list) {
             if (item.id == product.dataset.id) {
               item.quantity = input.value;
               let subTotal = product.querySelector(".cartItem__total");
-              subTotal.textContent = `$${item.initialPrice * +input.value}`;
+              subTotal.textContent = `$${(
+                item.initialPrice * +input.value
+              ).toFixed(2)}`;
               item.subTotal = item.initialPrice * +item.quantity;
             }
           });
@@ -131,30 +140,34 @@ async function fetchAllCart(list) {
             if (item.id == product.dataset.id) {
               item.quantity = input.value;
               let subTotal = product.querySelector(".cartItem__total");
-              subTotal.textContent = `$${item.initialPrice * +input.value}`;
+              subTotal.textContent = `$${(
+                item.initialPrice * +input.value
+              ).toFixed(2)}`;
               item.subTotal = item.initialPrice * +item.quantity;
             }
           });
         }
       }
 
-      console.log(cartList);
-
       localStorage.setItem("cartList", JSON.stringify(cartList));
       showTotalPrice();
+
+      if (cartList.length == 0) {
+        cartPage.classList.add("hidden");
+        home.classList.remove("hidden");
+      }
     });
 
     function deleteItem(id) {
-      localStorage.setItem(
-        "cartList",
-        JSON.stringify(cartList.filter((prdc) => prdc.id !== +id))
-      );
       updateCartlistStorage();
+
       cartList = cartList.filter((prdc) => prdc.id !== +id);
       list = list.filter((listItem) => listItem.id !== +id);
 
+      cartListCounterFun(cartList, cartCounter);
       showTotalPrice();
       updateCartList();
+      localStorage.setItem("cartList", JSON.stringify(cartList));
     }
     function updateCartlistStorage() {
       cartList = JSON.parse(localStorage.getItem("cartList"));
@@ -162,6 +175,20 @@ async function fetchAllCart(list) {
   }, 0);
 
   checkoutBtn.addEventListener("click", () => {
+    myPopup = new Popup({
+      id: "my-popup",
+      title: "Confirm process",
+      content: `
+             <div class="confirmModal">
+               <p class="description">After confirmation you can't undo the process</p>
+               <p>Total price is <span>${totalCartsPrice}</span></p>
+               <div class="confirmBtns flex-center">
+                <button class="cancel">Cancel</button>
+                <button class="confirm">Confirm</button>
+               </div>
+             </div>
+            `,
+    });
     myPopup.show();
   });
 
@@ -176,6 +203,7 @@ async function fetchAllCart(list) {
     });
     subtotalPrice.textContent = `$${subTotal.toFixed(2)}`;
     totalPrice.textContent = `$${subTotal.toFixed(2)}`;
+    totalCartsPrice = subTotal.toFixed(2);
   }
 
   let cartContainer = document.querySelector(".cart__container");
@@ -202,7 +230,8 @@ async function fetchAllCart(list) {
           <button class="decrement"><i class="fa-solid fa-chevron-down"></i></button>
         </div>
         <div class="cartItem__total">
-          $${item.price}
+        
+          $${item.price.toFixed(2)}
         </div>
         `;
       cartContainer.appendChild(cartItem);

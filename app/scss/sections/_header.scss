@@ -58,7 +58,7 @@
     transform: translateY(rem(-10));
     transition: all 100ms linear;
     &.active {
-      z-index: 2;
+      z-index: 20;
       opacity: 1;
       transform: translateX(rem(0));
     }

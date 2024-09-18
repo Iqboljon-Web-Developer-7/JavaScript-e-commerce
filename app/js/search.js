@@ -16,6 +16,7 @@ function search() {
   mobileInput.addEventListener("focus", (e) => showSearching(e));
   desktopInput.addEventListener("focus", showSearching);
   function showSearching(e) {
+    document.body.style.overflow = "hidden";
     if (e.target.name == "mobile-search") {
       mobileNav.classList.add("hidden");
       mobileHeader.classList.add("searcher");
@@ -54,6 +55,7 @@ function search() {
       e.classList.contains("search-wrapper") ||
       e.classList.contains("search__close")
     ) {
+      document.body.style.overflow = "auto";
       mobileHeader.classList.remove("active");
       mobileHeader.classList.remove("searcher");
       fetchApi(API_URL, "products", 0, 8, "", ".products__container", true);

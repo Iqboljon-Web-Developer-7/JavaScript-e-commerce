@@ -29,9 +29,17 @@
       max-width: rem(520);
       max-height: rem(500);
     }
+    .mainImgContainer {
+      width: rem(400);
+      height: rem(400);
+      img.mainImg {
+        width: fit-content;
+      }
+    }
   }
   &__imgs--container {
     width: 100%;
+    margin-top: 1rem;
     display: flex;
     overflow-x: auto;
     font-size: 0;

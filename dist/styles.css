@@ -163,7 +163,7 @@ ol {
   padding: 0;
 }
 .header .user.active {
-  z-index: 2;
+  z-index: 20;
   opacity: 1;
   transform: translateX(0rem);
 }
@@ -845,8 +845,17 @@ ol {
   max-width: 32.5rem;
   max-height: 31.25rem;
 }
+.detail__img .mainImgContainer {
+  width: 25rem;
+  height: 25rem;
+}
+.detail__img .mainImgContainer img.mainImg {
+  width: -moz-fit-content;
+  width: fit-content;
+}
 .detail__imgs--container {
   width: 100%;
+  margin-top: 1rem;
   display: flex;
   overflow-x: auto;
   font-size: 0;
@@ -1566,12 +1575,23 @@ ol {
   border-radius: 0.3125rem;
   overflow: hidden;
 }
+.favourites__container .product:hover__img {
+  display: none !important;
+}
+.favourites__container .product__img {
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+.favourites__container .product__img:hover {
+  transform: scale(1.06);
+}
 .favourites__container .product__main {
   padding: 1.25rem 0.75rem;
   background-color: #f5f5f5;
   position: relative;
   overflow: hidden;
   border-radius: inherit;
+  background-color: #000;
 }
 .favourites__container .product__main .controls {
   position: absolute;
@@ -1587,9 +1607,8 @@ ol {
   cursor: pointer;
 }
 .favourites__container .product__main .controls img:hover {
-  background-color: rgba(219, 68, 68, 0.1);
+  background-color: rgb(251, 247, 163);
   filter: drop-shadow(0 0 0.4rem white);
-  color: #db4444;
 }
 .favourites__container .product__main .controls img.active {
   filter: invert(1);
@@ -1617,8 +1636,8 @@ ol {
   position: absolute;
   inset: auto 0 -100% 0;
   padding: 0.75rem 0;
-  background-color: #000000;
-  color: #fafafa;
+  background-color: rgb(237, 252, 248);
+  color: #000;
   transition: all 340ms linear;
   border: none;
   cursor: pointer;
