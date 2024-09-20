@@ -1770,7 +1770,7 @@ ol {
 .cart .cartItem__units {
   position: relative;
 }
-.cart .cartItem__units button {
+.cart .cartItem__units i {
   background-color: transparent;
   border: none;
   outline: none;
@@ -1778,13 +1778,13 @@ ol {
   font-size: 0.7rem;
   transition: all 200ms linear;
 }
-.cart .cartItem__units button:first-child {
+.cart .cartItem__units i:first-child {
   inset: 18% 10% auto auto;
 }
-.cart .cartItem__units button:last-child {
+.cart .cartItem__units i:last-child {
   inset: auto 10% 18% auto;
 }
-.cart .cartItem__units button:hover {
+.cart .cartItem__units i:hover {
   cursor: pointer;
   color: #db4444;
   transform: scale(1.2);

@@ -10,9 +10,12 @@ import {
   register,
 } from "./script.js";
 
-async function fetchAllCart(list) {
-  let cartList = JSON.parse(localStorage.getItem("cartList"));
+let cartList = JSON.parse(localStorage.getItem("cartList"));
+let eventCount = 0;
+async function fetchAllCarts(list) {
   let checkoutBtn = document.querySelector(".checkout-btn");
+
+  console.log(cartList);
 
   let subtotalPrice;
   let totalPrice;
@@ -25,6 +28,9 @@ async function fetchAllCart(list) {
 
   setTimeout(() => {
     const cart = document.querySelector(".cart__container");
+    // cart.innerHTML = ``;
+    console.log(cart);
+
     inputs = document.querySelectorAll(".cartItem__units--input");
     cartTotalPrice = document.querySelectorAll(".cartItem__total");
     subtotalPrice = document.querySelector(".subTotal-price");
@@ -77,89 +83,55 @@ async function fetchAllCart(list) {
 
       if (e.target.classList.contains("deleteCart")) {
         deleteItem(product.dataset.id);
-      } else if (
-        e.target.classList.contains("increment") ||
-        e.target.parentElement.classList.contains("increment")
-      ) {
-        if (e.target.nextElementSibling) {
-          input = e.target.nextElementSibling;
-          inputValue = e.target.nextElementSibling.value;
-          input.value = Number(inputValue) + 1;
-          cartList.map((item) => {
-            if (item.id == product.dataset.id) {
-              item.quantity = input.value;
-              let subTotal = product.querySelector(".cartItem__total");
-              subTotal.textContent = `$${(
-                item.initialPrice * +input.value
-              ).toFixed(2)}`;
-              item.subTotal = item.initialPrice * +item.quantity;
-            }
-          });
-        } else if (e.target.parentElement.nextElementSibling) {
-          input = e.target.parentElement.nextElementSibling;
-          inputValue = e.target.parentElement.nextElementSibling.value;
-          input.value = Number(inputValue) + 1;
-          cartList.map((item) => {
-            if (item.id == product.dataset.id) {
-              item.quantity = input.value;
-              let subTotal = product.querySelector(".cartItem__total");
-              subTotal.textContent = `$${(
-                item.initialPrice * +input.value
-              ).toFixed(2)}`;
-              item.subTotal = item.initialPrice * +item.quantity;
-            }
-          });
-        }
-      } else if (
-        e.target.classList.contains("decrement") ||
-        e.target.parentElement.classList.contains("decrement")
-      ) {
-        if (e.target.previousElementSibling) {
-          input = e.target.previousElementSibling;
-          inputValue = e.target.previousElementSibling.value;
-          if (Number(inputValue) > 1) {
-            input.value = Number(inputValue) - 1;
+      } else if (e.target.classList.contains("increment")) {
+        console.log(cartList);
+
+        input = e.target.nextElementSibling;
+        inputValue = e.target.nextElementSibling.value;
+        input.value = Number(inputValue) + 1;
+
+        cartList = cartList.map((item) => {
+          if (item.id == product.dataset.id) {
+            item.quantity = input.value;
+            let subTotal = product.querySelector(".cartItem__total");
+            subTotal.textContent = `$${(
+              item.initialPrice * +input.value
+            ).toFixed(2)}`;
+            item.subTotal = item.initialPrice * +item.quantity;
           }
-          cartList.map((item) => {
-            if (item.id == product.dataset.id) {
-              item.quantity = input.value;
-              let subTotal = product.querySelector(".cartItem__total");
-              subTotal.textContent = `$${(
-                item.initialPrice * +input.value
-              ).toFixed(2)}`;
-              item.subTotal = item.initialPrice * +item.quantity;
-            }
-          });
-        } else if (e.target.parentElement.previousElementSibling) {
-          input = e.target.parentElement.previousElementSibling;
-          inputValue = e.target.parentElement.previousElementSibling.value;
-          if (Number(inputValue) > 1) {
-            input.value = Number(inputValue) - 1;
-          }
-          cartList.map((item) => {
-            if (item.id == product.dataset.id) {
-              item.quantity = input.value;
-              let subTotal = product.querySelector(".cartItem__total");
-              subTotal.textContent = `$${(
-                item.initialPrice * +input.value
-              ).toFixed(2)}`;
-              item.subTotal = item.initialPrice * +item.quantity;
-            }
-          });
+          return item;
+        });
+      } else if (e.target.classList.contains("decrement")) {
+        input = e.target.previousElementSibling;
+        inputValue = e.target.previousElementSibling.value;
+        if (Number(inputValue) > 1) {
+          input.value = Number(inputValue) - 1;
         }
+
+        cartList = cartList.map((item) => {
+          if (item.id == product.dataset.id) {
+            item.quantity = input.value;
+            let subTotal = product.querySelector(".cartItem__total");
+            subTotal.textContent = `$${(
+              item.initialPrice * +input.value
+            ).toFixed(2)}`;
+            item.subTotal = item.initialPrice * +item.quantity;
+          }
+          return item;
+        });
       }
 
       localStorage.setItem("cartList", JSON.stringify(cartList));
       showTotalPrice();
 
-      if (cartList.length == 0) {
-        cartPage.classList.add("hidden");
-        home.classList.remove("hidden");
-      }
+      // if (cartList.length == 0) {
+      //   cartPage.classList.add("hidden");
+      //   home.classList.remove("hidden");
+      // }
     });
 
     function deleteItem(id) {
-      updateCartlistStorage();
+      // updateCartlistStorage();
 
       cartList = cartList.filter((prdc) => prdc.id !== +id);
       list = list.filter((listItem) => listItem.id !== +id);
@@ -174,7 +146,17 @@ async function fetchAllCart(list) {
     }
   }, 0);
 
-  checkoutBtn.addEventListener("click", () => {
+  // checkoutBtn.removeEventListener("click", resetPopup);
+  console.log(eventCount);
+
+  if (+eventCount < 1) {
+    checkoutBtn.addEventListener("click", resetPopup);
+  }
+  eventCount++;
+
+  function resetPopup() {
+    console.log(1);
+
     myPopup = new Popup({
       id: "my-popup",
       title: "Confirm process",
@@ -190,7 +172,7 @@ async function fetchAllCart(list) {
             `,
     });
     myPopup.show();
-  });
+  }
 
   setTimeout(() => {
     showTotalPrice();
@@ -210,7 +192,9 @@ async function fetchAllCart(list) {
   cartContainer.innerHTML = "";
 
   function updateCartList() {
+    console.log(cartContainer);
     cartContainer.innerHTML = "";
+
     list.forEach((item) => {
       const cartItem = document.createElement("div");
       cartItem.className = "cartItem";
@@ -225,12 +209,11 @@ async function fetchAllCart(list) {
           <p>$${item.price}</p>
         </div>
         <div class="cartItem__units">
-          <button class="increment"><i class="fa-solid fa-chevron-up"></i></button>
+          <i class="fa-solid fa-chevron-up increment"></i>
           <input type="number" class="cartItem__units--input" value="1" id="numberInput">
-          <button class="decrement"><i class="fa-solid fa-chevron-down"></i></button>
+          <i class="fa-solid fa-chevron-down decrement"></i>
         </div>
         <div class="cartItem__total">
-        
           $${item.price.toFixed(2)}
         </div>
         `;
@@ -240,4 +223,4 @@ async function fetchAllCart(list) {
   updateCartList();
 }
 
-export default fetchAllCart;
+export default fetchAllCarts;

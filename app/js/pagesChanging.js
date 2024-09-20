@@ -27,7 +27,7 @@ function pagesChanging(headerLinks, headerNav, headerMobileNav) {
 
       setTimeout(() => {
         window.scroll({ top: 0, left: 0 }); // Smooth scroll to the top
-      }, 100);
+      }, 10);
     });
   });
   headerNav.addEventListener("click", (e) => changePages(e));
@@ -45,6 +45,8 @@ function pagesChanging(headerLinks, headerNav, headerMobileNav) {
     contact.classList.add("hidden");
   }
   function changePages(e) {
+    document.body.style.overflow = "scroll";
+
     hideAllSections();
     e = e.target;
     switch (e.textContent) {
