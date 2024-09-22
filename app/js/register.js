@@ -1,4 +1,11 @@
-import { register, home, favouriteCounter, cartCounter } from "./script.js";
+import {
+  register,
+  home,
+  favouriteCounter,
+  cartCounter,
+  searchWrapper,
+  header,
+} from "./script.js";
 import favouriteCounterFun from "./favouriteCounter.js";
 import cartListCounterFun from "./cartListCounter.js";
 
@@ -17,6 +24,9 @@ function registerFun(headerLinks) {
   userData.length != 0 ? userIcon.classList.remove("hidden") : null;
 
   userIcon.addEventListener("click", () => {
+    searchWrapper.classList.remove("active");
+    document.body.style.overflow = "auto";
+    header.classList.remove("top");
     let userData = JSON.parse(localStorage.getItem("userdata")) || [];
     userInfos.innerHTML = `
     <div class="user__info flex-center">

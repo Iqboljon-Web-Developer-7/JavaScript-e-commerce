@@ -153,6 +153,7 @@
     padding-bottom: 3rem;
     align-items: start;
     justify-content: space-between;
+
     .coupon-section {
       display: flex;
       margin-bottom: 20px;
@@ -213,6 +214,18 @@
             background-color: #c0392b;
           }
         }
+      }
+    }
+    @media (max-width: rem(760)) {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      .cart-summary {
+        width: 80%;
+      }
+      .coupon-section {
+        width: 80%;
+        justify-content: center;
       }
     }
   }

@@ -92,7 +92,7 @@
         }
       }
     }
-    @media (max-width: rem(1080)) {
+    @media (max-width: rem(1090)) {
       display: grid;
       grid-template-columns: repeat(3, 3fr);
       column-gap: rem(40);
@@ -102,9 +102,6 @@
       }
     }
     @media (max-width: rem(720)) {
-      grid-template-columns: 2fr 2fr;
-    }
-    @media (max-width: rem(540)) {
       padding: rem(40);
       row-gap: rem(1);
       grid-template-columns: 1fr;

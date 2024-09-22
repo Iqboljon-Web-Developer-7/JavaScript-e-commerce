@@ -18,7 +18,11 @@
       transition: all 200ms linear;
       cursor: pointer;
       &:hover {
-        filter: invert(1);
+        background-color: black;
+        color: white;
+      }
+      &.success {
+        background-color: rgb(3, 178, 3);
       }
     }
   }

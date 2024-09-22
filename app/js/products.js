@@ -276,6 +276,7 @@ const loadProducts = (data, destination, isNav) => {
         }
         favouriteCounterFun(favourites, favouriteCounter);
         cartListCounterFun(cartList, cartCounter);
+
         localStorage.setItem("cartList", JSON.stringify(cartList));
         localStorage.setItem("favourites", JSON.stringify(favourites));
       });

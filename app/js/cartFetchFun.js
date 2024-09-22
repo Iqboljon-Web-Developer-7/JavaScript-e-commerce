@@ -10,26 +10,21 @@ import {
   register,
 } from "./script.js";
 
-let cartList = JSON.parse(localStorage.getItem("cartList"));
 let eventCount = 0;
 async function fetchAllCarts(list) {
+  const check = eventCount < 1;
+  let cartList = JSON.parse(localStorage.getItem("cartList"));
   let checkoutBtn = document.querySelector(".checkout-btn");
-
-  console.log(cartList);
 
   let subtotalPrice;
   let totalPrice;
   let cartTotalPrice;
   let inputs;
   let myPopup;
-  let cancelBtn;
-  let confirmBtn;
   let totalCartsPrice = 0;
 
   setTimeout(() => {
     const cart = document.querySelector(".cart__container");
-    // cart.innerHTML = ``;
-    console.log(cart);
 
     inputs = document.querySelectorAll(".cartItem__units--input");
     cartTotalPrice = document.querySelectorAll(".cartItem__total");
@@ -57,84 +52,75 @@ async function fetchAllCarts(list) {
             `,
     });
 
-    cancelBtn = document.querySelector(".cancel");
-    confirmBtn = document.querySelector(".confirm");
+    check &&
+      cart.addEventListener("click", (e) => {
+        let product = e.target.closest(".cartItem");
+        let input;
+        let inputValue;
 
-    cancelBtn.addEventListener("click", () => {
-      myPopup.hide();
-    });
-    confirmBtn.addEventListener("click", () => {
-      myPopup.hide();
-      localStorage.removeItem("cartList");
-      about.classList.add("hidden");
-      home.classList.remove("hidden");
-      details.classList.add("hidden");
-      register.classList.add("hidden");
-      favouritesPage.classList.add("hidden");
-      cartPage.classList.add("hidden");
-      contact.classList.add("hidden");
-      window.scroll(0, 0);
-    });
+        if (e.target.classList.contains("deleteCart")) {
+          deleteItem(product.dataset.id);
+          console.log("delete working");
+          console.log(cartList);
+        } else if (e.target.classList.contains("increment")) {
+          input = e.target.nextElementSibling;
+          inputValue = e.target.nextElementSibling.value;
+          input.value = Number(inputValue) + 1;
 
-    cart.addEventListener("click", (e) => {
-      let product = e.target.closest(".cartItem");
-      let input;
-      let inputValue;
+          console.log(input);
 
-      if (e.target.classList.contains("deleteCart")) {
-        deleteItem(product.dataset.id);
-      } else if (e.target.classList.contains("increment")) {
-        console.log(cartList);
-
-        input = e.target.nextElementSibling;
-        inputValue = e.target.nextElementSibling.value;
-        input.value = Number(inputValue) + 1;
-
-        cartList = cartList.map((item) => {
-          if (item.id == product.dataset.id) {
-            item.quantity = input.value;
-            let subTotal = product.querySelector(".cartItem__total");
-            subTotal.textContent = `$${(
-              item.initialPrice * +input.value
-            ).toFixed(2)}`;
-            item.subTotal = item.initialPrice * +item.quantity;
+          cartList = cartList.map((item) => {
+            if (item.id == product.dataset.id) {
+              item.quantity = input.value;
+              let subTotal = product.querySelector(".cartItem__total");
+              subTotal.textContent = `$${(
+                item.initialPrice * +input.value
+              ).toFixed(2)}`;
+              item.subTotal = item.initialPrice * +item.quantity;
+            }
+            return item;
+          });
+        } else if (e.target.classList.contains("decrement")) {
+          input = e.target.previousElementSibling;
+          inputValue = e.target.previousElementSibling.value;
+          if (Number(inputValue) > 1) {
+            input.value = Number(inputValue) - 1;
           }
-          return item;
-        });
-      } else if (e.target.classList.contains("decrement")) {
-        input = e.target.previousElementSibling;
-        inputValue = e.target.previousElementSibling.value;
-        if (Number(inputValue) > 1) {
-          input.value = Number(inputValue) - 1;
+
+          cartList = cartList.map((item) => {
+            if (item.id == product.dataset.id) {
+              item.quantity = input.value;
+              let subTotal = product.querySelector(".cartItem__total");
+              subTotal.textContent = `$${(
+                item.initialPrice * +input.value
+              ).toFixed(2)}`;
+              item.subTotal = item.initialPrice * +item.quantity;
+            }
+            return item;
+          });
         }
 
-        cartList = cartList.map((item) => {
-          if (item.id == product.dataset.id) {
-            item.quantity = input.value;
-            let subTotal = product.querySelector(".cartItem__total");
-            subTotal.textContent = `$${(
-              item.initialPrice * +input.value
-            ).toFixed(2)}`;
-            item.subTotal = item.initialPrice * +item.quantity;
-          }
-          return item;
-        });
-      }
+        localStorage.setItem("cartList", JSON.stringify(cartList));
+        showTotalPrice();
 
-      localStorage.setItem("cartList", JSON.stringify(cartList));
-      showTotalPrice();
+        console.log(cartList);
 
-      // if (cartList.length == 0) {
-      //   cartPage.classList.add("hidden");
-      //   home.classList.remove("hidden");
-      // }
-    });
+        if (cartList.length == 0) {
+          cartPage.classList.add("hidden");
+          home.classList.remove("hidden");
+        }
+      });
 
     function deleteItem(id) {
       // updateCartlistStorage();
 
+      console.log(id);
+      console.log(cartList);
+
       cartList = cartList.filter((prdc) => prdc.id !== +id);
       list = list.filter((listItem) => listItem.id !== +id);
+
+      console.log(cartList);
 
       cartListCounterFun(cartList, cartCounter);
       showTotalPrice();
@@ -146,32 +132,46 @@ async function fetchAllCarts(list) {
     }
   }, 0);
 
-  // checkoutBtn.removeEventListener("click", resetPopup);
-  console.log(eventCount);
+  check && checkoutBtn.addEventListener("click", resetPopup);
 
-  if (+eventCount < 1) {
-    checkoutBtn.addEventListener("click", resetPopup);
-  }
   eventCount++;
 
   function resetPopup() {
-    console.log(1);
-
     myPopup = new Popup({
       id: "my-popup",
       title: "Confirm process",
       content: `
              <div class="confirmModal">
                <p class="description">After confirmation you can't undo the process</p>
-               <p>Total price is <span>${totalCartsPrice}</span></p>
+               <p>Total price is <span>$${totalCartsPrice}</span></p>
                <div class="confirmBtns flex-center">
-                <button class="cancel">Cancel</button>
-                <button class="confirm">Confirm</button>
+                <button class="cancel-btn cancel">Cancel</button>
+                <button class="confirm-btn confirm">Confirm</button>
                </div>
              </div>
             `,
     });
     myPopup.show();
+    let cancelBtn = document.querySelector(".cancel-btn");
+    let confirmBtn = document.querySelector(".confirm-btn");
+    check &&
+      cancelBtn.addEventListener("click", () => {
+        myPopup.hide();
+      });
+    check &&
+      confirmBtn.addEventListener("click", () => {
+        myPopup.hide();
+        localStorage.removeItem("cartList");
+        about.classList.add("hidden");
+        home.classList.remove("hidden");
+        details.classList.add("hidden");
+        register.classList.add("hidden");
+        favouritesPage.classList.add("hidden");
+        cartPage.classList.add("hidden");
+        contact.classList.add("hidden");
+        window.scroll(0, 0);
+        cartListCounterFun([], cartCounter);
+      });
   }
 
   setTimeout(() => {

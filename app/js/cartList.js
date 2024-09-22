@@ -8,6 +8,8 @@ import {
   contact,
   about,
   vibrateIfEmpty,
+  searchWrapper,
+  header,
 } from "./script.js";
 
 function cartListFun(cartListIcon, cartList) {
@@ -42,7 +44,11 @@ function cartListFun(cartListIcon, cartList) {
       try {
         if (JSON.parse(localStorage.getItem("cartList")).length != 0) {
           hideAllSections();
+          searchWrapper.classList.remove("active");
+          header.classList.remove("top");
           cartPage.classList.remove("hidden");
+          document.body.style.overflow = "auto";
+
           cartList = JSON.parse(localStorage.getItem("cartList")) || [];
           fetchAllCart(cartList);
         } else {
