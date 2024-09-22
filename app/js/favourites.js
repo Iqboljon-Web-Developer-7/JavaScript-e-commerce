@@ -42,7 +42,6 @@ function favouritesFun(favouritesIcon, favouritesPage, favourites) {
   }
 
   let transferToCart = document.querySelector(".transferToCart");
-  console.log(transferToCart);
   transferToCart.addEventListener("click", () => {
     let transferedArray = [];
     let cartList = JSON.parse(localStorage.getItem("cartList"));
@@ -83,11 +82,10 @@ function favouritesFun(favouritesIcon, favouritesPage, favourites) {
     if (JSON.parse(localStorage.getItem("favourites"))) {
       try {
         if (JSON.parse(localStorage.getItem("favourites")).length != 0) {
-          hideAllSections();
           searchWrapper.classList.remove("active");
+          hideAllSections();
           header.classList.remove("top");
           document.body.style.overflow = "auto";
-
           favouritesPage.classList.remove("hidden");
           favourites = JSON.parse(localStorage.getItem("favourites")) || [];
           fetchAllFavourites(favourites);

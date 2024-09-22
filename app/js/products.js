@@ -17,6 +17,7 @@ import {
   about,
   loadLessBtn,
   leftBtn,
+  fetchApi,
 } from "./script.js";
 
 function myPopup(title, src) {
@@ -82,7 +83,6 @@ const loadProducts = (data, destination, isNav) => {
     rightBtn.disabled = true;
     container.textContent = "Nothig found :(";
   } else {
-    // data has less than 8 products so
     if (destination != ".search-wrapper") {
       if (data.length < 8) {
         rightBtn.disabled = true;
@@ -91,6 +91,7 @@ const loadProducts = (data, destination, isNav) => {
         loadMoreBtn.classList.add("hidden");
       } else {
         if (allContent) {
+          // console.log(allContent);
           loadMoreBtn.classList.add("hidden");
           loadLessBtn.classList.remove("hidden");
           rightBtn.disabled = true;
@@ -101,6 +102,9 @@ const loadProducts = (data, destination, isNav) => {
           rightBtn.disabled = false;
           leftBtn.disabled = false;
         }
+        localStorage.setItem("allContent", JSON.stringify(false));
+        allContent = false;
+        console.log(allContent);
       }
     }
 
@@ -243,7 +247,18 @@ const loadProducts = (data, destination, isNav) => {
           if (favourites.length == 0) {
             hideAllSections();
             home.classList.remove("hidden");
+            fetchApi(
+              API_URL,
+              "products",
+              0,
+              8,
+              "",
+              ".products__container",
+              true
+            );
           }
+          console.log(favourites);
+
           e.closest(".product").remove();
         } else if (e.classList.contains("product__btn")) {
           if (JSON.parse(localStorage.getItem("isLogged"))) {

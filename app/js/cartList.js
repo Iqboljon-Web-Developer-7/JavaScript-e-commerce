@@ -43,8 +43,8 @@ function cartListFun(cartListIcon, cartList) {
     if (JSON.parse(localStorage.getItem("cartList"))) {
       try {
         if (JSON.parse(localStorage.getItem("cartList")).length != 0) {
-          hideAllSections();
           searchWrapper.classList.remove("active");
+          hideAllSections();
           header.classList.remove("top");
           cartPage.classList.remove("hidden");
           document.body.style.overflow = "auto";

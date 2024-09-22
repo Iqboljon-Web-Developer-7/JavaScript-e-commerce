@@ -12,10 +12,13 @@ function search() {
   let desktopInput = document.querySelector("#search-desktop");
   let searchWrapper = document.querySelector(".search-wrapper");
   let searchLoaders = document.querySelector(".search-loaders");
+  let search = document.querySelector(".search");
 
   mobileInput.addEventListener("focus", (e) => showSearching(e));
   desktopInput.addEventListener("focus", showSearching);
   function showSearching(e) {
+    search.innerHTML = "<h1>What do you want ?</h1>";
+
     document.body.style.overflow = "hidden";
     if (e.target.name == "mobile-search") {
       mobileNav.classList.add("hidden");
@@ -28,9 +31,10 @@ function search() {
   desktopInput.addEventListener("input", (e) => showResult(e));
   mobileInput.addEventListener("input", (e) => showResult(e));
   function showResult(e) {
+    console.log(search);
+
     let val = e.target.value;
     searchLoaders.classList.add("active");
-    search.innerHTML = "";
     setTimeout(() => {
       if (val) {
         fetchApi(
