@@ -1,4 +1,4 @@
-# JS_5_EXAM
+# E-Commerce Poject made using HTML,SCSS and JavaScript by Iqboljon.
 
 ## push history
 jul
