@@ -1,3 +1,5 @@
+import '../scss/style.scss';
+
 import footer from "./footer.js";
 import timer from "./timer.js";
 import search from "./search.js";
